@@ -4,19 +4,25 @@ module TodoViews where
 
 import Control.Monad (when)
 import React.Flux
+import React.Flux.Internal (PropertyOrHandler(..),toJSString)
 
 import TodoDispatcher
 import TodoStore
 import TodoComponents
 
+someProps = [Property "hs" (toJSString "quux")]
+
 -- | The controller view and also the top level of the TODO app.  This controller view registers
 -- with the store and will be re-rendered whenever the store changes.
 todoApp :: ReactView ()
 todoApp = defineControllerView "todo app" todoStore $ \todoState () ->
-    div_ $ do
-        todoHeader_
-        mainSection_ todoState
-        todoFooter_ todoState
+    foreign_ "View" someProps $ do
+      foreign_ "Text" someProps (elemText "hello")
+
+    --div_ $ do
+    --    todoHeader_
+    --    mainSection_ todoState
+    --    todoFooter_ todoState
 
 -- | The TODO header as a React view with no properties.
 todoHeader :: ReactView ()
