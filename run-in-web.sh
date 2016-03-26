@@ -12,9 +12,8 @@ ln -fs ../dist/build/$app/$app.jsexe/all.js $app/all.js
 # copy necessary file next to main js-files, since apparently cannot require from parent dir...?
 cp -fR files/* $app/
 
-nix-shell -p nodePackages_5_x.react-native-cli --command "cd $app && react-native run-ios"
+# needed to pull goog.crypt.Hash to node_modules
+nix-shell -p nodejs-5_x --command "cd $app && npm run pack"
 
-# add the following line to
-#  ./$app/node_modules/react-native/packager/transformer.js
-# to make startup quicker.
-#  if (filename.indexOf('all.js') > -1) {return { code: src };};
+open index.html
+

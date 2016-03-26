@@ -16,8 +16,8 @@ someProps = [Property "hs" (toJSString "quux")]
 -- with the store and will be re-rendered whenever the store changes.
 todoApp :: ReactView ()
 todoApp = defineControllerView "todo app" todoStore $ \todoState () ->
-    foreign_ "View" someProps $ do
-      foreign_ "Text" someProps (elemText "hello")
+    foreign_ "rn_View" someProps $ do
+      foreign_ "rn_Text" someProps (elemText "hello")
 
     --div_ $ do
     --    todoHeader_

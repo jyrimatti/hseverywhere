@@ -1,0 +1,18 @@
+{
+  "name": "hsEverywhere",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "pack": "node ./node_modules/webpack/bin/webpack.js"
+  },
+  "dependencies": {
+    "webpack": "1.12.14",
+    "react-native": "0.22.2",
+    "react-native-web": "0.0.20",
+    "goog.crypt.Hash": "file:./goog.crypt.Hash"
+  },
+  "peerDependencies": {
+    "react-dom": "^0.14"
+  }
+}
