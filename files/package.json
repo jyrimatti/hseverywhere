@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "pack": "node ./node_modules/webpack/bin/webpack.js"
+    "pack": "node ./node_modules/webpack/bin/webpack.js",
+    "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --content-base=../ --inline --hot"
   },
   "dependencies": {
     "webpack": "1.12.14",
+    "webpack-dev-server": "1.14.1",
     "react-native": "0.22.2",
     "react-native-web": "0.0.20",
     "goog.crypt.Hash": "file:./goog.crypt.Hash"

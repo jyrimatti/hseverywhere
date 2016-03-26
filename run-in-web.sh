@@ -12,8 +12,8 @@ ln -fs ../dist/build/$app/$app.jsexe/all.js $app/all.js
 # copy necessary file next to main js-files, since apparently cannot require from parent dir...?
 cp -fR files/* $app/
 
-# needed to pull goog.crypt.Hash to node_modules
-nix-shell -p nodejs-5_x --command "cd $app && npm run pack"
+open http://localhost:8080/
 
-open index.html
+# needed to pull goog.crypt.Hash to node_modules
+nix-shell -p nodejs-5_x --command "cd $app && npm run dev"
 
