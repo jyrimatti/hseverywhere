@@ -1,2 +1,0 @@
-# hseverywhere
-Haskell Everywhere!
