@@ -10,11 +10,11 @@
   "dependencies": {
     "webpack": "1.12.14",
     "webpack-dev-server": "1.14.1",
+    "react": "0.14.7",
+    "react-dom": "0.14.7",
+    "react-native-cli": "0.2.0",
     "react-native": "0.22.2",
     "react-native-web": "0.0.20",
     "goog.crypt.Hash": "file:./goog.crypt.Hash"
-  },
-  "peerDependencies": {
-    "react-dom": "^0.14"
   }
 }
