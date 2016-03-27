@@ -24,7 +24,14 @@ let
                        then pkgs.haskellPackages
                        else pkgs.haskell.packages.${compiler};
 
-  drv = haskellPackages.callPackage f {};
+  # add missing ghcjs-base to react-flux
+  reactFlux = haskellPackages.react-flux.override (args: args // {
+    mkDerivation = expr: args.mkDerivation (expr // {
+        libraryHaskellDepends = expr.libraryHaskellDepends ++ [haskellPackages.ghcjs-base];
+    });
+  });
+
+  drv = haskellPackages.callPackage f { react-flux = reactFlux; };
 
 in
 
