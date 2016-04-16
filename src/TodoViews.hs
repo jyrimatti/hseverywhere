@@ -12,17 +12,20 @@ import TodoComponents
 
 someProps = [Property "hs" (toJSString "quux")]
 
+style :: [PropertyOrHandler handler] -> PropertyOrHandler handler
+style = nestedProperty "style"
+
 -- | The controller view and also the top level of the TODO app.  This controller view registers
 -- with the store and will be re-rendered whenever the store changes.
 todoApp :: ReactView ()
 todoApp = defineControllerView "todo app" todoStore $ \todoState () ->
-    foreign_ "rn_View" someProps $ do
-      foreign_ "rn_Text" someProps (elemText "hello")
+    foreign_ "rn_View" [style [ "flexDirection" $= "row", "height" @= (100 :: Int), "padding" @= (20 :: Int)]] $ do
+     foreign_ "rn_Text" someProps (elemText "Hello Haskell World!")
 
-    --div_ $ do
-    --    todoHeader_
-    --    mainSection_ todoState
-    --    todoFooter_ todoState
+   --div_ $ do
+   --    todoHeader_
+   --    mainSection_ todoState
+   --    todoFooter_ todoState
 
 -- | The TODO header as a React view with no properties.
 todoHeader :: ReactView ()

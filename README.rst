@@ -6,6 +6,9 @@ Exploring the design space of how to use Haskell in different environments.
 This project is a work-in-progress and meant to be a template or an example for "real" applications.
 
 
+.. image:: hsEverywhere.png
+
+
 Steps
 -----
 
@@ -20,11 +23,13 @@ Steps
 - *make Live Reload work in all envs*
 - *write a README*
 - *cleanup and upload to github*
+- *make run in OSX with https://github.com/ptmt/react-native-desktop*
 - try to convert the example todo app from the react-flux project to react-native to see if react-native falls short
 - include some webview-sub-app as part of the native app
 - try to use some native component not yet in react-native
 - make run in actual iPhone and Android phone
 - submit to App Store and Google Play
+- make run in windows with https://github.com/ReactWindows/react-native
 - profit? nah...
 
 
@@ -34,7 +39,7 @@ Installation
 1. install `Nix <http://nixos.org/nixpkgs/>`_. You should already have it.
 2. install XCode and some Android emulator depending on your needs.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
-4. Execute ``init.sh`` to download and install half the Internet.
+4. Execute ``init.sh`` to download and install half the Internet. Just answer 'yes' or 'y' to possible questions.
 
 Tested in OSX and Nixpkgs revision ``f16533449269bf798cd49eac41ba876b71eeddc0``. More recent Nixpkgs revisions will also probably work.
 
@@ -47,8 +52,9 @@ Running
 - >>> ./run-in-web.sh
 - >>> ./run-in-ios.sh
 - >>> ./run-in-android.sh
+- >>> ./run-in-osx.sh
 
-Browser and iOS simulator open automatically. Android emulator needs to be running in advance (can this somehow be opened automatically?).
+Browser and iOS simulator open automatically. Android emulator needs to be running in advance (can this somehow be opened automatically?). OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
 
 
 Haskell development
@@ -63,7 +69,7 @@ Now you are inside a Nix shell with the required Haskell dependencies globally i
 New Haskell-dependencies should be added to both cabal file and default.nix. Then rerun nix-shell.
 
 
-iOS and Android development
+iOS/Android/OSX development
 ---------------------------
 
 I have no idea, never done those. I think you can just develop the projects created by react-native, but note that at least for now, this repo has added the whole react-native-subproject to .gitignore.
