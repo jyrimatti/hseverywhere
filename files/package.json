@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start-desktop": "node node_modules/react-native-desktop/local-cli/cli.js start",
     "pack": "node ./node_modules/webpack/bin/webpack.js",
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --content-base=../ --inline --hot"
   },
@@ -15,6 +16,8 @@
     "react-native-cli": "0.2.0",
     "react-native": "0.22.2",
     "react-native-web": "0.0.20",
+    "react-native-desktop-cli": "0.1.11",
+    "react-native-desktop": "0.5.6",
     "goog.crypt.Hash": "file:./goog.crypt.Hash"
   }
 }

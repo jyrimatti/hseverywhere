@@ -1,2 +1,2 @@
 'use strict';
-require('./require_app');
+require('./require_app_others');

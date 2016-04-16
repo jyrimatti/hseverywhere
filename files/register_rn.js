@@ -1,6 +1,4 @@
-
-var __rn = require('react-native');
-
+var registerRnComponents = function(__rn) {
 window.rn_ActivityIndicatorIOS = __rn.ActivityIndicatorIOS;
 window.rn_DatePickerIOS = __rn.DatePickerIOS;
 window.rn_DrawerLayoutAndroid = __rn.DrawerLayoutAndroid;
@@ -33,5 +31,8 @@ window.rn_TouchableWithoutFeedback = __rn.TouchableWithoutFeedback;
 window.rn_View = __rn.View;
 window.rn_ViewPagerAndroid = __rn.ViewPagerAndroid;
 window.rn_WebView = __rn.WebView;
+};
 
-
+module.exports = {
+  registerRnComponents: registerRnComponents
+};

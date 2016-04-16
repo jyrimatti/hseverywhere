@@ -8,7 +8,8 @@ module.exports = {
         exclude: [
             path.resolve(__dirname, "./~/react"),
             path.resolve(__dirname, "./~/react-native"),
-            path.resolve(__dirname, "./~/react-native-web")
+            path.resolve(__dirname, "./~/react-native-web"),
+            path.resolve(__dirname, "./~/react-native-desktop")
           ],
       }
     ]

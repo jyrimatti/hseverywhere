@@ -1,8 +1,5 @@
 
-window.React = require('react');
-
-window.__registerComponent = function(name,c) {
-    var { AppRegistry } = require('react-native');
+var doRegister = function(name,c,AppRegistry) {
     AppRegistry.registerComponent("actual-app", function() { return c; });
     AppRegistry.registerRunnable(name, function(appParameters) {
         appParameters.initialProps['hs'] = 'haskell-stuff needs this for whatever reason';
@@ -11,7 +8,6 @@ window.__registerComponent = function(name,c) {
 };
 
 module.exports = {
-  RegRn: require('./register_rn'),
-  Runmain: require('./all')
+  doRegister: doRegister
 };
 

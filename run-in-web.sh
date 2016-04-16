@@ -5,6 +5,7 @@ app=$(basename $PWD)
 
 cp -f dist/build/$app/$app.jsexe/all.js $app/
 cp -fR files/* $app/
+mv $app/rn-cli.config.others.js $app/rn-cli.config.js
 
 open http://localhost:8080/
 
