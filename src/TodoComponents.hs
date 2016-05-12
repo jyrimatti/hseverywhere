@@ -1,50 +1,42 @@
 {-# LANGUAGE OverloadedStrings #-}
-
--- | The division between a view and a component is arbitrary, but for me components are pieces that
--- are re-used many times for different purposes.  In the TODO app, there is one component for the
--- text box.
 module TodoComponents where
 
 import Data.Typeable (Typeable)
+
+import GHCJS.Types (JSString, JSVal, IsJSVal)
+import GHCJS.Marshal (ToJSVal(..), toJSVal_aeson, FromJSVal(..))
+
 import React.Flux
 
--- | The properties for the text input component.  Note how we can pass anything, including
--- functions, as the properties; the only requirement is an instance of Typeable.
+import qualified React.Flux.Rn.Components as Rn
+import qualified React.Flux.Rn.Events as RnE
+import qualified React.Flux.Rn.Style as RnS
+
+
 data TextInputArgs = TextInputArgs {
-      tiaId :: Maybe String
-    , tiaClass :: String
-    , tiaPlaceholder :: String
+      tiaPlaceholder :: String
     , tiaOnSave :: String -> [SomeStoreAction]
     , tiaValue :: Maybe String
 } deriving (Typeable)
 
--- | The text input stateful view.  The state is the text that has been typed into the textbox
--- but not yet saved.  The save is triggered either on enter or blur, which resets the state/content
--- of the text box to the empty string.
 todoTextInput :: ReactView TextInputArgs
 todoTextInput = defineStatefulView "todo text input" "" $ \curText args ->
-    input_ $
-        maybe [] (\i -> ["id" @= i]) (tiaId args)
-        ++
-        [ "className" @= tiaClass args
-        , "placeholder" @= tiaPlaceholder args
-        , "value" @= curText -- using value here creates a controlled component: https://facebook.github.io/react/docs/forms.html
-        , "autoFocus" @= True
+    Rn.textInput
+        [ "placeholder" @= tiaPlaceholder args
+        , "value"       @= curText
+        , "autoFocus"   @= True
+        , "multiline"   @= False
+        , RnS.style [ RnS.flex 1
+                    , RnS.height 65
+                    , RnS.padding 16
+                    , RnS.paddingLeft 0
+                    , RnS.fontFamily "HelveticaNeue"
+                    , RnS.color "#4d4d4d"
+                    ]
 
-        -- Update the current state with the current text in the textbox, sending no actions
-        , onChange $ \evt _ -> ([], Just $ target evt "value")
+        , RnE.onSubmitEditing $ \state -> (tiaOnSave args $ state, Just "")
+        , RnE.onChangeText $ \txt -> \state -> ([], Just txt)
+        ] mempty
 
-        -- Produce the save action and reset the current state to the empty string
-        , onBlur $ \_ _ curState ->
-            if not (null curState)
-                then (tiaOnSave args curState, Just "")
-                else ([], Nothing)
-        , onKeyDown $ \_ evt curState ->
-             if keyCode evt == 13 && not (null curState) -- 13 is enter
-                 then (tiaOnSave args curState, Just "")
-                 else ([], Nothing)
-        ]
-
--- | A combinator suitible for use inside rendering functions.
 todoTextInput_ :: TextInputArgs -> ReactElementM eventHandler ()
 todoTextInput_ args = view todoTextInput args mempty

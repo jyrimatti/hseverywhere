@@ -23,18 +23,10 @@ executable hsEverywhere
                        transformers,
                        time,
                        deepseq,
-                       react-flux
+                       react-flux,
+                       aeson
   hs-source-dirs:      src
   default-language:    Haskell2010
   ghc-options: -Wall
   cpp-options: -DGHCJS_BROWSER
 
-executable hsEverywhere-node
-   ghc-options: -Wall
-   default-language: Haskell2010
-   hs-source-dirs: src
-   main-is: NodeMain.hs
-   build-depends: base
-                , react-flux
-                , deepseq
-                , text

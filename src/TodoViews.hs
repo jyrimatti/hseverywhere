@@ -1,78 +1,166 @@
 {-# LANGUAGE OverloadedStrings #-}
--- | The views for the TODO app
 module TodoViews where
 
-import Control.Monad (when)
-import React.Flux
-import React.Flux.Internal (PropertyOrHandler(..),toJSString)
+import GHCJS.Marshal (ToJSVal(..), toJSVal_aeson)
+import GHCJS.Types (JSVal)
+
+import qualified Data.Aeson as A
+
+import React.Flux (defineView, defineControllerView, defineStatefulView, view, ReactView, ReactElementM, ViewEventHandler, elemShow)
+
+import React.Flux (($=),(@=),property)
+
+import qualified React.Flux.Rn.Components as Rn
+import qualified React.Flux.Rn.Style as RnS
+import qualified React.Flux.Rn.Events as RnE
 
 import TodoDispatcher
 import TodoStore
 import TodoComponents
 
-someProps = [Property "hs" (toJSString "quux")]
 
-style :: [PropertyOrHandler handler] -> PropertyOrHandler handler
-style = nestedProperty "style"
+_NOT_IMPLEMENTED = dispatchTodo $ Alert "Sorry, not implemented yet :("
 
--- | The controller view and also the top level of the TODO app.  This controller view registers
--- with the store and will be re-rendered whenever the store changes.
+
 todoApp :: ReactView ()
-todoApp = defineControllerView "todo app" todoStore $ \todoState () ->
-    foreign_ "rn_View" [style [ "flexDirection" $= "row", "height" @= (100 :: Int), "padding" @= (20 :: Int)]] $ do
-     foreign_ "rn_Text" someProps (elemText "Hello Haskell World!")
+todoApp = defineControllerView "todo app" todoStore $ \todoState () -> do
+    Rn.view [RnS.style [ RnS.backgroundColor "#f5f5f5"
+                       , RnS.paddingHorizontal 50
+                       , RnS.flex 1
+            ]] $ do
+       todoHeader_
+       mainSection_ todoState
+       todoFooter_
 
-   --div_ $ do
-   --    todoHeader_
-   --    mainSection_ todoState
-   --    todoFooter_ todoState
-
--- | The TODO header as a React view with no properties.
 todoHeader :: ReactView ()
-todoHeader = defineView "header" $ \() ->
-    header_ ["id" $= "header"] $ do
-        h1_ "todos"
-        todoTextInput_  TextInputArgs
-          { tiaId = Just "new-todo"
-          , tiaClass = "new-todo"
-          , tiaPlaceholder = "What needs to be done?"
-          , tiaOnSave = dispatchTodo . TodoCreate
-          , tiaValue = Nothing
-          }
+todoHeader = defineView "header" $ \() -> do
+        Rn.text [RnS.style [ RnS.alignSelf RnS.SCenter
+                           , RnS.fontSize 100
+                           , RnS.fontFamily "HelveticaNeue"
+                           , RnS.fontWeight RnS.W100
+                           , RnS.color $ RnS.Rgba 175 47 47 0.15
+                ]] "todos"
 
--- | A combinator for the header suitable for use inside the 'todoApp' rendering function.
 todoHeader_ :: ReactElementM eventHandler ()
 todoHeader_ = view todoHeader () mempty
 
--- | A view that does not use a ReactView and is instead just a Haskell function.
--- Note how we use an underscore to signal that this is directly a combinator that can be used
--- inside the rendering function.
+infoStyles = [ RnS.fontFamily "HelveticaNeue"
+             , RnS.fontSize 10
+             , RnS.color "#bfbfbf"
+             , RnS.textShadowOffset 0 1
+             , RnS.textShadowColor $ RnS.Rgba 255 255 255 0.5
+             , RnS.alignSelf RnS.SCenter
+             ]
+
+todoFooter :: ReactView ()
+todoFooter = defineView "todoFooter" $ \() -> do
+    Rn.view [RnS.style [ RnS.marginTop 65 ]] $ do
+        Rn.text [RnS.style infoStyles] "Long-press to edit a todo"
+        Rn.touchableHighlight [ RnE.onPress $ _NOT_IMPLEMENTED ] $ do
+            Rn.text [RnS.style infoStyles] "Credits: Jyri-Matti Lähteenmäki"
+        Rn.touchableHighlight [ RnE.onPress $ _NOT_IMPLEMENTED] $ do
+            Rn.text [RnS.style infoStyles] "Future part of TodoMVC?"
+
+
+todoFooter_ :: ReactElementM eventHandler ()
+todoFooter_ = view todoFooter () mempty
+
 mainSection_ :: TodoState -> ReactElementM ViewEventHandler ()
-mainSection_ st = section_ ["id" $= "main"] $ do
-    labeledInput_ "toggle-all" "Mark all as complete"
-        [ "type" $= "checkbox"
-        , "checked" $= if all (todoComplete . snd) $ todoList st then "checked" else ""
-        , onChange $ \_ -> dispatchTodo ToggleAllComplete
-        ]
+mainSection_ todoState@(TodoState todoList filt) = do
+    Rn.view [RnS.style [ RnS.backgroundColor "#fff"
+                       , RnS.shadowOffset 0 2
+                       , RnS.shadowRadius 4
+                       , RnS.shadowColor $ RnS.Rgba 0 0 0 0.2
+                       , RnS.shadowOpacity 1
+            ]] $ do
+        Rn.view [RnS.style [RnS.flexDirection RnS.Row]] $ do
+            Rn.touchableHighlight [ RnE.onPress $ dispatchTodo ToggleAllComplete
+                                  , RnS.style [ RnS.alignItems RnS.ICenter
+                                              , RnS.alignSelf RnS.SCenter
+                                              , RnS.flexDirection RnS.Column
+                                              , RnS.width 60
+                                              ]
+                                  ] $ do
+                Rn.text [ "checked" $= if all (todoComplete . snd) $ todoList then "checked" else ""
+                        , RnS.style [ RnS.transform [RnS.RotateZ "90deg"]
+                                    , RnS.color $ if allCompleted then "#4d4d4d" else "#d9d9d9"
+                                    , RnS.fontSize 22
+                                    ]
+                        ] ">"
+            todoTextInput_ TextInputArgs
+              { tiaPlaceholder = "What needs to be done?"
+              , tiaOnSave = \txt -> dispatchTodo $ TodoCreate txt
+              }
 
-    ul_ [ "id" $= "todo-list" ] $ mapM_ todoItem_ $ todoList st
+        Rn.listView
+           [ property "dataSource" $ JsApply js_newListViewDataSource (doFilter filt $ map snd $ todoList)
+           , property "renderRow" js_renderRow
+           , RnS.style [ RnS.borderTopWidth 1
+                       , RnS.borderTopColor "#e6e6e6"
+                       ]
+           ] mempty
 
--- | A view for each todo item.  We specifically use a ReactView here to take advantage of the
--- ability for React to only re-render the todo items that have changed.  Care is taken in the
--- transform function of the store to not change the Haskell object for the pair (Int, Todo), and
--- in this case React will not re-render the todo item.  For more details, see the "Performance"
--- section of the React.Flux documentation.
+        mainSectionFooter_ todoState
+  where doFilter All = id
+        doFilter Active = filter (not . todoComplete)
+        doFilter Completed = filter todoComplete
+        allCompleted = all todoComplete $ map snd $ todoList
+
+data JsApply f = JsApply (JSVal -> IO JSVal) f
+instance A.ToJSON f => ToJSVal (JsApply f) where
+  toJSVal (JsApply f x) = toJSVal_aeson x >>= f
+
+instance A.ToJSON Todo where
+    toJSON (Todo t c i) = A.object [ "text" A..= t
+                                   , "complete" A..= c
+                                   , "isEditing" A..= i
+                                   ]
+
+foreign import javascript unsafe
+    "new ListView.DataSource({rowHasChanged: function(r1, r2) { return r1 !== r2; }}).cloneWithRows($1)"
+  js_newListViewDataSource :: JSVal -> IO JSVal
+
+-- FIXME: Has to be implemented in JS until react-flux supports callbacks returning renderables
+-- I guess IOS does not support rendering inline SVG, so let's use border and unicode instead of a check-mark image.
+foreign import javascript unsafe
+    "function(rowdata) {\
+\      return React.createElement(View, {'style': {'flexDirection': 'row'}}, [\
+\               React.createElement(TouchableWithoutFeedback, {'onPress': function() { Alert.alert('Sorry, not implemented yet :('); }}, React.createElement(View, {\
+\                 'style': {\
+\                   'width': 30,\
+\                   'height': 30,\
+\                   'alignSelf': 'center',\
+\                   'marginLeft': 8,\
+\                   'paddingTop': 4,\
+\                   'borderWidth': 1,\
+\                   'borderRadius': 30,\
+\                   'borderColor': '#bddad5',\
+\                   'alignItems': 'center'}}, React.createElement(Text, {'style': {\
+\                     'fontSize': 20,\
+\                     'color': '#5dc2af'}}, rowdata.complete ? '\x2713' : ''))),\
+\               React.createElement(TouchableHighlight, {'onLongPress': function() { Alert.alert('Sorry, not implemented yet :('); }, 'style': {'padding': 15}}, React.createElement(Text, {\
+\                 'style': {\
+\                   'paddingRight': 60,\
+\                   'fontSize': 24,\
+\                   'fontWeight': '300',\
+\                   'color': rowdata.complete ? '#d9d9d9' : '#4d4d4d',\
+\                   'fontFamily': 'HelveticaNeue',\
+\                   'textDecorationLine': (rowdata.complete ? 'line-through' : 'none')}}, rowdata.text))]);\
+\    }"
+  js_renderRow :: JSVal
+
+{-
 todoItem :: ReactView (Int, Todo)
 todoItem = defineView "todo item" $ \(todoIdx, todo) ->
-    li_ [ classNames [("completed", todoComplete todo), ("editing", todoIsEditing todo)]
-        , "key" @= todoIdx
+    li_ [
+          "key" @= todoIdx
         ] $ do
-        
+
         cldiv_ "view" $ do
             input_ [ "className" $= "toggle"
                    , "type" $= "checkbox"
                    , "checked" @= todoComplete todo
-                   , onChange $ \_ -> dispatchTodo $ TodoSetComplete todoIdx $ not $ todoComplete todo
+                   , onChangeText $ \str -> dispatchTodo $ TodoSetComplete todoIdx $ not $ todoComplete todo
                    ]
 
             label_ [ onDoubleClick $ \_ _ -> dispatchTodo $ TodoEdit todoIdx] $
@@ -82,35 +170,55 @@ todoItem = defineView "todo item" $ \(todoIdx, todo) ->
 
         when (todoIsEditing todo) $
             todoTextInput_ TextInputArgs
-                { tiaId = Nothing
-                , tiaClass = "edit"
-                , tiaPlaceholder = ""
+                { tiaPlaceholder = ""
                 , tiaOnSave = dispatchTodo . UpdateText todoIdx
                 , tiaValue = Just $ todoText todo
                 }
 
--- | A combinator for a todo item to use inside rendering functions
 todoItem_ :: (Int, Todo) -> ReactElementM eventHandler ()
 todoItem_ todo = viewWithKey todoItem (fst todo) todo mempty
+-}
 
--- | A view for the footer, taking the entire state as the properties.  This could alternatively
--- been modeled as a controller-view, attaching directly to the store.
-todoFooter :: ReactView TodoState
-todoFooter = defineView "footer" $ \(TodoState todos) ->
+footerStyles = [ RnS.color "#777"
+               , RnS.fontFamily "HelveticaNeue"
+               , RnS.fontWeight RnS.W300
+               ]
+
+filterStyle = [ RnS.paddingHorizontal 7
+              , RnS.marginHorizontal 3
+              ]
+activeFilterStyle = [ RnS.borderWidth 1
+                    , RnS.borderColor $ RnS.Rgba 175 47 47 0.2
+                    , RnS.borderRadius 3
+                    ]
+
+mainSectionFooter :: ReactView TodoState
+mainSectionFooter = defineView "footer" $ \(TodoState todos filtering) ->
     let completed = length (filter (todoComplete . snd) todos)
         itemsLeft = length todos - completed
-     in footer_ [ "id" $= "footer"] $ do
+        styling f = RnS.style $ filterStyle ++ (if f == filtering then activeFilterStyle else [])
+     in Rn.view [RnS.style [ RnS.flexDirection RnS.Row
+                           , RnS.borderTopWidth 1
+                           , RnS.borderTopColor "#e6e6e6"
+                           , RnS.paddingVertical 10
+                           , RnS.paddingHorizontal 15
+                           , RnS.justifyContent RnS.JSpaceBetween
+                ]] $ do
+            Rn.view [ RnS.style [RnS.flexDirection RnS.Row] ] $ do
+                Rn.text [RnS.style $ RnS.fontWeight RnS.WBold : footerStyles] $ elemShow itemsLeft
+                Rn.text [RnS.style footerStyles] $ if itemsLeft == 1 then " item left" else " items left"
 
-            span_ [ "id" $= "todo-count" ] $ do
-                strong_ $ elemShow itemsLeft
-                elemText $ if itemsLeft == 1 then " item left" else " items left"
+            Rn.view [ RnS.style [ RnS.alignItems RnS.ICenter ]] $ do
+                Rn.touchableHighlight [ RnE.onPress $ dispatchTodo (SetFilter All), styling All] $ do
+                    Rn.text [] "All"
+                Rn.touchableHighlight [ RnE.onPress $ dispatchTodo (SetFilter Active), styling Active] $ do
+                    Rn.text [] "Active"
+                Rn.touchableHighlight [ RnE.onPress $ dispatchTodo (SetFilter Completed), styling Completed] $ do
+                    Rn.text [] "Completed"
 
-            when (completed > 0) $ do
-                button_ [ "id" $= "clear-completed"
-                        , onClick $ \_ _ -> dispatchTodo ClearCompletedTodos
-                        ] $
-                    elemText $ "Clear completed (" ++ show completed ++ ")"
+            Rn.touchableHighlight [ RnE.onPress $ dispatchTodo ClearCompletedTodos
+                                  , RnS.style (if completed == 0 then [RnS.opacity 0] else []) ] $
+                Rn.text [RnS.style footerStyles] "Clear completed"
 
--- | A render combinator for the footer
-todoFooter_ :: TodoState -> ReactElementM eventHandler ()
-todoFooter_ s = view todoFooter s mempty
+mainSectionFooter_ :: TodoState -> ReactElementM eventHandler ()
+mainSectionFooter_ s = view mainSectionFooter s mempty
