@@ -42,7 +42,9 @@ I just wanna try the example app!
 Available in:
 
 http://lahteenmaki.net/hsEverywhere.html
+
 http://lahteenmaki.net/hsEverywhere.dmg
+
 http://lahteenmaki.net/hsEverywhere.apk
 
 If you don't trust me (and you shouldn't!), just follow the instructions to build on your own machine.
@@ -78,6 +80,7 @@ OSX opens XCode, in which you have to 'Run' the app (can this be done from the c
 
 All can be run simultaneously.
 Default port choices can be changed (except for Android) by giving new port as an argument, e.g.
+
 - >>> ./run-in-osx.sh 8191
 
 If Android emulator complains about HAX etc, check you don't have any VirtualBoxes running.
