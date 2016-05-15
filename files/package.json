@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start --port=$PORT",
     "start-osx": "node node_modules/react-native-desktop/local-cli/cli.js start --port=$PORT",
-    "start-web": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --content-base=../ --inline --hot --port=$PORT"
+    "start-web": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --content-base=../ --inline --hot --port=$PORT",
+    "pack": "node ./node_modules/webpack/bin/webpack.js"
+    
   },
   "dependencies": {
     "webpack": "1.12.14",

@@ -25,14 +25,27 @@ Steps
 - *cleanup and upload to github*
 - *make run in OSX with https://github.com/ptmt/react-native-desktop*
 - *try to convert the example todo app from the react-flux project to react-native to see if react-native falls short*
+- *create scripts for easy packaging*
+- *publish example apps to internet (except for ios...)*
+- make run in actual iPhone and Android phone
+- submit to App Store and Google Play
 - finish todo app to work perfectly in all platforms
 - include some webview-sub-app as part of the native app
 - try to use some native component not yet in react-native
-- make run in actual iPhone and Android phone
-- see if possible to create scripts for easy packaging
-- submit to App Store and Google Play
 - make run in windows with https://github.com/ReactWindows/react-native
 - profit? nah...
+
+
+I just wanna try the example app!
+---------------------------------
+
+Available in:
+
+http://lahteenmaki.net/hsEverywhere.html
+http://lahteenmaki.net/hsEverywhere.dmg
+http://lahteenmaki.net/hsEverywhere.apk
+
+If you don't trust me (and you shouldn't!), just follow the instructions to build on your own machine.
 
 
 Installation
@@ -46,6 +59,9 @@ Installation
 Tested in OSX and Nixpkgs revision ``3e750abb0c3e5019651b5f11ece7300c1b548d04``. More recent Nixpkgs revisions will also probably work.
 
 I tried to keep everything deterministic and from messing with your global environment, but I'm no expert with NPM. Pull requests are appreciated.
+
+Installation creates a subdirectory containing all the react-native stuff.
+This directory is for now completely generated (unless You modify it somehow yourself), so if you think you've messed up something or want to update js-dependencies, just rm -R the generated directory and re-run init.sh.
 
 
 Running
@@ -106,6 +122,14 @@ Whenever Haskell code compiles, the app should automatically reload itself. No m
 In iOS simulator enable "Live Reload" in shake-gesture menu.
 
 In Android emulator enable "Live Reload" in shake-gesture menu (F2).
+
+
+Packaging
+---------
+
+- >>> ./package-web.sh
+- >>> ./package-android.sh
+- >>> ./package-osx.sh
 
 
 Problems
