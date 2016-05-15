@@ -3,17 +3,29 @@ module React.Flux.Rn.Events where
 import System.IO.Unsafe (unsafePerformIO)
 import Data.Maybe (fromMaybe)
 
-import GHCJS.Types (JSString, JSVal)
+import GHCJS.Types (JSVal)
 import GHCJS.Marshal (FromJSVal(..))
 
-import React.Flux (Event, PropertyOrHandler)
+import React.Flux (PropertyOrHandler)
 import React.Flux.Internal (PropertyOrHandler(CallbackPropertyWithSingleArgument), HandlerArg(..))
 
 onPress :: handler -> PropertyOrHandler handler
 onPress = on0 "onPress"
 
+onPressIn :: handler -> PropertyOrHandler handler
+onPressIn = on0 "onPressIn"
+
+onLongPress :: handler -> PropertyOrHandler handler
+onLongPress = on0 "onLongPress"
+
 onSubmitEditing :: handler -> PropertyOrHandler handler
 onSubmitEditing = on0 "onSubmitEditing"
+
+onBlur :: handler -> PropertyOrHandler handler
+onBlur = on0 "onBlur"
+
+onEndEditing :: handler -> PropertyOrHandler handler
+onEndEditing = on0 "onEndEditing"
 
 onChange :: handler -> PropertyOrHandler handler
 onChange = on0 "onChange"

@@ -2,6 +2,7 @@
 module TodoStore where
 
 import React.Flux
+import Control.Concurrent (forkIO,threadDelay)
 import Control.DeepSeq
 import GHC.Generics (Generic)
 import Data.Typeable (Typeable)
@@ -26,11 +27,14 @@ data TodoAction = TodoCreate String
                 | TodoDelete Int
                 | TodoEdit Int
                 | UpdateText Int String
+                | CancelUpdate Int
+                | CancelUpdateWithDelay Int
                 | ToggleAllComplete
                 | TodoSetComplete Int Bool
                 | ClearCompletedTodos
                 | SetFilter Filter
                 | Alert String
+                | OpenLink String
   deriving (Show, Typeable, Generic, NFData)
 
 instance StoreData TodoState where
@@ -51,7 +55,11 @@ instance StoreData TodoState where
                              in (map f todos, filt)
             (UpdateText newIdx newTxt) ->
                 let f (idx, todo) | idx == newIdx = (idx, todo { todoText = newTxt, todoIsEditing = False })
-                    f p = p
+                    f p                           = p
+                 in (map f todos, filt)
+            (CancelUpdate newIdx) ->
+                let f (idx, todo) | idx == newIdx = (idx, todo { todoIsEditing = False })
+                    f p                           = p
                  in (map f todos, filt)
             ToggleAllComplete -> if all (todoComplete . snd) todos then
                                     ([ (idx, Todo txt False False) | (idx, Todo txt _ _) <- todos ], filt)
@@ -64,11 +72,17 @@ instance StoreData TodoState where
             ClearCompletedTodos -> (filter (not . todoComplete . snd) todos, filt)
             SetFilter newFilt -> (todos, newFilt)
             Alert _ -> (todos, filt)
-
+            OpenLink _ -> (todos, filt)
+            CancelUpdateWithDelay _ -> (todos, filt)
         case action of
-            Alert msg -> RnA.alert msg
-            _ -> return ()
-
+          Alert msg -> RnA.alert msg Nothing
+          OpenLink url -> RnA.openURL url
+          CancelUpdateWithDelay i -> do
+              forkIO $ do
+                  threadDelay $ 1000*1000
+                  alterStore todoStore $ CancelUpdate i
+              return ()
+          _ -> return ()
         putStrLn $ "New todos: " ++ show newTodos
         putStrLn $ "New filter: " ++ show newFilter
         return $ TodoState newTodos newFilter

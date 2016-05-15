@@ -2,9 +2,7 @@
 module TodoComponents where
 
 import Data.Typeable (Typeable)
-
-import GHCJS.Types (JSString, JSVal, IsJSVal)
-import GHCJS.Marshal (ToJSVal(..), toJSVal_aeson, FromJSVal(..))
+import Data.Maybe (fromMaybe)
 
 import React.Flux
 
@@ -16,27 +14,31 @@ import qualified React.Flux.Rn.Style as RnS
 data TextInputArgs = TextInputArgs {
       tiaPlaceholder :: String
     , tiaOnSave :: String -> [SomeStoreAction]
+    , tiaOnCancel :: [SomeStoreAction]
     , tiaValue :: Maybe String
 } deriving (Typeable)
 
-todoTextInput :: ReactView TextInputArgs
-todoTextInput = defineStatefulView "todo text input" "" $ \curText args ->
+todoTextInput :: [PropertyOrHandler (StatefulViewEventHandler String)] -> String -> ReactView TextInputArgs
+todoTextInput styles state = defineStatefulView "todo text input" state $ \curText args ->
     Rn.textInput
         [ "placeholder" @= tiaPlaceholder args
         , "value"       @= curText
         , "autoFocus"   @= True
-        , "multiline"   @= False
-        , RnS.style [ RnS.flex 1
-                    , RnS.height 65
-                    , RnS.padding 16
-                    , RnS.paddingLeft 0
-                    , RnS.fontFamily "HelveticaNeue"
-                    , RnS.color "#4d4d4d"
-                    ]
+        , "blurOnSubmit" @= True
+        , RnS.style $ [ RnS.flex 1
+                      , RnS.height 45
+                      , RnS.margin 8
+                      , RnS.marginLeft 0
+                      , RnS.fontFamily "HelveticaNeue"
+                      , RnS.fontSize 22
+                      , RnS.fontWeight RnS.W300
+                      , RnS.color "#4d4d4d"
+                      ] ++ styles
 
-        , RnE.onSubmitEditing $ \state -> (tiaOnSave args $ state, Just "")
-        , RnE.onChangeText $ \txt -> \state -> ([], Just txt)
+        , RnE.onSubmitEditing $ \_ -> (tiaOnSave args $ state, Just "")
+        , RnE.onChangeText $ \txt -> \_ -> ([], Just txt)
+        , RnE.onBlur $ \_ -> (tiaOnCancel args, tiaValue args)
         ] mempty
 
-todoTextInput_ :: TextInputArgs -> ReactElementM eventHandler ()
-todoTextInput_ args = view todoTextInput args mempty
+todoTextInput_ :: [PropertyOrHandler (StatefulViewEventHandler String)] -> TextInputArgs -> ReactElementM eventHandler ()
+todoTextInput_ styles args = view (todoTextInput styles (fromMaybe "" $ tiaValue args)) args mempty

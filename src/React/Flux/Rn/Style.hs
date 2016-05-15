@@ -3,7 +3,6 @@ module React.Flux.Rn.Style where
 
 import Prelude hiding (Left, Right)
 import Numeric.Natural (Natural)
-import GHC.Generics (Generic)
 import Data.Word (Word8)
 import Data.Aeson (ToJSON(..),(.=),object)
 import Data.String (IsString(..))
@@ -55,11 +54,11 @@ alignSelf SStretch   = "alignSelf" $= "stretch"
 
 borderBottomWidth n = "borderBottomWidth" @= (n :: Natural)
 borderLeftWidth   n = "borderLeftWidth"   @= (n :: Natural)
-borderRightWidth  n = "borderRightWidth"  @= (n :: Natural) 
-borderTopWidth    n = "borderTopWidth"    @= (n :: Natural) 
-borderWidth       n = "borderWidth"       @= (n :: Natural) 
+borderRightWidth  n = "borderRightWidth"  @= (n :: Natural)
+borderTopWidth    n = "borderTopWidth"    @= (n :: Natural)
+borderWidth       n = "borderWidth"       @= (n :: Natural)
 bottom            n = "bottom"            @= (n :: Number)
-flex              n = "flex"              @= (n :: Number) 
+flex              n = "flex"              @= (n :: Natural)
 
 data FlexDirectionEnum = Row | Column
 flexDirection Row    = "flexDirection" $= "row"
