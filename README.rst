@@ -24,10 +24,12 @@ Steps
 - *write a README*
 - *cleanup and upload to github*
 - *make run in OSX with https://github.com/ptmt/react-native-desktop*
-- try to convert the example todo app from the react-flux project to react-native to see if react-native falls short
+- *try to convert the example todo app from the react-flux project to react-native to see if react-native falls short*
+- finish todo app to work perfectly in all platforms
 - include some webview-sub-app as part of the native app
 - try to use some native component not yet in react-native
 - make run in actual iPhone and Android phone
+- see if possible to create scripts for easy packaging
 - submit to App Store and Google Play
 - make run in windows with https://github.com/ReactWindows/react-native
 - profit? nah...
@@ -41,7 +43,7 @@ Installation
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
 4. Execute ``init.sh`` to download and install half the Internet. Just answer 'yes' or 'y' to possible questions.
 
-Tested in OSX and Nixpkgs revision ``f16533449269bf798cd49eac41ba876b71eeddc0``. More recent Nixpkgs revisions will also probably work.
+Tested in OSX and Nixpkgs revision ``3e750abb0c3e5019651b5f11ece7300c1b548d04``. More recent Nixpkgs revisions will also probably work.
 
 I tried to keep everything deterministic and from messing with your global environment, but I'm no expert with NPM. Pull requests are appreciated.
 
@@ -54,7 +56,15 @@ Running
 - >>> ./run-in-android.sh
 - >>> ./run-in-osx.sh
 
-Browser and iOS simulator open automatically. Android emulator needs to be running in advance (can this somehow be opened automatically?). OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
+Browser and iOS simulator open automatically.
+Android emulator needs to be running in advance.
+OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
+
+All can be run simultaneously.
+Default port choices can be changed (except for Android) by giving new port as an argument, e.g.
+- >>> ./run-in-osx.sh 8191
+
+If Android emulator complains about HAX etc, check you don't have any VirtualBoxes running.
 
 
 Haskell development
@@ -80,11 +90,16 @@ Continuous Compilation
 
 >>> ./cc.sh
 
+Feedback cycle is still quite poor.
+If I have all 4 platforms running and save a change in Haskell code,
+after about 45 seconds I see the effect in all platforms (and osx needs a manual reload).
+Could be worse, though.
+
 
 Live reload
 -----------
 
-Whenever Haskell code compiles, the app should automatically reload itself. No manual refresh (CMD+r/double-r) should be necessary.
+Whenever Haskell code compiles, the app should automatically reload itself. No manual refresh (CMD+r/double-r) should be necessary, except in OSX.
 
 ``run-in-web.sh`` starts webpack-dev-server which automatically reloads the app.
 
@@ -92,4 +107,19 @@ In iOS simulator enable "Live Reload" in shake-gesture menu.
 
 In Android emulator enable "Live Reload" in shake-gesture menu (F2).
 
-For some reason Live reload did not seem to work if both iOS simulator and Android emulator were running at the same time.
+
+Problems
+--------
+
+- some styling inconsistencies between ios and android
+- react-flux does not support all kinds of properties (https://bitbucket.org/wuzzeb/react-flux/issues/10/)
+- react-native-desktop is still work-in-progress
+  - needs message for alert although should be optional
+  - text-input is always multiline
+  - text-input seems to fire onBlur after half-a-second its activation
+  - rotation-transformation does not seem to work
+- react-native-web is still work-in-progress
+  - no support for ListView
+  - no support for Linking API
+  - TextInput does not support submitting
+  - text components collapse together (maybe a missing white-space: pre; ?)
