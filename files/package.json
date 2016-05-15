@@ -11,13 +11,13 @@
   "dependencies": {
     "webpack": "1.12.14",
     "webpack-dev-server": "1.14.1",
-    "react": "0.14.7",
-    "react-dom": "0.14.7",
+    "react": "0.14.8",
+    "react-dom": "0.14.8",
     "react-native-cli": "0.2.0",
-    "react-native": "0.22.2",
-    "react-native-web": "0.0.20",
+    "react-native": "0.25.1",
+    "react-native-web": "0.0.25",
     "react-native-desktop-cli": "0.1.11",
-    "react-native-desktop": "0.5.6",
+    "react-native-desktop": "0.7.2",
     "goog.crypt.Hash": "file:./goog.crypt.Hash"
   }
 }
