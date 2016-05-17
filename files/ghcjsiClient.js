@@ -1,13 +1,16 @@
-// require only the client (github.com/badfortrains/wsExample)
-var sio = require('./node_modules/socket.io-client/socket.io');
-var io = function() { return sio('http://localhost:8080'); }
+// copied with modifications from https://github.com/artemyarulin/ghcjs-repl-react-native/blob/master/replProject/ghcjsRNClient.js
+window.navigator.userAgent = "react-native";
 
-// copied from: https://github.com/ghcjs/ghcjs/blob/master/lib/etc/ghcjsiClient.js
+var {btoa,atob} = require('Base64')
+window.btoa = btoa
+window.atob = atob
 
-var h$GHCJSiSocket = io();
+var io = require("./node_modules/socket.io-client/socket.io");
+
+var h$GHCJSiSocket = io('ws://localhost:8080',{transports: ['websocket']});
 var global = window;
 
-window['h$GHCJSi'] = { socket: io()
+var h$GHCJSi = { socket: io('ws://localhost:8080',{transports: ['websocket']})
 		 , out: function(dat) {
 		   h$GHCJSi.socket.emit('out', dat);
 		 }
@@ -28,7 +31,7 @@ h$GHCJSi.socket.on('msg', function(msg) {
 });
 
 function h$processMessage(msgType, msgPayload) {
-  console.log("processMessage: " + msgType);
+  // console.log("processMessage: " + msgType);
   switch(msgType) {
   case 0: // load initial code/rts and init
     h$loadInitialCode(h$decodeUtf8(h$wrapBuffer(msgPayload)));
@@ -58,7 +61,7 @@ function h$loadInitialCode(code) {
 
   // don't allow Haskell to read from stdin (fixme!)
   h$base_stdin_fd.read = function(fd, fdo, buf, buf_offset, n, c) { c(0); }
-  
+
   // redirect Haskell's stderr to stdout since we use stderr to communicate (fixme!)
   h$base_stdout_fd.write = function(fd, fdo, buf, buf_offset, n, c) {
     h$GHCJSi.out(buf.buf.slice(buf_offset, buf_offset+n));
@@ -74,7 +77,7 @@ function h$loadCodeStr(str) {
 /////////////////////////////////////////////////////////////////////////
 // UTF-8 functions from shims/src/string.js and shims/src/mem.js
 /////////////////////////////////////////////////////////////////////////
-    
+
 function h$wrapBuffer(buf, unalignedOk, offset, length) {
   if(!unalignedOk && offset && offset % 8 !== 0) {
     throw ("h$wrapBuffer: offset not aligned:" + offset);
@@ -93,7 +96,7 @@ function h$wrapBuffer(buf, unalignedOk, offset, length) {
          , dv: new DataView(buf, offset, length)
          };
 }
-    
+
 // decode a buffer with Utf8 chars to a JS string
 // invalid characters are ignored
 function h$decodeUtf8(v,n0,start) {
@@ -157,12 +160,15 @@ function h$decodeUtf8(v,n0,start) {
 }
 
 function h$charCodeArrayToString(arr) {
-    if(arr.length <= 60000) {
+    if(arr.length <= 10000) {
 	return String.fromCharCode.apply(this, arr);
     }
     var r = '';
-    for(var i=0;i<arr.length;i+=60000) {
-	r += String.fromCharCode.apply(this, arr.slice(i, i+60000));
+    for(var i=0;i<arr.length;i+=10000) {
+	r += String.fromCharCode.apply(this, arr.slice(i, i+10000));
     }
     return r;
 }
+
+window.global = {h$GHCJSi: h$GHCJSi}
+window.h$GHCJSi = h$GHCJSi

@@ -135,7 +135,7 @@ Repl
 - >>> ./run-in-<platform>.sh
 - >>> ./repl.sh
 
-I'm not sure if this works, but atleast it seems to be able connect from all platforms.
+Somewhat working for all platforms, but really unstable and slow.
 Always hooked to port 8080 for now, so can only be used with one platform at a time.
 How can I pass a port from shell scripts to the actual runtime?
 

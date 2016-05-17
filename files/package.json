@@ -19,7 +19,7 @@
     "react-native-desktop-cli": "0.1.11",
     "react-native-desktop": "0.7.2",
     "goog.crypt.Hash": "file:./goog.crypt.Hash",
-
-    "socket.io-client": "1.4.6"
+    "socket.io-client": "1.4.6",
+    "Base64": "0.3.0"
   }
 }
