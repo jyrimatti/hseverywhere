@@ -27,6 +27,7 @@ Steps
 - *try to convert the example todo app from the react-flux project to react-native to see if react-native falls short*
 - *create scripts for easy packaging*
 - *publish example apps to internet (except for ios...)*
+- make GHCJSi REPL work
 - make run in actual iPhone and Android phone
 - submit to App Store and Google Play
 - finish todo app to work perfectly in all platforms
@@ -125,6 +126,20 @@ Whenever Haskell code compiles, the app should automatically reload itself. No m
 In iOS simulator enable "Live Reload" in shake-gesture menu.
 
 In Android emulator enable "Live Reload" in shake-gesture menu (F2).
+
+
+Repl
+----
+
+- >>> ./cc.sh
+- >>> ./run-in-<platform>.sh
+- >>> ./repl.sh
+
+I'm not sure if this works, but atleast it seems to be able connect from all platforms.
+Always hooked to port 8080 for now, so can only be used with one platform at a time.
+How can I pass a port from shell scripts to the actual runtime?
+
+Note that cc.sh contains a hack to modify the generated js file, so a regular cabal-build will not work here.
 
 
 Packaging
