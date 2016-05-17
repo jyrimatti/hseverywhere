@@ -35,7 +35,7 @@ todoTextInput styles state = defineStatefulView "todo text input" state $ \curTe
                       , RnS.color "#4d4d4d"
                       ] ++ styles
 
-        , RnE.onSubmitEditing $ \_ -> (tiaOnSave args $ state, Just "")
+        , RnE.onSubmitEditing $ \txt -> (tiaOnSave args $ txt, Just "")
         , RnE.onChangeText $ \txt -> \_ -> ([], Just txt)
         , RnE.onBlur $ \_ -> (tiaOnCancel args, tiaValue args)
         ] mempty
