@@ -12,5 +12,5 @@ mv $app/rn-cli.config.others.js $app/rn-cli.config.js
 
 sh -c "cd $app/android; ./gradlew assembleRelease"
 
-cp $app/android/app/build/outputs/apk/app-release-unsigned.apk dist/$app.apk
+cp $app/android/app/build/outputs/apk/app-release.apk dist/$app.apk
 echo "Generated dist/$app.apk"

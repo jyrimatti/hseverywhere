@@ -12,6 +12,12 @@ nix-shell -p nodejs-5_x --run "cd $app && npm install react-native-cli && npm in
 # init ios/android/osx project
 nix-shell -p nodejs-5_x --run "(echo yes | node ./$app/node_modules/react-native-cli/index.js init $app) && (node ./$app/node_modules/react-native-desktop-cli/index.js init $app) && cd $app && node_modules/react-native-cli/index.js android"
 
+# Android package signing
+echo "MYAPP_RELEASE_STORE_FILE=my-release-key.keystore" >> $app/android/gradle.properties
+echo "MYAPP_RELEASE_KEY_ALIAS=my-key-alias" >> $app/android/gradle.properties
+echo "MYAPP_RELEASE_STORE_PASSWORD=foobar" >> $app/android/gradle.properties
+echo "MYAPP_RELEASE_KEY_PASSWORD=foobar" >> $app/android/gradle.properties
+sed -i '' "s/defaultConfig {/signingConfigs {release {storeFile file(MYAPP_RELEASE_STORE_FILE); storePassword MYAPP_RELEASE_STORE_PASSWORD;keyAlias MYAPP_RELEASE_KEY_ALIAS;keyPassword MYAPP_RELEASE_KEY_PASSWORD}}; buildTypes { release { signingConfig signingConfigs.release }}; defaultConfig {/g" $app/android/app/build.gradle
 
 # install all needed npm-stuff
 cp -fR files/* $app/
