@@ -55,7 +55,7 @@ Installation
 ------------
 
 1. install `Nix <http://nixos.org/nixpkgs/>`_. You should already have it.
-2. install XCode and some Android emulator depending on your needs.
+2. install XCode and some Android SDK depending on your needs.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
 4. Execute ``init.sh`` to download and install half the Internet. Just answer 'yes' or 'y' to possible questions.
 
@@ -75,11 +75,11 @@ Running
 - >>> ./run-in-android.sh
 - >>> ./run-in-osx.sh
 
-Browser and iOS simulator open automatically.
-Android emulator needs to be running in advance.
+Browser, iOS simulator and Android emulator open automatically.
 OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
 
 All can be run simultaneously.
+Give Android SDK location as a parameter if the default `~/Library/Android/sdk/` is not correct.
 Default port choices can be changed (except for Android) by giving new port as an argument, e.g.
 
 - >>> ./run-in-osx.sh 8191

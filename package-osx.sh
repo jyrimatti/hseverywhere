@@ -14,4 +14,4 @@ dir=$PWD
 nix-shell -p nodejs-5_x --run "cd $app/osx && xcodebuild -scheme $app -configuration Release -target $app archive -archivePath $dir/dist/$app.xcarchive"
 hdiutil create -volname $app -srcfolder dist/$app.xcarchive/Products/Applications/$app.app -ov -format UDZO dist/$app.dmg
 
-echo "Generated dist/$app.app"
+echo "Generated dist/$app.dmg"
