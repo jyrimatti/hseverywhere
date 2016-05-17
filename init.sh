@@ -22,6 +22,7 @@ echo "MYAPP_RELEASE_KEY_ALIAS=my-key-alias" >> $app/android/gradle.properties
 echo "MYAPP_RELEASE_STORE_PASSWORD=foobar" >> $app/android/gradle.properties
 echo "MYAPP_RELEASE_KEY_PASSWORD=foobar" >> $app/android/gradle.properties
 sed -i '' "s/defaultConfig {/signingConfigs {release {storeFile file(MYAPP_RELEASE_STORE_FILE); storePassword MYAPP_RELEASE_STORE_PASSWORD;keyAlias MYAPP_RELEASE_KEY_ALIAS;keyPassword MYAPP_RELEASE_KEY_PASSWORD}}; buildTypes { release { signingConfig signingConfigs.release }}; defaultConfig {/g" $app/android/app/build.gradle
+sed -i '' "s/minifyEnabled/signingConfig signingConfigs.release; minifyEnabled/g" $app/android/app/build.gradle
 
 # Android SDK location
 echo "sdk.dir=$androidSdkLocation" > $app/android/local.properties
