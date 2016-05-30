@@ -7,6 +7,8 @@ app=$(basename $PWD)
 
 androidDevice="7in WSVGA (Tablet)"
 
+reactNativeVersion=$(cat files/package.json | grep '"react-native"' | cut -d '"' -f4)
+
 # install react-native-cli and react-native-desktop-cli
 mkdir $app
 cp files/package.json $app/
@@ -14,7 +16,7 @@ test -f files/npm-shrinkwrap && cp files/npm-shrinkwrap.json $app/
 nix-shell -p nodejs-5_x --run "cd $app && npm install react-native-cli && npm install react-native-desktop-cli"
 
 # init ios/android/osx project
-nix-shell -p nodejs-5_x --run "(echo yes | node ./$app/node_modules/react-native-cli/index.js init $app) && (node ./$app/node_modules/react-native-desktop-cli/index.js init $app) && cd $app && node_modules/react-native-cli/index.js android"
+nix-shell -p nodejs-5_x --run "(echo yes | node ./$app/node_modules/react-native-cli/index.js init $app --version=$reactNativeVersion) && (node ./$app/node_modules/react-native-desktop-cli/index.js init $app --version=$reactNativeVersion) && cd $app && node_modules/react-native-cli/index.js android"
 
 # Android package signing
 echo "MYAPP_RELEASE_STORE_FILE=my-release-key.keystore" >> $app/android/gradle.properties
