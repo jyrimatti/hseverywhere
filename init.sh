@@ -5,8 +5,6 @@ export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/$(cat 
 
 app=$(basename $PWD)
 
-androidDevice="7in WSVGA (Tablet)"
-
 reactNativeVersion=$(cat files/package.json | grep '"react-native"' | cut -d '"' -f4)
 reactNativeDesktopVersion=$(cat files/package.json | grep '"react-native-desktop"' | cut -d '"' -f4)
 
@@ -32,9 +30,6 @@ echo "MYAPP_RELEASE_STORE_PASSWORD=foobar" >> $app/android/gradle.properties
 echo "MYAPP_RELEASE_KEY_PASSWORD=foobar" >> $app/android/gradle.properties
 sed -i "s/defaultConfig {/signingConfigs {release {storeFile file(MYAPP_RELEASE_STORE_FILE); storePassword MYAPP_RELEASE_STORE_PASSWORD;keyAlias MYAPP_RELEASE_KEY_ALIAS;keyPassword MYAPP_RELEASE_KEY_PASSWORD}}; buildTypes { release { signingConfig signingConfigs.release }}; defaultConfig {/g" $app/android/app/build.gradle
 sed -i "s/minifyEnabled/signingConfig signingConfigs.release; minifyEnabled/g" $app/android/app/build.gradle
-
-# create Android virtual machine
-nix-shell -p jre8 androidsdk --run "android create avd -f -n $app -b default/x86_64 -d \"$androidDevice\" -t \$(android list targets -c | tail -n 1)"
 
 # install all needed npm-stuff
 cp -fR files/* $app/

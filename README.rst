@@ -79,7 +79,6 @@ Browser, iOS simulator and Android emulator open automatically.
 OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
 
 All can be run simultaneously.
-Give Android SDK location as a parameter if the default `~/Library/Android/sdk/` is not correct.
 Default port choices can be changed (except for Android) by giving new port as an argument, e.g.
 
 - >>> ./run-in-osx.sh 8191
