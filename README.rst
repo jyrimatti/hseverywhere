@@ -27,6 +27,7 @@ Steps
 - *try to convert the example todo app from the react-flux project to react-native to see if react-native falls short*
 - *create scripts for easy packaging*
 - *publish example apps to internet (except for ios...)*
+- *purify nix-scripts to reduce hidden dependencies*
 - make GHCJSi REPL work
 - make run in actual iPhone and Android phone
 - submit to App Store and Google Play
@@ -55,11 +56,11 @@ Installation
 ------------
 
 1. install `Nix <http://nixos.org/nixpkgs/>`_. You should already have it.
-2. install XCode and some Android SDK depending on your needs.
+2. install XCode if running in OSX. No other dependencies should be needed.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
 4. Execute ``init.sh`` to download and install half the Internet. Just answer 'yes' or 'y' to possible questions.
 
-Tested in OSX and Nixpkgs revision ``3e750abb0c3e5019651b5f11ece7300c1b548d04``. More recent Nixpkgs revisions will also probably work.
+Tested in OSX.
 
 I tried to keep everything deterministic and from messing with your global environment, but I'm no expert with NPM. Pull requests are appreciated.
 
