@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p nix bash
 set -eu
-export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/$(cat nix-revision.txt).tar.gz
+source ./nix-shell-init.sh
 
 ### Note! Note pure, requires xcode! ###
 
