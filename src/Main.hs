@@ -9,4 +9,4 @@ foreign import javascript unsafe
   js_registerComponent :: JSString -> ReactView () -> IO ()
 
 main :: IO ()
-main = js_registerComponent (pack "hsEverywhere") todoApp
+main = js_registerComponent (pack "hseverywhere") todoApp

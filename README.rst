@@ -6,7 +6,7 @@ Exploring the design space of how to use Haskell in different environments.
 This project is a work-in-progress and meant to be a template or an example for "real" applications.
 
 
-.. image:: hsEverywhere.png
+.. image:: hseverywhere.png
 
 
 Steps
@@ -58,7 +58,7 @@ Installation
 1. install `Nix <http://nixos.org/nixpkgs/>`_. You should already have it.
 2. install XCode if running in OSX. No other dependencies should be needed.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
-4. Execute ``init.sh`` to download and install half the Internet. Just answer 'yes' or 'y' to possible questions.
+4. Execute ``init.sh`` to download and install half the Internet.
 
 Tested in OSX.
 

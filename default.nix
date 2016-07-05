@@ -8,7 +8,7 @@ let
       , text, time, transformers
       }:
       mkDerivation {
-        pname = "hsEverywhere";
+        pname = "hseverywhere";
         version = "0.1.0.0";
         src = ./.;
         isLibrary = false;

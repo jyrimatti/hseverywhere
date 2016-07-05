@@ -1,5 +1,5 @@
 
-name:                hsEverywhere
+name:                hseverywhere
 version:             0.1.0.0
 license:             MIT
 license-file:        LICENSE
@@ -15,7 +15,7 @@ extra-source-files:
     example/todo/*.html,
     example/todo/run-in-node.js
 
-executable hsEverywhere
+executable hseverywhere
   main-is:             Main.hs
   build-depends:       base >=4.8 && <4.9,
                        ghcjs-base,
