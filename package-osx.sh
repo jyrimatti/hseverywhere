@@ -7,9 +7,8 @@ source ./nix-shell-init.sh
 
 app=$(basename $PWD)
 
-nix-shell --run "cabal clean && cabal build $app"
+./build.sh
 
-cp -f dist/build/$app/$app.jsexe/all.js $app/
 cp -fR files/* $app/
 mv $app/rn-cli.config.desktop.js $app/rn-cli.config.js
 

@@ -9,7 +9,8 @@ androidDevice="7in WSVGA (Tablet)"
 
 app=$(basename $PWD)
 
-cp -f dist/build/$app/$app.jsexe/all.js $app/
+./build.sh
+
 cp -fR files/* $app/
 mv $app/rn-cli.config.others.js $app/rn-cli.config.js
 

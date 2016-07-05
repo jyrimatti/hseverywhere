@@ -7,7 +7,8 @@ port=${1:-8084}
 
 app=$(basename $PWD)
 
-cp -f dist/build/$app/$app.jsexe/all.js $app/
+./build.sh
+
 cp -fR files/* $app/
 mv $app/rn-cli.config.others.js $app/rn-cli.config.js
 
