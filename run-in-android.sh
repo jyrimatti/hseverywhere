@@ -23,4 +23,4 @@ read -t 120  -p "Press enter when emulator is running..." yn
 
 nix-shell -p androidsdk jre8 which nodejs-5_x --run "cd $app; ADB_INSTALL_TIMEOUT=8 ANDROID_HOME=\$(which android | xargs dirname | xargs dirname)/libexec/android-sdk-macosx node ./node_modules/react-native-cli/index.js run-android"
 
-nix-shell -p nodejs-5_x --run "cd $app && PORT=$port npm run start"
+nix-shell -p nodejs-5_x --run "cd $app && PORT=$port npm run start-android"
