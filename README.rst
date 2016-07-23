@@ -90,7 +90,7 @@ If Android emulator complains about HAX etc, check you don't have any VirtualBox
 Haskell development
 -------------------
 
->>> nix-shell
+>>> ./shell.sh
 
 Now you are inside a Nix shell with the required Haskell dependencies globally installed. Use cabal and pile up your haskell environment, e.g.
 
