@@ -62,6 +62,8 @@ var registerRnComponents = function(__rn) {
     window['ToastAndroid'] = __rn.ToastAndroid;
     window['VibrationIOS'] = __rn.VibrationIOS;
     window['Vibration'] = __rn.Vibration;
+
+    window['Platform'] = __rn.Platform;
 };
 
 module.exports = {
