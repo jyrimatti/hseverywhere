@@ -7,7 +7,7 @@ source ./nix-shell-init.sh
 
 app=$(basename $PWD)
 
-./build.sh
+./cleanbuild.sh
 
 cp -fR files/* $app/
 mv $app/rn-cli.config.desktop.js $app/rn-cli.config.js
