@@ -1,26 +1,29 @@
 module React.Flux.Rn.APIs where
 
+import System.IO.Unsafe (unsafePerformIO)
 import GHCJS.Types (JSVal)
 import GHCJS.Marshal (ToJSVal(..),FromJSVal(..))
 
--- practically a global constant
+
+
+-- Platform
+
+data Platform = IOS | Android | OSX | Web | Other String
+  deriving Show
+
+platform :: Platform
+platform = case platformOS of
+             "ios" -> IOS
+             "android" -> Android
+             "osx" -> OSX
+             "web" -> Web
+             p -> Other p
+
 platformOS :: String
 platformOS = unsafePerformIO $ js_platform_os >>= fromJSValUnchecked
 
--- practically a global constant
 platformVersion :: String
 platformVersion = unsafePerformIO $ js_platform_version >>= fromJSValUnchecked
-
-alert :: String -> Maybe String -> IO ()
-alert title msg = toJSVal title >>= \t -> (case msg of
-                                            Just m -> toJSVal m
-                                            Nothing -> toJSVal " ") >>= \m -> js_alert t m
-
-openURL :: String -> IO ()
-openURL url = toJSVal url >>= js_openURL
-
-currentState :: IO String
-currentState = js_currentState >>= fromJSValUnchecked
 
 foreign import javascript unsafe
     "Platform.OS"
@@ -30,14 +33,38 @@ foreign import javascript unsafe
     "Platform.Version"
   js_platform_version :: IO JSVal
 
+
+
+-- Alert
+
+alert :: String -> Maybe String -> IO ()
+alert title msg = toJSVal title >>= \t -> (case msg of
+                                            Just m -> toJSVal m
+                                            Nothing -> toJSVal " ") >>= \m -> js_alert t m
+
 foreign import javascript unsafe
     "Alert.alert($1,$2)"
   js_alert :: JSVal -> JSVal -> IO ()
+
+
+
+-- Linking
+
+openURL :: String -> IO ()
+openURL url = toJSVal url >>= js_openURL
 
 foreign import javascript unsafe
     "Linking.openURL($1)"
   js_openURL :: JSVal -> IO ()
 
+
+
+-- AppState
+
+currentState :: IO String
+currentState = js_currentState >>= fromJSValUnchecked
+
 foreign import javascript unsafe
     "AppState.currentState"
   js_currentState :: IO JSVal
+

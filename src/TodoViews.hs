@@ -5,6 +5,7 @@ import Control.Monad (when, unless, forM_)
 
 import React.Flux (defineView, defineControllerView, view, viewWithKey, ReactView, ReactElementM, ViewEventHandler, elemShow, elemText, ($=))
 
+import qualified React.Flux.Rn.APIs as RnA
 import qualified React.Flux.Rn.Components as Rn
 import qualified React.Flux.Rn.Style as RnS
 import qualified React.Flux.Rn.Events as RnE
@@ -50,6 +51,7 @@ todoFooter = defineView "todoFooter" $ \() ->
                        , RnS.marginHorizontal 30
                        ]] $ do
         Rn.text [RnS.style $ RnS.marginBottom 10 : infoStyles] "Long-press to edit, double-click x to delete"
+        Rn.text [RnS.style $ infoStyles] $ elemText $ "You are running on: " ++ show RnA.platform
         Rn.view [ RnS.style [ RnS.flexWrap RnS.Wrap
                             , RnS.alignSelf RnS.SCenter
                             ]] $
