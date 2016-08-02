@@ -16,4 +16,3 @@ cp -fR files/* $app/
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" $app/osx/$app/AppDelegate.m"
 
 nix-shell -p nodejs-5_x xdg_utils --run "cd $app && xdg-open osx/$app.xcodeproj"
-nix-shell --pure -p nodejs-5_x --run "cd $app && PORT=$port npm run start-osx"

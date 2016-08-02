@@ -13,5 +13,3 @@ cp -fR files/* $app/
 
 nix-shell -p xdg_utils --run "xdg-open http://localhost:$port/"
 
-nix-shell --pure -p nodejs-5_x --run "cd $app && PORT=$port npm run start-web"
-

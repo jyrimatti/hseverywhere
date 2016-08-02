@@ -18,8 +18,6 @@ nix-shell -p androidsdk jre8 which file --run "\
   && ANDROID_SDK_ROOT=\$(which android | xargs dirname | xargs dirname)/libexec/android-sdk-macosx emulator -avd $app -no-skin -no-boot-anim" &
 
 sleep 15
-read -t 120  -p "Press enter when emulator is running..." yn
+read -t 360  -p "Press enter when emulator is running..." yn
 
-nix-shell -p androidsdk jre8 which nodejs-5_x --run "cd $app; ADB_INSTALL_TIMEOUT=8 ANDROID_HOME=\$(which android | xargs dirname | xargs dirname)/libexec/android-sdk-macosx node ./node_modules/react-native-cli/index.js run-android"
-
-nix-shell -p nodejs-5_x --run "cd $app && PORT=$port npm run start-android"
+nix-shell -p androidsdk jre8 which nodejs-5_x --run "cd $app; ADB_INSTALL_TIMEOUT=16 ANDROID_HOME=\$(which android | xargs dirname | xargs dirname)/libexec/android-sdk-macosx node ./node_modules/react-native-cli/index.js run-android"
