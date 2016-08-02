@@ -1,13 +1,25 @@
 
-var doRegister = function(name,c,AppRegistry) {
-    AppRegistry.registerComponent("actual-app", function() { return c; });
-    AppRegistry.registerRunnable(name, function(appParameters) {
-        appParameters.initialProps['hs'] = 'haskell-stuff needs this for whatever reason';
-        return AppRegistry.runApplication("actual-app", appParameters);
-    });
+window.React = require('react');
+
+window.__registerComponent = function(name,c) {
+    var { doRegister } = require('./register');
+    var { AppRegistry } = require('react-native');
+    doRegister(name,c,AppRegistry);
 };
 
+if (!window.navigator) {
+  window.navigator = {};
+  window.navigator.userAgent = 'react-native';
+}
+
+var { registerRnComponents } = require('./register_rn');
+var { registerAddons } = require('./register_addons');
+var __rn = require('react-native');
+
 module.exports = {
-  doRegister: doRegister
+  RegRn: registerRnComponents(__rn),
+  RegAddons: registerAddons(__rn.Platform.OS),
+  Runmain: require('./all'),
+  Repl: require('./ghcjsiClient')
 };
 
