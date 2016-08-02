@@ -12,7 +12,6 @@ app=$(basename $PWD)
 ./build.sh
 
 cp -fR files/* $app/
-mv $app/rn-cli.config.desktop.js $app/rn-cli.config.js
 
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" $app/osx/$app/AppDelegate.m"
 

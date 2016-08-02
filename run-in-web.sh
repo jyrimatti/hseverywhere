@@ -10,7 +10,6 @@ app=$(basename $PWD)
 ./build.sh
 
 cp -fR files/* $app/
-mv $app/rn-cli.config.others.js $app/rn-cli.config.js
 
 nix-shell -p xdg_utils --run "xdg-open http://localhost:$port/"
 

@@ -12,7 +12,6 @@ app=$(basename $PWD)
 ./build.sh
 
 cp -fR files/* $app/
-mv $app/rn-cli.config.others.js $app/rn-cli.config.js
 
 nix-shell -p androidsdk jre8 which file --run "\
      android create avd -f -n $app -b default/x86_64 -d \"$androidDevice\" -t \$(android list targets -c | tail -n 1)\
