@@ -1,5 +1,8 @@
 // copied with modifications from https://github.com/artemyarulin/ghcjs-repl-react-native/blob/master/replProject/ghcjsRNClient.js
-window.navigator.userAgent = "react-native";
+if (!window.navigator)
+  window.navigator = {};
+if (!window.navigator.userAgent)
+  window.navigator.userAgent = "react-native";
 
 var {btoa,atob} = require('Base64')
 window.btoa = btoa
