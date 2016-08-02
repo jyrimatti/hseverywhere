@@ -3,12 +3,14 @@ module TodoViews where
 
 import Control.Monad (when, unless, forM_)
 
-import React.Flux (defineView, defineControllerView, view, viewWithKey, ReactView, ReactElementM, ViewEventHandler, elemShow, elemText, ($=))
+import React.Flux (defineView, defineControllerView, view, viewWithKey, ReactView, ReactElementM, ViewEventHandler, elemShow, elemText, ($=), (@=))
 
 import qualified React.Flux.Rn.APIs as RnA
 import qualified React.Flux.Rn.Components as Rn
 import qualified React.Flux.Rn.Style as RnS
 import qualified React.Flux.Rn.Events as RnE
+
+import qualified Addons
 
 import TodoDispatcher
 import TodoStore
@@ -144,11 +146,11 @@ todoItem = defineView "todo item" $ \(todoIdx, todo) ->
                                     , RnS.borderColor "#bddad5"
                                     , RnS.alignItems RnS.ICenter
                                     ]] $
-                    Rn.text [ RnS.style [ RnS.fontSize 20
-                                        , RnS.color "#5dc2af"
-                                        ]] $
-                        if isComplete then "\x2713" else ""
-
+                    case RnA.platform of
+                        RnA.Web -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af" ]] $ if isComplete then "\x2713" else ""
+                        RnA.OSX -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af" ]] $ if isComplete then "\x2713" else ""
+                        _ | isComplete -> Addons.icon_materialicons ["name" $= "done", "size" @= (20 :: Int), "color" $= "#5dc2af"] mempty
+                        _ -> mempty
             Rn.touchableOpacity [ RnE.onLongPress $ dispatchTodo $ TodoEdit todoIdx
                                 , RnS.style [ RnS.padding 15
                                             , RnS.flex 1

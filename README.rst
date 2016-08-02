@@ -28,6 +28,7 @@ Steps
 - *create scripts for easy packaging*
 - *publish example apps to internet (except for ios...)*
 - *purify nix-scripts to reduce hidden dependencies*
+- *add support of 3rd party (also native) addons*
 - make GHCJSi REPL work
 - make run in actual iPhone and Android phone
 - submit to App Store and Google Play
@@ -66,6 +67,16 @@ I tried to keep everything deterministic and from messing with your global envir
 
 Installation creates a subdirectory containing all the react-native stuff.
 This directory is for now completely generated (unless You modify it somehow yourself), so if you think you've messed up something or want to update js-dependencies, just rm -R the generated directory and re-run init.sh.
+
+
+Addons
+------
+
+List addons to ``addons.txt`` preferably with a version number.
+Add initialization to ``register_addons.[platform.].js``
+Execute ``init-addons.sh`` to install and link the addons.
+
+Note that most addons currently work only on IOS and Android.
 
 
 Running

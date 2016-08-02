@@ -11,6 +11,15 @@ module.exports = {
             path.resolve(__dirname, "./~/react-native-web"),
             path.resolve(__dirname, "./~/react-native-desktop")
           ],
+      },
+      {
+        loader: "babel-loader",
+        test: /\.jsx?$/,
+        exclude: /all.js/,
+        query: {
+          presets: ['es2015', 'stage-0', 'react'],
+          cacheDirectory: true
+        }
       }
     ]
   },
