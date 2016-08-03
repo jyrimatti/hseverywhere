@@ -10,10 +10,9 @@ app=$(basename $PWD)
 ./cleanbuild.sh
 
 cp -fR files/* $app/
-mv $app/rn-cli.config.desktop.js $app/rn-cli.config.js
 
 dir=$PWD
-nix-shell -p nodejs-5_x --run "cd $app/osx && /usr/bin/xcodebuild -scheme $app -configuration Release -target $app archive -archivePath $dir/dist/$app.xcarchive"
-/usr/bin/hdiutil create -volname $app -srcfolder dist/$app.xcarchive/Products/Applications/$app.app -ov -format UDZO dist/$app.dmg
+nix-shell -p nodejs-5_x --run "cd $app/osx && PLATFORM=osx /usr/bin/xcodebuild -scheme $app -configuration Release -target $app archive -archivePath $dir/dist/$app.xcarchive"
+/usr/bin/hdiutil create -volname $app -srcfolder dist/$app.xcarchive/Products/Applications/$app.app -ov -format UDZO release/$app.dmg
 
-echo "Generated dist/$app.dmg"
+echo "Generated release/$app.dmg"

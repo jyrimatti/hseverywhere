@@ -18,6 +18,7 @@ module.exports = {
         exclude: /all.js/,
         query: {
           presets: ['es2015', 'stage-0', 'react'],
+          plugins: ['add-module-exports'],
           cacheDirectory: true
         }
       }

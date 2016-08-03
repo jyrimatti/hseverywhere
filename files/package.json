@@ -22,6 +22,7 @@
     "react-native-cli": "0.2.0",
     "react-native": "0.25.1",
     "react-native-web": "0.0.25",
+    "babel-plugin-add-module-exports": "0.2.1",
     "react-native-desktop-cli": "0.1.11",
     "react-native-desktop": "0.7.2",
     "goog.crypt.Hash": "file:./goog.crypt.Hash",
