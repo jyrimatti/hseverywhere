@@ -2,7 +2,7 @@ module React.Flux.Rn.Components where
 
 import React.Flux (foreign_)
 
-activityIndicatorIOS = foreign_ "ActivityIndicatorIOS"
+activityIndicator = foreign_ "ActivityIndicator"
 datePickerIOS = foreign_ "DatePickerIOS"
 drawerLayoutAndroid = foreign_ "DrawerLayoutAndroid"
 image = foreign_ "Image"
@@ -16,10 +16,10 @@ pickerIOS = foreign_ "PickerIOS"
 picker = foreign_ "Picker"
 progressBarAndroid = foreign_ "ProgressBarAndroid"
 progressViewIOS = foreign_ "ProgressViewIOS"
-pullToRefreshViewAndroid = foreign_ "PullToRefreshViewAndroid"
 refreshControl = foreign_ "RefreshControl"
 scrollView = foreign_ "ScrollView"
 segmentedControlIOS = foreign_ "SegmentedControlIOS"
+slider = foreign_ "Slider"
 sliderIOS = foreign_ "SliderIOS"
 statusBar = foreign_ "StatusBar"
 switch = foreign_ "Switch"

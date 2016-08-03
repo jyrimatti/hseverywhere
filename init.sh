@@ -19,9 +19,9 @@ sed -i "s/npm install --save react-native-desktop/npm install --save react-nativ
 
 # init ios/android/osx project
 nix-shell -p nodejs-5_x python2 --run "\
-     (echo yes | node ./$app/node_modules/react-native-cli/index.js init $app --version=$reactNativeVersion)\
-  && (echo yes | node ./$app/node_modules/react-native-desktop-cli/index.js init $app --version=$reactNativeDesktopVersion)\
-  && (cd $app && node ./node_modules/react-native-cli/index.js android)"
+     (echo yes | node ./$app/node_modules/react-native-desktop-cli/index.js init $app --version=$reactNativeDesktopVersion && rm $app/.gitignore)\
+  && (echo yes | node ./$app/node_modules/react-native-cli/index.js init $app --version=$reactNativeVersion)\
+  && (cd $app; node ./node_modules/react-native-cli/index.js android)"
 
 # Android package signing
 echo "MYAPP_RELEASE_STORE_FILE=my-release-key.keystore" >> $app/android/gradle.properties
