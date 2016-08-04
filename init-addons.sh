@@ -7,5 +7,5 @@ app=$(basename $PWD)
 
 cp register_addons*.js $app/
 
-nix-shell -p nodejs-5_x --run "cd $app && cat ../addons.txt | xargs -L1 npm install --save"
+nix-shell -p nodejs-5_x --run "cd $app && cat ../addons.txt | xargs -L1 npm install"
 nix-shell -p nodejs-5_x --run "cd $app && cat ../addons.txt | sed 's/@.*//' | xargs -L1 node_modules/rnpm/bin/cli link"

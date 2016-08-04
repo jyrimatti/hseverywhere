@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start-mobile": "PLATFORM=mobile node node_modules/react-native/local-cli/cli.js start --port=$PORT",
-    "start-osx": "PLATFORM=osx node node_modules/react-native-desktop/local-cli/cli.js start --port=$PORT",
-    "start-web": "PLATFORM=web node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --content-base=../ --inline --hot --port=$PORT",
+    "start-mobile": "PLATFORM=mobile node node_modules/react-native/local-cli/cli.js start          --port=$PORT --skipflow --reset-cache --nonPersistent",
+    "start-osx":    "PLATFORM=osx    node node_modules/react-native-desktop/local-cli/cli.js start  --port=$PORT --skipflow --reset-cache --nonPersistent",
+    "start-web":    "PLATFORM=web    node node_modules/webpack-dev-server/bin/webpack-dev-server.js --port=$PORT --progress --colors --content-base=../ --inline --hot",
     "pack": "node ./node_modules/webpack/bin/webpack.js"
   },
   "dependencies": {

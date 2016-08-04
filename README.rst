@@ -59,7 +59,7 @@ Installation
 1. install `Nix <http://nixos.org/nixpkgs/>`_. You should already have it.
 2. install XCode if running in OSX. No other dependencies should be needed.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
-4. Execute ``init.sh`` to download and install half the Internet.
+4. Execute ``quickstart.sh`` to download and install half the Internet, initialize, build, package and run everything.
 
 Tested in OSX.
 
@@ -82,10 +82,17 @@ Note that most addons currently work only on IOS and Android.
 Running
 -------
 
-- >>> ./run-in-web.sh
-- >>> ./run-in-ios.sh
-- >>> ./run-in-android.sh
-- >>> ./run-in-osx.sh
+- >>> ./run-web.sh
+- >>> ./run-ios.sh
+- >>> ./run-android.sh
+- >>> ./run-osx.sh
+
+or just
+
+- >>> ./run-all.sh
+
+Also start packagers:
+- >>> ./start-packagers.sh
 
 Browser, iOS simulator and Android emulator open automatically.
 OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
@@ -93,7 +100,7 @@ OSX opens XCode, in which you have to 'Run' the app (can this be done from the c
 All can be run simultaneously.
 Default port choices can be changed (except for Android) by giving new port as an argument, e.g.
 
-- >>> ./run-in-osx.sh 8191
+- >>> ./run-osx.sh 8191
 
 If Android emulator complains about HAX etc, check you don't have any VirtualBoxes running.
 
@@ -132,7 +139,7 @@ Live reload
 
 Whenever Haskell code compiles, the app should automatically reload itself. No manual refresh (CMD+r/double-r) should be necessary, except in OSX.
 
-``run-in-web.sh`` starts webpack-dev-server which automatically reloads the app.
+``run-web.sh`` starts webpack-dev-server which automatically reloads the app.
 
 In iOS simulator enable "Live Reload" in shake-gesture menu.
 
@@ -142,15 +149,13 @@ In Android emulator enable "Live Reload" in shake-gesture menu (F2).
 Repl
 ----
 
-- >>> ./cc.sh
-- >>> ./run-in-<platform>.sh
+- >>> ./build.sh
+- >>> ./run-<platform>.sh
 - >>> ./repl.sh
 
 Somewhat working for all platforms, but really unstable and slow.
 Always hooked to port 8080 for now, so can only be used with one platform at a time.
 How can I pass a port from shell scripts to the actual runtime?
-
-Note that cc.sh contains a hack to modify the generated js file, so a regular cabal-build will not work here.
 
 
 Packaging
@@ -160,12 +165,14 @@ Packaging
 - >>> ./package-android.sh
 - >>> ./package-osx.sh
 
+or just
+
+- >>> ./package-all.sh
 
 Problems
 --------
 
 - some styling inconsistencies between ios and android
-- react-flux does not support all kinds of properties (https://bitbucket.org/wuzzeb/react-flux/issues/10/)
 - react-native-desktop is still work-in-progress
   - needs message for alert although should be optional
   - text-input is always multiline

@@ -11,6 +11,8 @@ cp -fR files/* $app/
 
 nix-shell -p nodejs-5_x --run "cd $app && npm run pack"
 
+test -d release || mkdir release
+rm release/$app.html
 echo "<!doctype html><html><head><meta charset='utf-8'><title>$app</title></head><body><section id='react-root'/><script type='text/javascript'>" > release/$app.html
 echo "//<![CDATA[" >> release/$app.html
 cat dist/bundle.js >> release/$app.html

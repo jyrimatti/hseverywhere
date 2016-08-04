@@ -3,7 +3,7 @@
 set -eu
 source ./nix-shell-init.sh
 
-port=${1:-8084}
+port=${1:-8083}
 
 app=$(basename $PWD)
 

@@ -5,7 +5,7 @@ source ./nix-shell-init.sh
 
 ### Note! Note pure, requires xcodebuild! ###
 
-port=${1:-8083}
+port=${1:-8082}
 
 app=$(basename $PWD)
 
