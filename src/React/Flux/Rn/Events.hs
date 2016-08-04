@@ -1,9 +1,10 @@
+{-# LANGUAGE OverloadedStrings #-}
 module React.Flux.Rn.Events where
 
 import System.IO.Unsafe (unsafePerformIO)
 import Data.Maybe (fromMaybe)
 
-import GHCJS.Types (JSVal)
+import GHCJS.Types (JSVal,JSString)
 import GHCJS.Marshal (FromJSVal(..))
 
 import React.Flux (PropertyOrHandler)
@@ -33,10 +34,10 @@ onChange = on0 "onChange"
 onChangeText :: (String -> handler) -> PropertyOrHandler handler
 onChangeText = on1 "onChangeText" 
 
-on0 :: String -> handler -> PropertyOrHandler handler
+on0 :: JSString -> handler -> PropertyOrHandler handler
 on0 ev f = CallbackPropertyWithSingleArgument ev $ \_ -> f
 
-on1 :: FromJSVal arg => String -> (arg -> handler) -> PropertyOrHandler handler
+on1 :: FromJSVal arg => JSString -> (arg -> handler) -> PropertyOrHandler handler
 on1 ev f = CallbackPropertyWithSingleArgument ev $ \(HandlerArg jsval) -> f $ from jsval
 
 from :: FromJSVal b => JSVal -> b

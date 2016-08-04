@@ -4,4 +4,4 @@
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
 
 # always use a specific nixpkgs revision
-export NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/$(cat nix-revision.txt).tar.gz
+export NIX_PATH=nixpkgs=https://github.com/NixOS/$(cat nix-revision.txt).tar.gz

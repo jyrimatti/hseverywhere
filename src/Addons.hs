@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Addons where
 
 import React.Flux (foreign_)

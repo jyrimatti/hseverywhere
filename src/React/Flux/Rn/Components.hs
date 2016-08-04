@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module React.Flux.Rn.Components where
 
 import React.Flux (foreign_)

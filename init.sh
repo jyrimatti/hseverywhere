@@ -31,6 +31,8 @@ echo "MYAPP_RELEASE_KEY_PASSWORD=foobar" >> $app/android/gradle.properties
 sed -i "s/defaultConfig {/signingConfigs {release {storeFile file(MYAPP_RELEASE_STORE_FILE); storePassword MYAPP_RELEASE_STORE_PASSWORD;keyAlias MYAPP_RELEASE_KEY_ALIAS;keyPassword MYAPP_RELEASE_KEY_PASSWORD}}; buildTypes { release { signingConfig signingConfigs.release }}; defaultConfig {/g" $app/android/app/build.gradle
 sed -i "s/minifyEnabled/signingConfig signingConfigs.release; minifyEnabled/g" $app/android/app/build.gradle
 
+sed -i "s/^android [{]/android { adbOptions.timeOutInMs = 8*60*1000; com.android.ddmlib.DdmPreferences.setTimeOut(8*60*1000)/" $app/android/app/build.gradle
+
 # install all needed npm-stuff
 cp -fR files/* $app/
 nix-shell -p nodejs-5_x --run "cd $app && npm install"

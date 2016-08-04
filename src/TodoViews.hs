@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module TodoViews where
 
+import qualified Data.Text as T
 import Control.Monad (when, unless, forM_)
 
 import React.Flux (defineView, defineControllerView, view, viewWithKey, ReactView, ReactElementM, ViewEventHandler, elemShow, elemText, ($=), (@=))
@@ -53,7 +54,7 @@ todoFooter = defineView "todoFooter" $ \() ->
                        , RnS.marginHorizontal 30
                        ]] $ do
         Rn.text [RnS.style $ RnS.marginBottom 10 : infoStyles] "Long-press to edit, double-click x to delete"
-        Rn.text [RnS.style $ infoStyles] $ elemText $ "You are running on: " ++ show RnA.platform
+        Rn.text [RnS.style $ infoStyles] $ elemText . T.pack $ "You are running on: " ++ show RnA.platform
         Rn.view [ RnS.style [ RnS.flexWrap RnS.Wrap
                             , RnS.alignSelf RnS.SCenter
                             ]] $
@@ -162,7 +163,7 @@ todoItem = defineView "todo item" $ \(todoIdx, todo) ->
                                     , RnS.fontFamily "HelveticaNeue"
                                     , RnS.textDecorationLine $ if isComplete then RnS.LineThrough else RnS.None
                                     ]] $
-                    elemText $ todoText todo
+                    elemText $ T.pack $ todoText todo
 
         when (todoIsEditing todo) $ do
             Rn.touchableWithoutFeedback [ RnE.onPress $ dispatchTodo $ TodoDelete todoIdx ] $
