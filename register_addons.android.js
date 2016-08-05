@@ -9,10 +9,6 @@ var registerAddons = function(platform) {
     window['Icon.Zocial'] = require('react-native-vector-icons/Zocial');
 
     window['Animatable'] = require('react-native-animatable');
-
-    if (platform !== 'web') {
-      window['GL'] = require('gl-react-native');
-    }
 };
 
 module.exports = {
