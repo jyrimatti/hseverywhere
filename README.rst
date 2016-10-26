@@ -57,7 +57,7 @@ Installation
 ------------
 
 1. install `Nix <http://nixos.org/nixpkgs/>`_. You should already have it.
-2. install XCode if running in OSX. No other dependencies should be needed.
+2. install XCode if running in OSX. Install Vagrant if running in Windows. No other dependencies should be needed.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
 4. Execute ``quickstart.sh`` to download and install half the Internet, initialize, build, package and run everything.
 
@@ -67,6 +67,25 @@ I tried to keep everything deterministic and from messing with your global envir
 
 Installation creates a subdirectory containing all the react-native stuff.
 This directory is for now completely generated (unless You modify it somehow yourself), so if you think you've messed up something or want to update js-dependencies, just rm -R the generated directory and re-run init.sh.
+
+
+Windows
+-------
+
+Initialize a Windows VM with Visual Studio:
+
+- >>> ./init-windows.bat
+
+When the VM starts, execute the commands from ``init-WinRM.bat`` as Administrator.
+Vagrant should now be able to connect and finish initialization.
+
+Open the solution (from c:\vagrant\<projectname>\windows\<projectname>.sln) and let Visual Studio "Install missing features". I couldn't resolve a suitable subset of the features to install automatically, curse Microsoft and installers.
+
+You can now start the Windows app, after which it should be able to connect to the same packager as ios/android:
+
+./run-windows.bat
+
+For actual debugging and resolving of mysterious crashes you can start the app from Visual Studio.
 
 
 Addons
@@ -86,6 +105,7 @@ Running
 - >>> ./run-ios.sh
 - >>> ./run-android.sh
 - >>> ./run-osx.sh
+- >>> ./run-windows.sh
 
 or just
 
@@ -96,9 +116,10 @@ Also start packagers:
 
 Browser, iOS simulator and Android emulator open automatically.
 OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
+Windows app runs inside a Virtual Box VM.
 
 All can be run simultaneously.
-Default port choices can be changed (except for Android) by giving new port as an argument, e.g.
+Default port choices can be changed (except for Android/Windows) by giving new port as an argument, e.g.
 
 - >>> ./run-osx.sh 8191
 
@@ -114,10 +135,12 @@ Now you are inside a Nix shell with the required Haskell dependencies globally i
 
 >>> nix-shell -p haskellPackages.stylish-haskell -p haskellPackages.hdevtools -p haskellPackages.apply-refact -p haskellPackages.pointfree
 
+Unfortunately, ghc-mod or hdevtools don't yet work with GHCJS.
+
 New Haskell-dependencies should be added to both cabal file and default.nix. Then rerun nix-shell.
 
 
-iOS/Android/OSX development
+iOS/Android/OSX/Windows development
 ---------------------------
 
 I have no idea, never done those. I think you can just develop the projects created by react-native, but note that at least for now, this repo has added the whole react-native-subproject to .gitignore.
@@ -141,9 +164,7 @@ Whenever Haskell code compiles, the app should automatically reload itself. No m
 
 ``run-web.sh`` starts webpack-dev-server which automatically reloads the app.
 
-In iOS simulator enable "Live Reload" in shake-gesture menu.
-
-In Android emulator enable "Live Reload" in shake-gesture menu (F2).
+In other platforms, enable "Live Reload" in shake-gesture menu.
 
 
 Repl

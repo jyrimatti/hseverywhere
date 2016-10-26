@@ -96,6 +96,7 @@ mainSection_ todoState@(TodoState todoList filt) =
                         , RnS.style [ RnS.transform [RnS.RotateZ "90deg"]
                                     , RnS.color $ if allCompleted then "#4d4d4d" else "#d9d9d9"
                                     , RnS.fontSize 20
+                                    , RnS.fontFamily "HelveticaNeue"
                                     ]]
                     ">"
             todoTextInput_ [ RnS.fontStyle RnS.Italic
@@ -148,8 +149,9 @@ todoItem = defineView "todo item" $ \(todoIdx, todo) ->
                                     , RnS.alignItems RnS.ICenter
                                     ]] $
                     case RnA.platform of
-                        RnA.Web -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af" ]] $ if isComplete then "\x2713" else ""
-                        RnA.OSX -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af" ]] $ if isComplete then "\x2713" else ""
+                        RnA.Web        -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af", RnS.fontFamily "HelveticaNeue" ]] $ if isComplete then "\x2713" else ""
+                        RnA.OSX        -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af", RnS.fontFamily "HelveticaNeue" ]] $ if isComplete then "\x2713" else ""
+                        RnA.Windows    -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af", RnS.fontFamily "HelveticaNeue" ]] $ if isComplete then "\x2713" else ""
                         _ | isComplete -> Addons.icon_materialicons ["name" $= "done", "size" @= (20 :: Int), "color" $= "#5dc2af"] mempty
                         _ -> mempty
             Rn.touchableOpacity [ RnE.onLongPress $ dispatchTodo $ TodoEdit todoIdx
@@ -229,11 +231,11 @@ mainSectionFooter = defineView "footer" $ \(TodoState todos filtering) ->
                                 , RnS.flex 1
                                 ]] $ do
                 Rn.touchableOpacity [ RnE.onPress $ dispatchTodo (SetFilter All), styling All] $
-                    Rn.text [] "All"
+                    Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "All"
                 Rn.touchableOpacity [ RnE.onPress $ dispatchTodo (SetFilter Active), styling Active] $
-                    Rn.text [] "Active"
+                    Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Active"
                 Rn.touchableOpacity [ RnE.onPress $ dispatchTodo (SetFilter Completed), styling Completed] $
-                    Rn.text [] "Completed"
+                    Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Completed"
 
             Rn.touchableOpacity [ RnE.onPress $ dispatchTodo ClearCompletedTodos
                                 , RnS.style (if completed == 0 then [RnS.opacity 0] else [])

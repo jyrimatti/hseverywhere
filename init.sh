@@ -1,6 +1,6 @@
 #! /usr/bin/env nix-shell
 #! nix-shell --pure -i bash -p nix bash
-set -eux
+set -eu
 source ./nix-shell-init.sh
 
 app=$(basename $PWD)
@@ -44,6 +44,10 @@ cp -f files/index.windows.js $app/
 
 # 10.0.2.2 is a VirtualBox alias for localhost
 sed -i "s/localhost:8081/10.0.2.2:8081/" $app/node_modules/react-native-windows/ReactWindows/ReactNative/DevSupport/DevServerHelper.cs
+# change VS project output path outside of the network share.
+sed -r 's/(<OutputPath>)([^<]*)/\1c:\\vagrant-build\\\2/g' $app/windows/$app/$app.csproj > $app/windows/$app/$app.csproj.temp && mv $app/windows/$app/$app.csproj.temp $app/windows/$app/$app.csproj
+# enable private network to access react-packager
+sed -i 's/<\/Capabilities>/<Capability Name="privateNetworkClientServer"\/><\/Capabilities>/' $app/windows/$app/Package.appxmanifest
 
 # ignore ghcjs-generated files from transform since it's too slow
 sed -i "s/function transform(src, filename, options) {/function transform(src, filename, options) { if (filename.indexOf('all.js') > -1) return { code: src };/" $app/node_modules/react-native/packager/transformer.js

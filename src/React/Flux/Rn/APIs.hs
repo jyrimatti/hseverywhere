@@ -8,7 +8,7 @@ import GHCJS.Marshal (ToJSVal(..),FromJSVal(..))
 
 -- Platform
 
-data Platform = IOS | Android | OSX | Web | Other String
+data Platform = IOS | Android | OSX | Web | Windows | Other String
   deriving Show
 
 platform :: Platform
@@ -17,6 +17,7 @@ platform = case platformOS of
              "android" -> Android
              "osx" -> OSX
              "web" -> Web
+             "windows" -> Windows
              p -> Other p
 
 platformOS :: String
