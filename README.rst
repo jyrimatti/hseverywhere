@@ -23,7 +23,7 @@ Steps
 - *make Live Reload work in all envs*
 - *write a README*
 - *cleanup and upload to github*
-- *make run in OSX with https://github.com/ptmt/react-native-desktop*
+- *make run in OSX with https://github.com/ptmt/react-native-macos*
 - *try to convert the example todo app from the react-flux project to react-native to see if react-native falls short*
 - *create scripts for easy packaging*
 - *publish example apps to internet (except for ios...)*
@@ -92,7 +92,7 @@ Addons
 ------
 
 List addons to ``addons.txt`` preferably with a version number.
-Add initialization to ``register_addons.[platform.].js``
+Add initialization to ``register_addons.[platform.]js``
 Execute ``init-addons.sh`` to install and link the addons.
 
 Note that most addons currently work only on IOS and Android.
@@ -194,7 +194,7 @@ Problems
 --------
 
 - some styling inconsistencies between ios and android
-- react-native-desktop is still work-in-progress
+- react-native-macos is still work-in-progress
   - needs message for alert although should be optional
   - text-input is always multiline
   - text-input seems to fire onBlur after half-a-second its activation

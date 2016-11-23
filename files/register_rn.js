@@ -55,7 +55,7 @@ var registerRnComponents = function(__rn) {
     window['PanResponder'] = __rn.PanResponder;
     window['PixelRatio'] = __rn.PixelRatio;
 // failing, why?    window['PushNotificationIOS'] = __rn.PushNotificationIOS;
-if (__rn.Platform.OS !== 'osx') {
+if (__rn.Platform.OS !== 'macos') {
     window['StatusBarIOS'] = __rn.StatusBarIOS;
 }
     window['StyleSheet'] = __rn.StyleSheet;

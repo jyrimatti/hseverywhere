@@ -3,7 +3,7 @@
 set -eu
 
 ./run-web.sh
-./run-osx.sh
+./run-macos.sh
 ./run-ios.sh
 ./run-android.sh
 

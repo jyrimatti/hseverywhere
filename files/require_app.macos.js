@@ -3,7 +3,7 @@ window.React = require('react');
 
 window.__registerComponent = function(name,c) {
     var { doRegister } = require('./register');
-    var { AppRegistry } = require('react-native-desktop');
+    var { AppRegistry } = require('react-native-macos');
     doRegister(name,c,AppRegistry);
 };
 
@@ -14,7 +14,7 @@ if (!window.navigator) {
 
 var { registerRnComponents } = require('./register_rn');
 var { registerAddons } = require('./register_addons');
-var __rn = require('react-native-desktop');
+var __rn = require('react-native-macos');
 
 module.exports = {
   RegRn: registerRnComponents(__rn),

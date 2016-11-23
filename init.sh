@@ -6,20 +6,21 @@ source ./nix-shell-init.sh
 app=$(basename $PWD)
 
 reactNativeVersion=$(cat files/package.json | grep '"react-native"' | cut -d '"' -f4)
-reactNativeDesktopVersion=$(cat files/package.json | grep '"react-native-desktop"' | cut -d '"' -f4)
+reactNativeMacosVersion=$(cat files/package.json | grep '"react-native-macos"' | cut -d '"' -f4)
+buildToolsVersion=$(nix-store --query --references $(nix-instantiate '<nixpkgs>' -A androidsdk) | grep 'android-build-tools' | sed 's/.*build-tools-r\(.*\).drv/\1/')
 
-# install react-native-cli and react-native-desktop-cli
+# install react-native-cli and react-native-macos-cli
 mkdir $app
 cp files/package.json $app/
 test -f files/npm-shrinkwrap && cp files/npm-shrinkwrap.json $app/
-nix-shell -p nodejs-5_x --run "cd $app && npm install react-native-cli && npm install react-native-desktop-cli"
+nix-shell -p nodejs --run "cd $app && npm install react-native-cli && npm install react-native-macos-cli"
 
-# add correct react-native-desktop version for the cli-tool to install.
-sed -i "s/npm install --save react-native-desktop/npm install --save react-native-desktop@$reactNativeDesktopVersion/g" $app/node_modules/react-native-desktop-cli/index.js
+# add correct react-native-macos version for the cli-tool to install.
+sed -i "s/npm install --save react-native-macos/npm install --save react-native-macos@$reactNativeMacosVersion/g" $app/node_modules/react-native-macos-cli/index.js
 
-# init ios/android/osx project
-nix-shell -p nodejs-5_x python2 --run "\
-     (echo yes | node ./$app/node_modules/react-native-desktop-cli/index.js init $app --version=$reactNativeDesktopVersion && rm $app/.gitignore)\
+# init ios/android/macos project
+nix-shell -p nodejs python2 --run "\
+     (echo yes | node ./$app/node_modules/react-native-macos-cli/index.js init $app --version=$reactNativeMacosVersion && rm $app/.gitignore)\
   && (echo yes | node ./$app/node_modules/react-native-cli/index.js init $app --version=$reactNativeVersion)\
   && (cd $app; node ./node_modules/react-native-cli/index.js android)"
 
@@ -33,17 +34,20 @@ sed -i "s/minifyEnabled/signingConfig signingConfigs.release; minifyEnabled/g" $
 
 sed -i "s/^android [{]/android { adbOptions.timeOutInMs = 8*60*1000; com.android.ddmlib.DdmPreferences.setTimeOut(8*60*1000)/" $app/android/app/build.gradle
 
+# change project buildTools to that available from nixpkgs
+sed -i "s/buildToolsVersion \"[^\"]*\"/buildToolsVersion \"$buildToolsVersion\"/" $app/android/app/build.gradle
+
 # install all needed npm-stuff
 cp -fR files/* $app/
 rm $app/index.windows.js
-nix-shell -p nodejs-5_x --run "cd $app && npm install"
+nix-shell -p nodejs --run "cd $app && npm install"
 
 # init Windows project
-nix-shell -p nodejs-5_x --run "cd $app && ./node_modules/rnpm/bin/cli windows"
+nix-shell -p nodejs --run "cd $app && ./node_modules/rnpm/bin/cli windows"
 cp -f files/index.windows.js $app/
 
 # 10.0.2.2 is a VirtualBox alias for localhost
-sed -i "s/localhost:8081/10.0.2.2:8081/" $app/node_modules/react-native-windows/ReactWindows/ReactNative/DevSupport/DevServerHelper.cs
+sed -i "s/localhost:8081/10.0.2.2:8081/" $app/node_modules/react-native-windows/ReactWindows/ReactNative.Shared/DevSupport/DevServerHelper.cs
 # change VS project output path outside of the network share.
 sed -r 's/(<OutputPath>)([^<]*)/\1c:\\vagrant-build\\\2/g' $app/windows/$app/$app.csproj > $app/windows/$app/$app.csproj.temp && mv $app/windows/$app/$app.csproj.temp $app/windows/$app/$app.csproj
 # enable private network to access react-packager
@@ -51,6 +55,9 @@ sed -i 's/<\/Capabilities>/<Capability Name="privateNetworkClientServer"\/><\/Ca
 
 # ignore ghcjs-generated files from transform since it's too slow
 sed -i "s/function transform(src, filename, options) {/function transform(src, filename, options) { if (filename.indexOf('all.js') > -1) return { code: src };/" $app/node_modules/react-native/packager/transformer.js
-sed -i "s/function transform(src, filename, options) {/function transform(src, filename, options) { if (filename.indexOf('all.js') > -1) return { code: src };/" $app/node_modules/react-native-desktop/packager/transformer.js
+sed -i "s/function transform(src, filename, options) {/function transform(src, filename, options) { if (filename.indexOf('all.js') > -1) return { code: src };/" $app/node_modules/react-native-macos/packager/transformer.js
+
+# I don't know why on earth I need this...
+sed -i "s/this.flags = flags;/flags = flags || ''; this.flags = flags;/" $app/node_modules/commander/index.js
 
 ./init-addons.sh

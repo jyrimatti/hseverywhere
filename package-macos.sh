@@ -7,14 +7,14 @@ source ./nix-shell-init.sh
 
 app=$(basename $PWD)
 
-./cleanbuild.sh
+./build.sh
 
 cp -fR files/* $app/
 
 test -d release || mkdir release
-rm release/$app.dmg
+test -f release/$app.dmg && rm release/$app.dmg
 dir=$PWD
-nix-shell -p nodejs-5_x --run "cd $app/osx && PLATFORM=osx /usr/bin/xcodebuild -scheme $app -configuration Release -target $app archive -archivePath $dir/dist/$app.xcarchive"
+nix-shell -p nodejs --run "cd $app/macos && PLATFORM=macos /usr/bin/xcodebuild -scheme $app -configuration Release -target $app archive -archivePath $dir/dist/$app.xcarchive"
 /usr/bin/hdiutil create -volname $app -srcfolder dist/$app.xcarchive/Products/Applications/$app.app -ov -format UDZO release/$app.dmg
 
 echo "Generated release/$app.dmg"

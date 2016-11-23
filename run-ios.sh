@@ -15,4 +15,4 @@ cp -fR files/* $app/
 
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" $app/ios/$app/AppDelegate.m"
 
-nix-shell -p nodejs-5_x --run "cd $app && node ./node_modules/react-native-cli/index.js run-ios"
+nix-shell -p nodejs --run "cd $app && ./node_modules/.bin/react-native run-ios"

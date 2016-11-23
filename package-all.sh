@@ -2,7 +2,9 @@
 #! nix-shell -i bash -p bash
 set -eu
 
+./cleanbuild.sh
+
 ./package-web.sh
-./package-osx.sh
+./package-macos.sh
 ./package-android.sh
 

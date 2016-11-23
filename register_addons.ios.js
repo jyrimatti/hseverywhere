@@ -8,15 +8,11 @@ var registerAddons = function(platform) {
     window['Icon.Octicons'] = require('react-native-vector-icons/Octicons');
     window['Icon.Zocial'] = require('react-native-vector-icons/Zocial');
 
-    if (platform !== 'web') {
-      window['I18n'] = require('react-native-i18n');    
-    }
+    window['I18n'] = require('react-native-i18n'); 
 
     window['Animatable'] = require('react-native-animatable');
 
-    if (platform !== 'web') {
-      window['GL'] = require('gl-react-native');
-    }
+    window['GL'] = require('gl-react-native');
 };
 
 module.exports = {

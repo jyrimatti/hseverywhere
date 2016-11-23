@@ -9,18 +9,22 @@ module.exports = {
             path.resolve(__dirname, "./~/react"),
             path.resolve(__dirname, "./~/react-native"),
             path.resolve(__dirname, "./~/react-native-web"),
-            path.resolve(__dirname, "./~/react-native-desktop")
+            path.resolve(__dirname, "./~/react-native-macos")
           ],
       },
       {
         loader: "babel-loader",
         test: /\.jsx?$/,
-        exclude: /all.js/,
+        exclude: [/all.js/, /node_modules/],
         query: {
           presets: ['es2015', 'stage-0', 'react'],
           plugins: ['add-module-exports'],
           cacheDirectory: true
         }
+      },
+      {
+        loader: "json-loader",
+        test: /\.json$/
       }
     ]
   },
