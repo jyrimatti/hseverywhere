@@ -8,8 +8,8 @@ buildToolsVersion=$(nix-store --query --references $(nix-instantiate '<nixpkgs>'
 
 cp register_addons*.js $app/
 
-nix-shell -p nodejs --run "cd $app && cat ../addons.txt | xargs -L1 npm install --save"
-nix-shell -p nodejs --run "cd $app && cat ../addons.txt | sed 's/@.*//' | xargs -L1 node_modules/rnpm/bin/cli link"
+nix-shell -p nodejs --run "cd $app && cat ../addons.txt | grep -v '^#' | xargs -L1 npm install --save"
+nix-shell -p nodejs --run "cd $app && cat ../addons.txt | grep -v '^#' | sed 's/@.*//' | xargs -L1 node_modules/rnpm/bin/cli link"
 
 # change addon android buildTools version to that available from nixpkgs
 nix-shell --run "cd hseverywhere && cat ../addons.txt | sed 's/@.*//' | xargs -I {} sed -i 's/buildToolsVersion \"[^\"]*\"/buildToolsVersion \"24.0.2\"/' node_modules/{}/android/build.gradle"
