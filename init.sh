@@ -15,9 +15,6 @@ cp files/package.json $app/
 test -f files/npm-shrinkwrap && cp files/npm-shrinkwrap.json $app/
 nix-shell -p nodejs --run "cd $app && npm install react-native-cli && npm install react-native-macos-cli"
 
-# add correct react-native-macos version for the cli-tool to install.
-sed -i "s/npm install --save react-native-macos/npm install --save react-native-macos@$reactNativeMacosVersion/g" $app/node_modules/react-native-macos-cli/index.js
-
 # init ios/android/macos project
 nix-shell -p nodejs python2 --run "\
      (echo yes | node ./$app/node_modules/react-native-macos-cli/index.js init $app --version=$reactNativeMacosVersion && rm $app/.gitignore)\
