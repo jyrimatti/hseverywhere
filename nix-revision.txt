@@ -1,1 +1,1 @@
-nixpkgs/archive/12a057cbe07a0ee30b28b4edb39c0a453a4d0556
+nixpkgs/archive/fce59d47e7d62c68063e3a972e10f4cbe0782431

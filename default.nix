@@ -1,4 +1,4 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghcjs" }:
+{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghcjsHEAD" }:
 
 let
 
@@ -24,10 +24,14 @@ let
                        then pkgs.haskellPackages
                        else pkgs.haskell.packages.${compiler};
 
+  ghcjsbase = if compiler == "default"
+                 then haskellPackages.ghcjs-base-stub
+                 else haskellPackages.ghcjs-base;
+
   # add missing ghcjs-base to react-flux
   reactFluxFixed = haskellPackages.react-flux.override (args: args // {
     mkDerivation = expr: args.mkDerivation (expr // {
-        libraryHaskellDepends = expr.libraryHaskellDepends ++ [haskellPackages.ghcjs-base];
+        libraryHaskellDepends = expr.libraryHaskellDepends ++ [ghcjsbase];
     });
   });
 
