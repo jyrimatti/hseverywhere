@@ -1,5 +1,5 @@
-react-native-vector-icons@3.0.0
-react-native-i18n@0.1.1
-react-native-animatable@0.6.1
-gl-react@2.2.4
-gl-react-native@2.36.0
+react-native-vector-icons@4.0.1
+react-native-i18n@1.0.0
+react-native-animatable@1.1.1
+#gl-react@2.2.4
+#gl-react-native@2.36.0

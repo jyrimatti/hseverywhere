@@ -12,7 +12,7 @@ var registerAddons = function(platform) {
 
     window['Animatable'] = require('react-native-animatable');
 
-    window['GL'] = require('gl-react-native');
+    //window['GL'] = require('gl-react-native');
 };
 
 module.exports = {

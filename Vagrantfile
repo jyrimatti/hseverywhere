@@ -20,7 +20,7 @@ Vagrant.configure(2) do |config|
     c.vm.communicator = "winrm"
     c.winrm.username = "IEUser"
     c.winrm.password = "Passw0rd!"
-    c.vm.box_url = "http://aka.ms/msedge.win10.vagrant"
+    c.vm.box = "chusiang/win10-x64-ansible"
     c.vm.provider "virtualbox" do |vb|
       vb.gui = true
       vb.memory = "2048"

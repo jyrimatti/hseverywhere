@@ -1,6 +1,6 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --pure -i bash -p nix bash
-set -eu
+#! nix-shell --pure -i bash -p nix bash yarn
+set -eux
 source ./nix-shell-init.sh
 
 app=$(basename $PWD)
@@ -18,8 +18,9 @@ nix-shell -p nodejs --run "cd $app && npm install react-native-cli && npm instal
 # init ios/android/macos project
 nix-shell -p nodejs python2 --run "\
      (echo yes | node ./$app/node_modules/react-native-macos-cli/index.js init $app --version=$reactNativeMacosVersion && rm $app/.gitignore)\
+  && (nix-shell -p nodejs --run 'cd $app && npm install react-native-cli && npm install react-native-macos-cli')\
   && (echo yes | node ./$app/node_modules/react-native-cli/index.js init $app --version=$reactNativeVersion)\
-  && (cd $app; node ./node_modules/react-native-cli/index.js android)"
+  && (nix-shell -p nodejs --run 'cd $app && npm install react-native-cli && npm install react-native-macos-cli')"
 
 # Android package signing
 echo "MYAPP_RELEASE_STORE_FILE=my-release-key.keystore" >> $app/android/gradle.properties
@@ -33,6 +34,16 @@ sed -i "s/^android [{]/android { adbOptions.timeOutInMs = 8*60*1000; com.android
 
 # change project buildTools to that available from nixpkgs
 sed -i "s/buildToolsVersion \"[^\"]*\"/buildToolsVersion \"$buildToolsVersion\"/" $app/android/app/build.gradle
+
+# androidsdk wants to generate license files, so we need to use a mutable copy of the sdk...
+nix-shell -p jre8 androidsdk which --run "cd $app/android;\
+  nix-store --dump \$(which android | xargs dirname | xargs dirname) > androidsdk.nar;\
+  nix-store --restore androidsdk < androidsdk.nar && rm androidsdk.nar"
+mkdir "$app/android/androidsdk/libexec/licenses" || true
+  echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$app/android/androidsdk/libexec/licenses/android-sdk-license"
+  echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$app/android/androidsdk/libexec/licenses/android-sdk-preview-license"
+
+
 
 # install all needed npm-stuff
 cp -fR files/* $app/

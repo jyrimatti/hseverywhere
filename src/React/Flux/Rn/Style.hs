@@ -140,9 +140,6 @@ instance ToJSON Transform where
   toJSON (SkewX x)       = object [ "skewX"       .= x ] 
   toJSON (SkewY x)       = object [ "skewY"       .= x ]
 
-instance ToJSON Natural where
-  toJSON = toJSON . toInteger
-
 transform :: [Transform] -> PropertyOrHandler handler
 transform ts = "transform" @= ts
 

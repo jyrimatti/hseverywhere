@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --pure -i bash -p nodejs
+#! nix-shell --pure -i bash -p nodejs watchman
 set -eu
 source ./nix-shell-init.sh
 

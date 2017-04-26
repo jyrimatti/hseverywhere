@@ -133,7 +133,7 @@ Haskell development
 
 Now you are inside a Nix shell with the required Haskell dependencies globally installed. Use cabal and pile up your haskell environment, e.g.
 
->>> nix-shell -p haskellPackages.stylish-haskell -p haskellPackages.hdevtools -p haskellPackages.apply-refact -p haskellPackages.pointfree
+>>> nix-shell -p ctags -p "haskell.packages.ghcjs.ghcWithPackages (p: [p.stylish-haskell p.hdevtools p.ghc-mod (p.hoogle.override { process-extras = haskell.lib.dontCheck p.process-extras; }) p.hasktags p.pointfree p.hsdev p.apply-refact.override { ghc-exactprint = haskell.lib.dontCheck p.ghc-exactprint; }])"
 
 Unfortunately, ghc-mod or hdevtools don't yet work with GHCJS.
 
