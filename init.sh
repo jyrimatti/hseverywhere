@@ -1,6 +1,6 @@
 #! /usr/bin/env nix-shell
 #! nix-shell --pure -i bash -p nix bash yarn
-set -eux
+set -eu
 source ./nix-shell-init.sh
 
 app=$(basename $PWD)
