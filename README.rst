@@ -123,19 +123,23 @@ Default port choices can be changed (except for Android/Windows) by giving new p
 
 - >>> ./run-osx.sh 8191
 
-If Android emulator complains about HAX etc, check you don't have any VirtualBoxes running.
+If Android emulator complains about HAX etc, close all VirtualBox and Docker machines.
 
 
 Haskell development
 -------------------
 
->>> ./shell.sh
+- >>> ./shell.sh
 
 Now you are inside a Nix shell with the required Haskell dependencies globally installed. Use cabal and pile up your haskell environment, e.g.
 
->>> nix-shell -p ctags -p "haskell.packages.ghcjs.ghcWithPackages (p: [p.stylish-haskell p.hdevtools p.ghc-mod (p.hoogle.override { process-extras = haskell.lib.dontCheck p.process-extras; }) p.hasktags p.pointfree p.hsdev p.apply-refact.override { ghc-exactprint = haskell.lib.dontCheck p.ghc-exactprint; }])"
+- >>> nix-shell --argstr compiler 'default' --run "nix-shell -p pkgconfig -p ctags -p haskellPackages.hasktags -p haskellPackages.pointfree -p haskellPackages.hsdev -p haskellPackages.hdevtools -p haskellPackages.ghc-mod -p haskellPackages.stylish-haskell -p \"haskellPackages.ghcWithPackages (p: [(p.hoogle.override { process-extras = haskell.lib.dontCheck p.process-extras; }) (p.apply-refact.override { ghc-exactprint = haskell.lib.dontCheck p.ghc-exactprint; })])\" --run \"open -n -a 'My favorite editor' .\""
 
-Unfortunately, ghc-mod or hdevtools don't yet work with GHCJS.
+or, if you are into Sublime on OSX, just
+
+- >>> ./sublime.sh
+
+Ghc-mod, hdevtools or hsdev don't yet work with GHCJS. Thus "compiler 'default'" is given to use regular GHC with ghcjs-base-stub package to make the tools work. 
 
 New Haskell-dependencies should be added to both cabal file and default.nix. Then rerun nix-shell.
 

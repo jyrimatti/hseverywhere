@@ -43,7 +43,14 @@ mkdir "$app/android/androidsdk/libexec/licenses" || true
   echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$app/android/androidsdk/libexec/licenses/android-sdk-license"
   echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$app/android/androidsdk/libexec/licenses/android-sdk-preview-license"
 
-
+# copy platforms from behind symplinks since the AVD refers to these locations
+for plat in $app/android/androidsdk/libexec/platforms/*
+do
+  mkdir $plat'_'
+  cp -R $plat/* $plat'_'/
+  rm -R $plat
+  mv $plat'_' $plat
+done
 
 # install all needed npm-stuff
 cp -fR files/* $app/
