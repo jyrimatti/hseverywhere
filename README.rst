@@ -44,11 +44,11 @@ I just wanna try the example app!
 
 Available in:
 
-http://lahteenmaki.net/hsEverywhere.html
+https://lahteenmaki.net/hsEverywhere.html
 
-http://lahteenmaki.net/hsEverywhere.dmg
+https://lahteenmaki.net/hsEverywhere.dmg
 
-http://lahteenmaki.net/hsEverywhere.apk
+https://lahteenmaki.net/hsEverywhere.apk
 
 If you don't trust me (and you shouldn't!), just follow the instructions to build on your own machine.
 
@@ -56,7 +56,7 @@ If you don't trust me (and you shouldn't!), just follow the instructions to buil
 Installation
 ------------
 
-1. install `Nix <http://nixos.org/nixpkgs/>`_. You should already have it.
+1. install `Nix <https://nixos.org/nixpkgs/>`_. You should already have it.
 2. install XCode if running in OSX. Install Vagrant if running in Windows. No other dependencies should be needed.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
 4. Execute ``quickstart.sh`` to download and install half the Internet, initialize, build, package and run everything.
@@ -83,7 +83,9 @@ Open the solution (from c:\vagrant\<projectname>\windows\<projectname>.sln) and 
 
 You can now start the Windows app, after which it should be able to connect to the same packager as ios/android:
 
-./run-windows.bat
+- >>> ./run-windows.bat
+
+Answer Y when asked in powershell about creating a signing certificate.
 
 For actual debugging and resolving of mysterious crashes you can start the app from Visual Studio.
 
@@ -131,15 +133,9 @@ Haskell development
 
 - >>> ./shell.sh
 
-Now you are inside a Nix shell with the required Haskell dependencies globally installed. Use cabal and pile up your haskell environment, e.g.
+Now you are inside a Nix shell with the required Haskell dependencies and Haskell development tools globally installed. Launch you favorite editor.
 
-- >>> nix-shell --argstr compiler 'default' --run "nix-shell -p pkgconfig -p ctags -p haskellPackages.hasktags -p haskellPackages.pointfree -p haskellPackages.hsdev -p haskellPackages.hdevtools -p haskellPackages.ghc-mod -p haskellPackages.stylish-haskell -p \"haskellPackages.ghcWithPackages (p: [(p.hoogle.override { process-extras = haskell.lib.dontCheck p.process-extras; }) (p.apply-refact.override { ghc-exactprint = haskell.lib.dontCheck p.ghc-exactprint; })])\" --run \"open -n -a 'My favorite editor' .\""
-
-or, if you are into Sublime on OSX, just
-
-- >>> ./sublime.sh
-
-Ghc-mod, hdevtools or hsdev don't yet work with GHCJS. Thus "compiler 'default'" is given to use regular GHC with ghcjs-base-stub package to make the tools work. 
+Ghc-mod, hdevtools or hsdev don't yet work with GHCJS. Thus regular GHC is used with ghcjs-base-stub package to make the tools work. 
 
 New Haskell-dependencies should be added to both cabal file and default.nix. Then rerun nix-shell.
 

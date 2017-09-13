@@ -16,7 +16,10 @@ let
         executableHaskellDepends = [
           base deepseq ghcjs-base react-flux text time transformers
         ];
-        buildDepends = [pkgs.haskellPackages.cabal-install];
+        buildDepends = [pkgs.haskellPackages.cabal-install] ++
+          (if compiler == "default"
+             then with pkgs.haskellPackages; [hdocs hasktags pointfree hsdev hdevtools ghc-mod stylish-haskell hindent (hoogle.override { process-extras = haskell.lib.dontCheck process-extras; }) (apply-refact.override { ghc-exactprint = haskell.lib.dontCheck ghc-exactprint; })]
+             else []);
         license = stdenv.lib.licenses.mit;
       };
 
