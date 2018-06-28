@@ -1,13 +1,10 @@
 
 window.React = require('react');
 window.createReactClass = require('create-react-class');
-window.React.createClass = window.createReactClass;
-var { PropTypes } = require('prop-types');
-window.React.PropTypes = PropTypes;
 
 window.__registerComponent = function(name,c) {
     var { doRegister } = require('./register');
-    var { AppRegistry } = require('react-native-macos');
+    var { AppRegistry } = require('react-native');
     doRegister(name,c,AppRegistry);
 };
 
@@ -17,8 +14,8 @@ if (!window.navigator) {
 }
 
 var { registerRnComponents } = require('./register_rn');
-var { registerAddons } = require('./register_addons');
-var __rn = require('react-native-macos');
+var { registerAddons } = require('./register_addons.web');
+var __rn = require('react-native');
 
 module.exports = {
   RegRn: registerRnComponents(__rn),

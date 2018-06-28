@@ -8,9 +8,9 @@ exit /b %ERRORLEVEL%
 ' >/dev/null
 ########################### Others
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash
+#! nix-shell -i bash -p bash vagrant cacert
 set -eu
 
-command -v vagrant >/dev/null || (echo Please install Vagrant and VirtualBox for Windows development && false)
-nc -z -w1 127.0.0.1 55985; test $? = 0 || (echo 'Could not connect WinRM' && false)
+command -v vagrant >/dev/null || (echo Please install VirtualBox for Windows development && false)
+nc -z -w1 127.0.0.1 55985 || (echo 'Could not connect WinRM' && false)
 vagrant provision windows --provision-with package

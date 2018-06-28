@@ -22,7 +22,7 @@ executable hseverywhere
                        transformers,
                        time,
                        deepseq,
-                       react-flux,
+                       react-hs,
                        aeson
   if impl(ghcjs)
       build-depends: ghcjs-base

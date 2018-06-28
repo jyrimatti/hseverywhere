@@ -1,7 +1,9 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --pure -i bash -p nodejs watchman
+#! nix-shell -i bash -p bash
 set -eu
 source ./nix-shell-init.sh
+
+editor=${REACT_EDITOR:-xdg-open}
 
 mobileport=${1:-8081}
 macosport=${2:-8082}
@@ -12,6 +14,8 @@ app=$(basename $PWD)
 cp -fR files/* $app/
 cd $app
 
-(PORT=$webport npm run start-web       | sed 's/^/[Web   ] /' || echo "[Web   ] Died!") &
-(PORT=$macosport npm run start-macos   | sed 's/^/[MacOS ] /' || echo "[MacOS ] Died!") &
-(PORT=$mobileport npm run start-mobile | sed 's/^/[Mobile] /' || echo "[Mobile] Died!")
+echo "Ensure you have enough file descriptors if you get 'Too many open files': https://facebook.github.io/watchman/docs/install.html"
+
+nix-shell -p nodejs-8_x xdg_utils watchman --run "REACT_EDITOR='$editor' PORT=$webport    npm run start-web    | sed 's/^/[Web   ] /' || echo '[Web   ] Died!'" &
+nix-shell -p nodejs-8_x xdg_utils watchman --run "REACT_EDITOR='$editor' PORT=$macosport  npm run start-macos  | sed 's/^/[MacOS ] /' || echo '[MacOS ] Died!'" &
+nix-shell -p nodejs-8_x xdg_utils watchman --run "REACT_EDITOR='$editor' PORT=$mobileport npm run start-mobile | sed 's/^/[Mobile] /' || echo '[Mobile] Died!'"

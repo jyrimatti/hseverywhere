@@ -1,5 +1,5 @@
 var registerAddons = function(platform) {
-    window['Icon.Entypo'] = require('react-native-vector-icons/Entypo');
+    /*window['Icon.Entypo'] = require('react-native-vector-icons/Entypo');
     window['Icon.EvilIcons'] = require('react-native-vector-icons/EvilIcons');
     window['Icon.FontAwesome'] = require('react-native-vector-icons/FontAwesome');
     window['Icon.Foundation'] = require('react-native-vector-icons/Foundation');
@@ -9,8 +9,8 @@ var registerAddons = function(platform) {
     window['Icon.Zocial'] = require('react-native-vector-icons/Zocial');
 
     window['I18n'] = require('react-native-i18n');
-
-    window['Animatable'] = require('react-native-animatable');
+*/
+    //window['Animatable'] = require('react-native-animatable');
 
     // window['GL'] = require('gl-react-native');
 };

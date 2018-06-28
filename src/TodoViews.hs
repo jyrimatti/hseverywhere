@@ -1,32 +1,49 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE CPP                       #-}
+{-# LANGUAGE DataKinds                 #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE FlexibleContexts          #-}
+{-# LANGUAGE FlexibleInstances         #-}
+{-# LANGUAGE MultiParamTypeClasses     #-}
+{-# LANGUAGE OverloadedStrings         #-}
+{-# LANGUAGE PolyKinds                 #-}
+{-# LANGUAGE ScopedTypeVariables       #-}
+{-# LANGUAGE TypeApplications          #-}
+{-# LANGUAGE TypeFamilies              #-}
+{-# LANGUAGE TypeFamilyDependencies    #-}
+{-# LANGUAGE TypeOperators             #-}
+{-# LANGUAGE UndecidableInstances      #-}
+
 module TodoViews where
 
-import qualified Data.Text as T
-import Control.Monad (when, unless, forM_)
+import           Control.Monad            (forM_, unless, when)
 
-import React.Flux (defineView, defineControllerView, view, viewWithKey, ReactView, ReactElementM, ViewEventHandler, elemShow, elemText, ($=))
+import           React.Flux               (EventHandlerCode (..), ReactElementM,
+                                           StoreArg, View, ViewEventHandler,
+                                           elemShow, elemString,
+                                           mkControllerView, mkView, view_,
+                                           xview_, ($=))
 
-import qualified React.Flux.Rn.APIs as RnA
+import qualified React.Flux.Rn.APIs       as RnA
 import qualified React.Flux.Rn.Components as Rn
-import qualified React.Flux.Rn.Style as RnS
-import qualified React.Flux.Rn.Events as RnE
+import qualified React.Flux.Rn.Events     as RnE
+import qualified React.Flux.Rn.Style      as RnS
 
 import qualified Addons
 
-import TodoDispatcher
-import TodoStore
-import TodoComponents
+import           TodoComponents
+import           TodoDispatcher
+import           TodoStore
 
-todoApp :: ReactView ()
-todoApp = defineControllerView "todo app" todoStore $ \todoState () ->
+todoApp :: View ()
+todoApp = mkControllerView @'[StoreArg TodoState] "todo app" $ \todoState () ->
     Rn.scrollView [ RnS.style [ RnS.backgroundColor "#f5f5f5"
                               ]] $ do
        todoHeader_
        mainSection_ todoState
        todoFooter_
 
-todoHeader :: ReactView ()
-todoHeader = defineView "header" $ \() ->
+todoHeader :: View ()
+todoHeader = mkView "header" $ \() ->
         Rn.text [RnS.style [ RnS.alignSelf RnS.SCenter
                            , RnS.fontSize 100
                            , RnS.fontFamily "HelveticaNeue"
@@ -37,7 +54,7 @@ todoHeader = defineView "header" $ \() ->
             "todos!"
 
 todoHeader_ :: ReactElementM eventHandler ()
-todoHeader_ = view todoHeader () mempty
+todoHeader_ = view_ todoHeader "header" ()
 
 infoStyles = [ RnS.fontFamily "HelveticaNeue"
              , RnS.fontSize 10
@@ -47,14 +64,14 @@ infoStyles = [ RnS.fontFamily "HelveticaNeue"
              , RnS.alignSelf RnS.SCenter
              ]
 
-todoFooter :: ReactView ()
-todoFooter = defineView "todoFooter" $ \() ->
+todoFooter :: View ()
+todoFooter = mkView "todoFooter" $ \() ->
     Rn.view [RnS.style [ RnS.marginTop 20
                        , RnS.marginBottom 10
                        , RnS.marginHorizontal 30
                        ]] $ do
         Rn.text [RnS.style $ RnS.marginBottom 10 : infoStyles] "Long-press to edit, double-click x to delete"
-        Rn.text [RnS.style $ infoStyles] $ elemText . T.pack $ "You are running on: " ++ show RnA.platform
+        Rn.text [RnS.style infoStyles] $ elemString ("You are running on: " ++ show RnA.platform)
         Rn.view [ RnS.style [ RnS.flexWrap RnS.Wrap
                             , RnS.alignSelf RnS.SCenter
                             ]] $
@@ -70,13 +87,13 @@ todoFooter = defineView "todoFooter" $ \() ->
             credit "React-native, " "https://facebook.github.io/react-native/"
             credit "React-native-desktop, " "https://www.npmjs.com/package/react-native-desktop"
             credit "React-native-web" "https://github.com/necolas/react-native-web"
-  where credit text link = Rn.touchableOpacity [ RnE.onPress $ dispatchTodo $ OpenLink link ] $
+  where credit text link = Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo $ OpenLink link ] $
                                Rn.text [RnS.style infoStyles] text
 
 todoFooter_ :: ReactElementM eventHandler ()
-todoFooter_ = view todoFooter () mempty
+todoFooter_ = view_ todoFooter "footer" ()
 
-mainSection_ :: TodoState -> ReactElementM ViewEventHandler ()
+mainSection_ :: TodoState -> ReactElementM 'EventHandlerCode ()
 mainSection_ todoState@(TodoState todoList filt) =
     Rn.view [RnS.style [ RnS.backgroundColor "#fff"
                        , RnS.marginHorizontal 30
@@ -86,7 +103,7 @@ mainSection_ todoState@(TodoState todoList filt) =
                        , RnS.shadowOpacity 1
                        ]] $ do
         Rn.view [RnS.style [RnS.flexDirection RnS.Row]] $ do
-            Rn.touchableOpacity [ RnE.onPress $ dispatchTodo ToggleAllComplete
+            Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo ToggleAllComplete
                                 , RnS.style [ RnS.alignItems RnS.ICenter
                                             , RnS.alignSelf RnS.SCenter
                                             , RnS.flexDirection RnS.Column
@@ -102,7 +119,7 @@ mainSection_ todoState@(TodoState todoList filt) =
             todoTextInput_ [ RnS.fontStyle RnS.Italic
                            , RnS.fontSize 16
                            ] TextInputArgs { tiaPlaceholder = "What needs to be done?"
-                                           , tiaOnSave = \txt -> dispatchTodo $ TodoCreate txt
+                                           , tiaSaveAction = SACreate
                                            , tiaOnCancel = []
                                            , tiaValue = Nothing
                                            }
@@ -123,20 +140,20 @@ mainSection_ todoState@(TodoState todoList filt) =
            ] mempty
         -}
 
-        mainSectionFooter_ todoState
-  where doFilter All = id
-        doFilter Active = filter (not . todoComplete . snd)
+        mainSectionFooter todoState
+  where doFilter All       = id
+        doFilter Active    = filter (not . todoComplete . snd)
         doFilter Completed = filter (todoComplete . snd)
         allCompleted = all (todoComplete . snd) todoList
 
 
-todoItem :: ReactView (Int, Todo)
-todoItem = defineView "todo item" $ \(todoIdx, todo) ->
+todoItem :: View (Int, Todo)
+todoItem = mkView "todo item" $ \(todoIdx, todo) ->
     let isComplete = todoComplete todo
     in Rn.view [ RnS.style [ RnS.flexDirection RnS.Row ]
                ] $ do
         unless (todoIsEditing todo) $ do
-            Rn.touchableWithoutFeedback [ RnE.onPress $ dispatchTodo $ TodoSetComplete todoIdx (not isComplete) ] $
+            Rn.touchableWithoutFeedback [ RnE.onPress $ \_ -> handleTodo $ TodoSetComplete todoIdx (not isComplete) ] $
                 -- I guess IOS does not support rendering inline SVG, so let's use border and unicode instead of a check-mark image.
                 Rn.view [ RnS.style [ RnS.width 30
                                     , RnS.height 30
@@ -152,7 +169,7 @@ todoItem = defineView "todo item" $ \(todoIdx, todo) ->
                         --RnA.IOS | isComplete -> Addons.icon_materialicons ["name" $= "done", "size" @= (20 :: Int), "color" $= "#5dc2af"] mempty
                         --RnA.IOS              -> mempty
                         _                    -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af", RnS.fontFamily "HelveticaNeue" ]] $ if isComplete then "\x2713" else ""
-            Rn.touchableOpacity [ RnE.onLongPress $ dispatchTodo $ TodoEdit todoIdx
+            Rn.touchableOpacity [ RnE.onLongPress $ \_ -> handleTodo $ TodoEdit todoIdx
                                 , RnS.style [ RnS.padding 15
                                             , RnS.flex 1
                                             ]] $
@@ -163,10 +180,10 @@ todoItem = defineView "todo item" $ \(todoIdx, todo) ->
                                     , RnS.fontFamily "HelveticaNeue"
                                     , RnS.textDecorationLine $ if isComplete then RnS.LineThrough else RnS.None
                                     ]] $
-                    elemText $ T.pack $ todoText todo
+                    elemString $ todoText todo
 
         when (todoIsEditing todo) $ do
-            Rn.touchableWithoutFeedback [ RnE.onPress $ dispatchTodo $ TodoDelete todoIdx ] $
+            Rn.touchableWithoutFeedback [ RnE.onPress $ \_ -> handleTodo $ TodoDelete todoIdx ] $
                 Rn.view [ RnS.style [ RnS.width 30
                                     , RnS.height 30
                                     , RnS.alignSelf RnS.SCenter
@@ -185,13 +202,13 @@ todoItem = defineView "todo item" $ \(todoIdx, todo) ->
                                 , RnS.marginTop 1
                                 ]] $
                 todoTextInput_ [] TextInputArgs { tiaPlaceholder = ""
-                                                , tiaOnSave = dispatchTodo . UpdateText todoIdx
-                                                , tiaOnCancel = dispatchTodo $ CancelUpdateWithDelay todoIdx
+                                                , tiaSaveAction = SAUpdate todoIdx
+                                                , tiaOnCancel = [CancelUpdateWithDelay todoIdx]
                                                 , tiaValue = Just $ todoText todo
                                                 }
 
 todoItem_ :: (Int, Todo) -> ReactElementM eventHandler ()
-todoItem_ todo = viewWithKey todoItem (fst todo) todo mempty
+todoItem_ todo = xview_ todoItem todo
 
 
 footerStyles = [ RnS.color "#777"
@@ -207,8 +224,8 @@ activeFilterStyle = [ RnS.borderWidth 1
                     , RnS.borderRadius 3
                     ]
 
-mainSectionFooter :: ReactView TodoState
-mainSectionFooter = defineView "footer" $ \(TodoState todos filtering) ->
+mainSectionFooter :: TodoState -> ReactElementM eventHandler ()
+mainSectionFooter = xview_ $ mkView "msfooter" $ \(TodoState todos filtering) ->
     let completed = length (filter (todoComplete . snd) todos)
         itemsLeft = length todos - completed
         styling f = RnS.style $ filterStyle ++ (if f == filtering then activeFilterStyle else [])
@@ -228,21 +245,18 @@ mainSectionFooter = defineView "footer" $ \(TodoState todos filtering) ->
                                 , RnS.flexWrap RnS.Wrap
                                 , RnS.flex 1
                                 ]] $ do
-                Rn.touchableOpacity [ RnE.onPress $ dispatchTodo (SetFilter All), styling All] $
+                Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo (SetFilter All), styling All] $
                     Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "All"
-                Rn.touchableOpacity [ RnE.onPress $ dispatchTodo (SetFilter Active), styling Active] $
+                Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo (SetFilter Active), styling Active] $
                     Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Active"
-                Rn.touchableOpacity [ RnE.onPress $ dispatchTodo (SetFilter Completed), styling Completed] $
+                Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo (SetFilter Completed), styling Completed] $
                     Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Completed"
 
-            Rn.touchableOpacity [ RnE.onPress $ dispatchTodo ClearCompletedTodos
+            Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo ClearCompletedTodos
                                 , RnS.style (if completed == 0 then [RnS.opacity 0] else [])
                                 ] $
                 Rn.text [ RnS.style footerStyles
                         , RnS.flexWrap RnS.Wrap
                         ]
                     "Clear completed"
-
-mainSectionFooter_ :: TodoState -> ReactElementM eventHandler ()
-mainSectionFooter_ s = view mainSectionFooter s mempty
 

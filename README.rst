@@ -57,7 +57,7 @@ Installation
 ------------
 
 1. install `Nix <https://nixos.org/nixpkgs/>`_. You should already have it.
-2. install XCode if running in OSX. Install Vagrant if running in Windows. No other dependencies should be needed.
+2. install XCode if running in OSX. Install VirtualBox if you want to build for Windows. No other dependencies should be needed.
 3. ``git clone https://github.com/jyrimatti/hseverywhere``
 4. Execute ``quickstart.sh`` to download and install half the Internet, initialize, build, package and run everything.
 
@@ -76,9 +76,6 @@ Initialize a Windows VM with Visual Studio:
 
 - >>> ./init-windows.bat
 
-When the VM starts, execute the commands from ``init-WinRM.bat`` as Administrator.
-Vagrant should now be able to connect and finish initialization.
-
 Open the solution (from c:\vagrant\<projectname>\windows\<projectname>.sln) and let Visual Studio "Install missing features". I couldn't resolve a suitable subset of the features to install automatically, curse Microsoft and installers.
 
 You can now start the Windows app, after which it should be able to connect to the same packager as ios/android:
@@ -95,7 +92,7 @@ Addons
 
 List addons to ``addons.txt`` preferably with a version number.
 Add initialization to ``register_addons.[platform.]js``
-Execute ``init-addons.sh`` to install and link the addons.
+Re-execute ``init-addons.sh`` to install and link modified addons.
 
 Note that most addons currently work only on IOS and Android.
 
@@ -116,14 +113,7 @@ or just
 Also start packagers:
 - >>> ./start-packagers.sh
 
-Browser, iOS simulator and Android emulator open automatically.
-OSX opens XCode, in which you have to 'Run' the app (can this be done from the command line?).
-Windows app runs inside a Virtual Box VM.
-
 All can be run simultaneously.
-Default port choices can be changed (except for Android/Windows) by giving new port as an argument, e.g.
-
-- >>> ./run-osx.sh 8191
 
 If Android emulator complains about HAX etc, close all VirtualBox and Docker machines.
 
@@ -202,5 +192,4 @@ Problems
 - react-native-web is still work-in-progress
   - no support for ListView
   - no support for Linking API
-  - TextInput does not support submitting
   - text components collapse together (maybe a missing white-space: pre; ?)

@@ -14,9 +14,10 @@ exit /b %ERRORLEVEL%
 ' >/dev/null
 ########################### Others
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash netcat
-set -eu
+#! nix-shell -i bash -p bash netcat vagrant
+set -ux
 
 command -v vagrant >/dev/null || (echo Please install Vagrant and VirtualBox for Windows development && false)
-nc -z -w1 127.0.0.1 55985; test $? = 0 || (echo 'Could not connect WinRM' && false)
+vagrant up windows --no-provision
+nc -z -w1 127.0.0.1 55985 || (echo 'Could not connect WinRM' && false)
 vagrant provision windows --provision-with run

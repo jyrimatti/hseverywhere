@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --pure -i bash -p nix bash
+#! nix-shell --pure -i bash -p nix bash cacert
 set -eu
 source ./nix-shell-init.sh
 

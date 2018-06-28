@@ -1,0 +1,6 @@
+{
+  "presets": ["react-native"],
+  "ignore": [
+    "all.js"
+  ]
+}

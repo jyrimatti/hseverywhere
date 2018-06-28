@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
   module: {
-    loaders: [
+    rules: [
       {
         loaders: [],
         exclude: [
@@ -16,8 +16,8 @@ module.exports = {
         loader: "babel-loader",
         test: /\.jsx?$/,
         exclude: [/all.js/, /node_modules/],
-        query: {
-          presets: ['es2015', 'stage-0', 'react'],
+        options: {
+          presets: ['env', 'stage-0', 'react'],
           plugins: ['add-module-exports'],
           cacheDirectory: true
         }
@@ -30,7 +30,7 @@ module.exports = {
   },
   entry: './index.web.js',
   output: {
-    filename: '../dist/bundle.js'
+    filename: "dist/bundle.js",
   },
   resolve: {
     alias: {

@@ -17,9 +17,8 @@ exit /b %ERRORLEVEL%
 ' >/dev/null
 ########################### Others
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash netcat
-set -eu
+#! nix-shell -i bash -p bash netcat vagrant curl
+set -eux
 
-command -v vagrant >/dev/null || (echo Please install Vagrant and VirtualBox for Windows development && false)
-(vagrant up windows --no-provision && nc -z -w1 127.0.0.1 55985; test $? = 0) || (echo Execute contents of init-WinRM.bat as Administrator, install Guest Additions, reboot, 'vagrant reload windows'. Then re-execute ./init-windows.bat && false)
+(vagrant up windows --no-provision && nc -z -w1 127.0.0.1 55985) || (echo Execute contents of init-WinRM.bat as Administrator, install Guest Additions, reboot, 'vagrant reload windows'. Then re-execute ./init-windows.bat && false)
 vagrant provision windows --provision-with init

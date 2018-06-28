@@ -5,7 +5,7 @@ source ./nix-shell-init.sh
 
 port=${1:-8081}
 
-androidDevice="Nexus 5"
+androidDevice="7in WSVGA (Tablet)"
 
 app=$(basename $PWD)
 
@@ -27,4 +27,4 @@ nix-shell -p jre8 which file --run "\
 sleep 30
 read -t 360  -p "Press enter when emulator is running..." yn
 
-nix-shell -p jre8 which nodejs --run "cd $app; ADB_INSTALL_TIMEOUT=16 ANDROID_HOME=\$(pwd)/android/androidsdk/libexec ./node_modules/.bin/react-native run-android"
+nix-shell -p jre8 which nodejs --run "cd $app; ADB_INSTALL_TIMEOUT=16 ANDROID_HOME=\$(pwd)/android/androidsdk/libexec ./node_modules/.bin/react-native run-android --no-packager"

@@ -5,6 +5,5 @@ set -eu
 ./cleanbuild.sh
 
 ./package-web.sh
-./package-macos.sh
 ./package-android.sh
-
+./package-macos.sh

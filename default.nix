@@ -18,7 +18,7 @@ let
         ];
         buildDepends = [pkgs.haskellPackages.cabal-install] ++
           (if compiler == "default"
-             then with pkgs.haskellPackages; [hdocs hasktags pointfree hsdev hdevtools ghc-mod stylish-haskell hindent (hoogle.override { process-extras = haskell.lib.dontCheck process-extras; }) (apply-refact.override { ghc-exactprint = haskell.lib.dontCheck ghc-exactprint; })]
+             then with pkgs.haskellPackages; [hlint stack intero hasktags pointfree hdevtools stylish-haskell hindent (hoogle.override { process-extras = pkgs.haskell.lib.dontCheck process-extras; }) (apply-refact.override { ghc-exactprint = pkgs.haskell.lib.dontCheck ghc-exactprint; })]
              else []);
         license = stdenv.lib.licenses.mit;
       };
@@ -27,36 +27,20 @@ let
                        then pkgs.haskellPackages
                        else pkgs.haskell.packages.${compiler};
 
-  ghcjs-base-stub = haskellPackages.callPackage
-    ({ stdenv, mkDerivation, aeson, attoparsec, base, deepseq, ghc-prim
-     , primitive, scientific, text, transformers, unordered-containers
-     , vector
-     }:
-     mkDerivation {
-       pname = "ghcjs-base-stub";
-       version = "0.1.0.2";
-       sha256 = "629089740c7fd2349b39a3899bad3692667dfd2ff6443b3e815d2bf3cad60ff5";
-       libraryHaskellDepends = [
-         aeson attoparsec base deepseq ghc-prim primitive scientific text
-         transformers unordered-containers vector
-       ];
-       homepage = "https://github.com/louispan/javascript-stub#readme";
-       description = "Allow GHCJS projects to compile under GHC and develop using intero";
-       license = stdenv.lib.licenses.bsd3;
-     }) {};
-
   ghcjsbase = if compiler == "default"
-                 then ghcjs-base-stub
+                 then haskellPackages.ghcjs-base-stub
                  else haskellPackages.ghcjs-base;
 
   # add missing ghcjs-base to react-flux
-  reactFluxFixed = haskellPackages.react-flux.override (args: args // {
-    mkDerivation = expr: args.mkDerivation (expr // {
-        libraryHaskellDepends = expr.libraryHaskellDepends ++ [ghcjsbase];
-    });
-  });
+  #reactFluxFixed = haskellPackages.react-flux.override (args: args // {
+  #  mkDerivation = expr: args.mkDerivation (expr // {
+  #      libraryHaskellDepends = expr.libraryHaskellDepends ++ [ghcjsbase];
+  #  });
+  #});
 
-  drv = haskellPackages.callPackage f { react-flux = reactFluxFixed; };
+  reactHS = haskellPackages.callPackage ./react-hs/react-hs/default.nix { ghcjs-base = ghcjsbase; };
+
+  drv = haskellPackages.callPackage f { react-flux = reactHS; ghcjs-base = ghcjsbase; };
 
 in
 

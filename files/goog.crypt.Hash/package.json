@@ -1,8 +1,0 @@
-{
-  "name": "goog.crypt.Hash",
-  "version": "1.0.0",
-  "main": "lib.js",
-  "scripts": {
-    "start": ""
-  }
-}

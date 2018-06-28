@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p nix bash
+#! nix-shell -i bash -p nix bash nodejs
 set -eu
 source ./nix-shell-init.sh
 
@@ -15,4 +15,4 @@ cp -fR files/* $app/
 
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" $app/ios/$app/AppDelegate.m"
 
-nix-shell -p nodejs --run "cd $app && ./node_modules/.bin/react-native run-ios"
+(cd $app && ./node_modules/.bin/react-native run-ios --no-packager)

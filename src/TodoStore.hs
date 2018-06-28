@@ -1,29 +1,34 @@
-{-# LANGUAGE TypeFamilies, DeriveGeneric, DeriveAnyClass #-}
+{-# LANGUAGE DeriveAnyClass    #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications  #-}
+{-# LANGUAGE TypeFamilies      #-}
 module TodoStore where
 
-import React.Flux
-import Control.Concurrent (forkIO,threadDelay)
-import Control.DeepSeq
-import GHC.Generics (Generic)
-import Data.Typeable (Typeable)
+import           Control.Concurrent (forkIO, threadDelay)
+import           Control.DeepSeq
+import           Data.Typeable      (Typeable)
+import           GHC.Generics       (Generic)
+import           React.Flux
 
 import qualified React.Flux.Rn.APIs as RnA
 
 data Todo = Todo {
-    todoText :: String
-  , todoComplete :: Bool
+    todoText      :: String
+  , todoComplete  :: Bool
   , todoIsEditing :: Bool
-} deriving (Show, Typeable)
+} deriving (Show, Typeable, Eq)
 
 data Filter = All | Active | Completed
   deriving (Show, Eq, Typeable, NFData, Generic)
 
 data TodoState = TodoState {
-    todoList :: [(Int, Todo)]
+    todoList   :: [(Int, Todo)]
   , todoFilter :: Filter
-} deriving (Show, Typeable)
+} deriving (Show, Typeable, Eq)
 
 data TodoAction = TodoCreate String
+                | TodoCreateAction
                 | TodoDelete Int
                 | TodoEdit Int
                 | UpdateText Int String
@@ -35,7 +40,7 @@ data TodoAction = TodoCreate String
                 | SetFilter Filter
                 | Alert String
                 | OpenLink String
-  deriving (Show, Typeable, Generic, NFData)
+  deriving (Show, Typeable, Generic, NFData, Eq)
 
 instance StoreData TodoState where
     type StoreAction TodoState = TodoAction
@@ -47,7 +52,7 @@ instance StoreData TodoState where
         -- itself is unchanged.  This allows React to avoid re-rendering the todo when it does not change.
         -- For more, see the "Performance" section of the React.Flux haddocks.
         (newTodos, newFilter) <- return $ case action of
-            (TodoCreate txt) -> let index = if length todos == 0 then 0 else (maximum (map fst todos))
+            (TodoCreate txt) -> let index = if null todos then 0 else maximum (map fst todos)
                                 in ((index + 1, Todo txt False False) : todos, filt)
             (TodoDelete i) -> (filter ((/=i) . fst) todos, filt)
             (TodoEdit i) -> let f (idx, todo) | idx == i = (idx, todo { todoIsEditing = True })
@@ -80,16 +85,19 @@ instance StoreData TodoState where
           CancelUpdateWithDelay i -> do
               forkIO $ do
                   threadDelay $ 1000*1000
-                  alterStore todoStore $ CancelUpdate i
+                  executeAction $ (todoAction $ CancelUpdate i)
               return ()
           _ -> return ()
         putStrLn $ "New todos: " ++ show newTodos
         putStrLn $ "New filter: " ++ show newFilter
         return $ TodoState newTodos newFilter
 
-todoStore :: ReactStore TodoState
-todoStore = mkStore $ TodoState
-    [ (0, Todo "Learn react" True False)
+todoAction :: TodoAction -> SomeStoreAction
+todoAction a = action @TodoState a
+
+todoStore = TodoState
+    [
+      (0, Todo "Learn react" True False)
     , (1, Todo "Learn react-flux" False False)
     ]
     All
