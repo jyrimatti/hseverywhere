@@ -1,5 +1,7 @@
+{-# LANGUAGE NoImplicitPrelude #-}
 import           Data.JSString (pack)
 import           GHCJS.Types   (JSString)
+import           Prelude       (IO)
 import           React.Flux    (View, registerInitialStore)
 import           TodoStore     (todoStore)
 import           TodoViews     (todoApp)

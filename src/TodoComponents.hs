@@ -2,14 +2,15 @@
 {-# LANGUAGE PartialTypeSignatures #-}
 module TodoComponents where
 
-import           Data.Maybe               (fromMaybe)
-import           Data.Typeable            (Typeable)
+import           Data.Maybe                         (fromMaybe)
+import           Data.Typeable                      (Typeable)
+import           Prelude
+import           React.Flux                         hiding (onBlur)
 
-import           React.Flux
-
-import qualified React.Flux.Rn.Components as Rn
-import qualified React.Flux.Rn.Events     as RnE
-import qualified React.Flux.Rn.Style      as RnS
+import qualified React.Flux.Rn.Components           as Rn
+import           React.Flux.Rn.Components.TextInput
+import qualified React.Flux.Rn.Events               as RnE
+import qualified React.Flux.Rn.Style                as RnS
 
 
 import           TodoDispatcher
@@ -48,8 +49,8 @@ todoTextInput styles state = mkStatefulView "todo text input" state $ \curText a
                       , RnS.color "#4d4d4d"
                       ] ++ styles
 
-        , RnE.onChangeText $ \text -> const ([], Just text)
-        , RnE.onBlur $ \curState ->
+        , onChangeText $ \text -> const ([], Just text)
+        , onBlur $ \curState ->
             if not (null curState)
                 then (tiaOnSave args curState, Just "")
                 else ([], Nothing)

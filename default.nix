@@ -5,7 +5,7 @@ let
   inherit (nixpkgs) pkgs;
 
   f = { mkDerivation, base, deepseq, ghcjs-base, react-flux, stdenv
-      , text, time, transformers
+      , text, time, transformers, containers, http-common, network-uri, semigroups
       }:
       mkDerivation {
         pname = "hseverywhere";
@@ -14,7 +14,7 @@ let
         isLibrary = false;
         isExecutable = true;
         executableHaskellDepends = [
-          base deepseq ghcjs-base react-flux text time transformers
+          base deepseq ghcjs-base react-flux text time transformers containers http-common network-uri semigroups
         ];
         buildDepends = [pkgs.haskellPackages.cabal-install] ++
           (if compiler == "default"

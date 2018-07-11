@@ -23,12 +23,58 @@ executable hseverywhere
                        time,
                        deepseq,
                        react-hs,
-                       aeson
+                       aeson,
+                       containers,
+                       http-common,
+                       network-uri,
+                       semigroups
+  other-modules: React.Flux.Rn.APIs,
+                 React.Flux.Rn.Components,
+                 React.Flux.Rn.Events,
+                 React.Flux.Rn.Style,
+                 React.Flux.Rn.Types,
+                 React.Flux.Rn.Components.ActivityIndicator,
+                 React.Flux.Rn.Components.Button,
+                 React.Flux.Rn.Components.DatePickerIOS,
+                 React.Flux.Rn.Components.DrawerLayoutAndroid,
+                 React.Flux.Rn.Components.FlatList,
+                 React.Flux.Rn.Components.Image,
+                 React.Flux.Rn.Components.KeyboardAvoidingView,
+                 React.Flux.Rn.Components.ListView,
+                 React.Flux.Rn.Components.MaskedViewIOS,
+                 React.Flux.Rn.Components.Modal,
+                 React.Flux.Rn.Components.NavigatorIOS,
+                 React.Flux.Rn.Components.Picker,
+                 React.Flux.Rn.Components.PickerIOS,
+                 React.Flux.Rn.Components.ProgressBarAndroid,
+                 React.Flux.Rn.Components.ProgressViewIOS,
+                 React.Flux.Rn.Components.RefreshControl,
+                 React.Flux.Rn.Components.SafeAreaView,
+                 React.Flux.Rn.Components.ScrollView,
+                 React.Flux.Rn.Components.SectionList,
+                 React.Flux.Rn.Components.SegmentedControlIOS,
+                 React.Flux.Rn.Components.Slider,
+                 React.Flux.Rn.Components.SnapshotViewIOS,
+                 React.Flux.Rn.Components.StatusBar,
+                 React.Flux.Rn.Components.Switch,
+                 React.Flux.Rn.Components.TabBarIOS,
+                 React.Flux.Rn.Components.TabBarIOS_Item,
+                 React.Flux.Rn.Components.Text
+                 React.Flux.Rn.Components.TextInput,
+                 React.Flux.Rn.Components.ToolbarAndroid,
+                 React.Flux.Rn.Components.TouchableHighlight,
+                 React.Flux.Rn.Components.TouchableNativeFeedback,
+                 React.Flux.Rn.Components.TouchableOpacity,
+                 React.Flux.Rn.Components.TouchableWithoutFeedback,
+                 React.Flux.Rn.Components.View,
+                 React.Flux.Rn.Components.ViewPagerAndroid,
+                 React.Flux.Rn.Components.VirtualizedList,
+                 React.Flux.Rn.Components.WebView,
+                 React.Flux.Rn.Styles.Image
   if impl(ghcjs)
       build-depends: ghcjs-base
   else
       build-depends: ghcjs-base-stub
-  default-extensions: CPP
   hs-source-dirs:      src
   default-language:    Haskell2010
   ghc-options: -W

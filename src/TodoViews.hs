@@ -15,20 +15,22 @@
 
 module TodoViews where
 
-import           Control.Monad            (forM_, unless, when)
+import           Control.Monad                             (forM_, unless, when)
+import           Prelude
 
-import           React.Flux               (EventHandlerCode (..), ReactElementM,
-                                           StoreArg, View, ViewEventHandler,
-                                           elemShow, elemString,
-                                           mkControllerView, mkView, view_,
-                                           xview_, ($=))
+import           React.Flux                                (EventHandlerCode (..),
+                                                            ReactElementM,
+                                                            StoreArg, View,
+                                                            elemShow,
+                                                            elemString,
+                                                            mkControllerView,
+                                                            mkView, view_,
+                                                            xview_, ($=))
 
-import qualified React.Flux.Rn.APIs       as RnA
-import qualified React.Flux.Rn.Components as Rn
-import qualified React.Flux.Rn.Events     as RnE
-import qualified React.Flux.Rn.Style      as RnS
-
-import qualified Addons
+import qualified React.Flux.Rn.APIs                        as RnA
+import qualified React.Flux.Rn.Components                  as Rn
+import           React.Flux.Rn.Components.TouchableOpacity
+import qualified React.Flux.Rn.Style                       as RnS
 
 import           TodoComponents
 import           TodoDispatcher
@@ -87,7 +89,7 @@ todoFooter = mkView "todoFooter" $ \() ->
             credit "React-native, " "https://facebook.github.io/react-native/"
             credit "React-native-desktop, " "https://www.npmjs.com/package/react-native-desktop"
             credit "React-native-web" "https://github.com/necolas/react-native-web"
-  where credit text link = Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo $ OpenLink link ] $
+  where credit text link = Rn.touchableOpacity [ onPress $ dispatchTodo $ OpenLink link ] $
                                Rn.text [RnS.style infoStyles] text
 
 todoFooter_ :: ReactElementM eventHandler ()
@@ -103,13 +105,13 @@ mainSection_ todoState@(TodoState todoList filt) =
                        , RnS.shadowOpacity 1
                        ]] $ do
         Rn.view [RnS.style [RnS.flexDirection RnS.Row]] $ do
-            Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo ToggleAllComplete
+            Rn.touchableOpacity [ onPress $ dispatchTodo ToggleAllComplete
                                 , RnS.style [ RnS.alignItems RnS.ICenter
                                             , RnS.alignSelf RnS.SCenter
                                             , RnS.flexDirection RnS.Column
                                             , RnS.width 50
                                             ]] $
-                Rn.text [ "checked" $= if all (todoComplete . snd) $ todoList then "checked" else ""
+                Rn.text [ "checked" $= if all (todoComplete . snd) todoList then "checked" else ""
                         , RnS.style [ RnS.transform [RnS.RotateZ "90deg"]
                                     , RnS.color $ if allCompleted then "#4d4d4d" else "#d9d9d9"
                                     , RnS.fontSize 20
@@ -153,7 +155,7 @@ todoItem = mkView "todo item" $ \(todoIdx, todo) ->
     in Rn.view [ RnS.style [ RnS.flexDirection RnS.Row ]
                ] $ do
         unless (todoIsEditing todo) $ do
-            Rn.touchableWithoutFeedback [ RnE.onPress $ \_ -> handleTodo $ TodoSetComplete todoIdx (not isComplete) ] $
+            Rn.touchableWithoutFeedback [ onPress $ dispatchTodo $ TodoSetComplete todoIdx (not isComplete) ] $
                 -- I guess IOS does not support rendering inline SVG, so let's use border and unicode instead of a check-mark image.
                 Rn.view [ RnS.style [ RnS.width 30
                                     , RnS.height 30
@@ -169,7 +171,7 @@ todoItem = mkView "todo item" $ \(todoIdx, todo) ->
                         --RnA.IOS | isComplete -> Addons.icon_materialicons ["name" $= "done", "size" @= (20 :: Int), "color" $= "#5dc2af"] mempty
                         --RnA.IOS              -> mempty
                         _                    -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af", RnS.fontFamily "HelveticaNeue" ]] $ if isComplete then "\x2713" else ""
-            Rn.touchableOpacity [ RnE.onLongPress $ \_ -> handleTodo $ TodoEdit todoIdx
+            Rn.touchableOpacity [ onLongPress $ dispatchTodo $ TodoEdit todoIdx
                                 , RnS.style [ RnS.padding 15
                                             , RnS.flex 1
                                             ]] $
@@ -183,7 +185,7 @@ todoItem = mkView "todo item" $ \(todoIdx, todo) ->
                     elemString $ todoText todo
 
         when (todoIsEditing todo) $ do
-            Rn.touchableWithoutFeedback [ RnE.onPress $ \_ -> handleTodo $ TodoDelete todoIdx ] $
+            Rn.touchableWithoutFeedback [ onPress $ dispatchTodo $ TodoDelete todoIdx ] $
                 Rn.view [ RnS.style [ RnS.width 30
                                     , RnS.height 30
                                     , RnS.alignSelf RnS.SCenter
@@ -245,14 +247,14 @@ mainSectionFooter = xview_ $ mkView "msfooter" $ \(TodoState todos filtering) ->
                                 , RnS.flexWrap RnS.Wrap
                                 , RnS.flex 1
                                 ]] $ do
-                Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo (SetFilter All), styling All] $
+                Rn.touchableOpacity [ onPress $ dispatchTodo (SetFilter All), styling All] $
                     Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "All"
-                Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo (SetFilter Active), styling Active] $
+                Rn.touchableOpacity [ onPress $ dispatchTodo (SetFilter Active), styling Active] $
                     Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Active"
-                Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo (SetFilter Completed), styling Completed] $
+                Rn.touchableOpacity [ onPress $ dispatchTodo (SetFilter Completed), styling Completed] $
                     Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Completed"
 
-            Rn.touchableOpacity [ RnE.onPress $ \_ -> handleTodo ClearCompletedTodos
+            Rn.touchableOpacity [ onPress $ dispatchTodo ClearCompletedTodos
                                 , RnS.style (if completed == 0 then [RnS.opacity 0] else [])
                                 ] $
                 Rn.text [ RnS.style footerStyles

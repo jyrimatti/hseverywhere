@@ -9,6 +9,7 @@ import           Control.Concurrent (forkIO, threadDelay)
 import           Control.DeepSeq
 import           Data.Typeable      (Typeable)
 import           GHC.Generics       (Generic)
+import           Prelude
 import           React.Flux
 
 import qualified React.Flux.Rn.APIs as RnA
@@ -85,7 +86,7 @@ instance StoreData TodoState where
           CancelUpdateWithDelay i -> do
               forkIO $ do
                   threadDelay $ 1000*1000
-                  executeAction $ (todoAction $ CancelUpdate i)
+                  executeAction (todoAction $ CancelUpdate i)
               return ()
           _ -> return ()
         putStrLn $ "New todos: " ++ show newTodos
@@ -93,7 +94,7 @@ instance StoreData TodoState where
         return $ TodoState newTodos newFilter
 
 todoAction :: TodoAction -> SomeStoreAction
-todoAction a = action @TodoState a
+todoAction = action @TodoState
 
 todoStore = TodoState
     [

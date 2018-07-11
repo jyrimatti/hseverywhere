@@ -1,10 +1,15 @@
+{-# LANGUAGE CPP               #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+
 module React.Flux.Rn.APIs where
 
-import System.IO.Unsafe (unsafePerformIO)
-import GHCJS.Types (JSVal)
-import GHCJS.Marshal (ToJSVal(..),FromJSVal(..))
+import           GHCJS.Marshal    (FromJSVal (..), ToJSVal (..))
+import           GHCJS.Types      (JSVal)
+import           Prelude          (IO, Maybe (..), Show, String, undefined, ($),
+                                   (>>=))
+import           System.IO.Unsafe (unsafePerformIO)
 
-
+{-# ANN module ("HLint: ignore Use camelCase" :: String) #-}
 
 -- Platform
 
@@ -13,12 +18,12 @@ data Platform = IOS | Android | MacOS | Web | Windows | Other String
 
 platform :: Platform
 platform = case platformOS of
-             "ios" -> IOS
+             "ios"     -> IOS
              "android" -> Android
-             "macos" -> MacOS
-             "web" -> Web
+             "macos"   -> MacOS
+             "web"     -> Web
              "windows" -> Windows
-             p -> Other p
+             p         -> Other p
 
 platformOS :: String
 platformOS = unsafePerformIO $ js_platform_os >>= fromJSValUnchecked
@@ -31,8 +36,8 @@ foreign import javascript unsafe
     "Platform.OS"
   js_platform_os :: IO JSVal
 #else
-  js_platform_os :: IO JSVal
-  js_platform_os = undefined
+js_platform_os :: IO JSVal
+js_platform_os = undefined
 #endif
 
 #ifdef __GHCJS__
@@ -40,8 +45,8 @@ foreign import javascript unsafe
     "Platform.Version"
   js_platform_version :: IO JSVal
 #else
-  js_platform_version :: IO JSVal
-  js_platform_version = undefined
+js_platform_version :: IO JSVal
+js_platform_version = undefined
 #endif
 
 
@@ -49,7 +54,7 @@ foreign import javascript unsafe
 
 alert :: String -> Maybe String -> IO ()
 alert title msg = toJSVal title >>= \t -> (case msg of
-                                            Just m -> toJSVal m
+                                            Just m  -> toJSVal m
                                             Nothing -> toJSVal " ") >>= \m -> js_alert t m
 
 #ifdef __GHCJS__
@@ -57,8 +62,8 @@ foreign import javascript unsafe
     "Alert.alert($1,$2)"
   js_alert :: JSVal -> JSVal -> IO ()
 #else
-  js_alert :: JSVal -> JSVal -> IO ()
-  js_alert = undefined
+js_alert :: JSVal -> JSVal -> IO ()
+js_alert = undefined
 #endif
 
 
@@ -72,8 +77,8 @@ foreign import javascript unsafe
     "Linking.openURL($1)"
   js_openURL :: JSVal -> IO ()
 #else
-  js_openURL :: JSVal -> IO ()
-  js_openURL = undefined
+js_openURL :: JSVal -> IO ()
+js_openURL = undefined
 #endif
 
 
@@ -87,6 +92,6 @@ foreign import javascript unsafe
     "AppState.currentState"
   js_currentState :: IO JSVal
 #else
-  js_currentState :: IO JSVal
-  js_currentState = undefined
+js_currentState :: IO JSVal
+js_currentState = undefined
 #endif

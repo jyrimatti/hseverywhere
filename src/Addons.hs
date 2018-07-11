@@ -1,7 +1,11 @@
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Addons where
 
-import React.Flux (foreign_)
+import           Prelude    (String)
+import           React.Flux (foreign_)
+
+{-# ANN module ("HLint: ignore Use camelCase" :: String) #-}
 
 icon_entypo        = foreign_ "Icon.Entypo"
 icon_evilicons     = foreign_ "Icon.EvilIcons"
