@@ -1,81 +1,55 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TouchableHighlight where
 
 import           Numeric.Natural
-import           Prelude                                           (Bool,
-                                                                    Double)
+import           Prelude                                      (Bool, Double)
 import           React.Flux
-import qualified React.Flux.Rn.Components.TouchableWithoutFeedback as TWF
+import           React.Flux.Rn.Components                     (Props, TouchableHighlight,
+                                                               nestedProp, prop)
 import           React.Flux.Rn.Events
+import qualified React.Flux.Rn.Props.TouchableWithoutFeedback as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types
 
-activeOpacity :: Double -> PropertyOrHandler handler
-activeOpacity = (&=) "activeOpacity"
+activeOpacity :: Double -> Props TouchableHighlight handler
+activeOpacity = prop "activeOpacity"
 
-onHideUnderlay :: EventHandlerType handler -> PropertyOrHandler handler
+onHideUnderlay :: EventHandlerType handler -> Props TouchableHighlight handler
 onHideUnderlay = on0 "onHideUnderlay"
 
-onShowUnderlay :: EventHandlerType handler -> PropertyOrHandler handler
+onShowUnderlay :: EventHandlerType handler -> Props TouchableHighlight handler
 onShowUnderlay = on0 "onShowUnderlay"
 
-style :: ViewStyleProps -> PropertyOrHandler handler
-style = nestedProperty "style"
+style :: ViewStyleProps -> Props TouchableHighlight handler
+style = nestedProp "style"
 
-underlayColor :: Color -> PropertyOrHandler handler
-underlayColor = (&=) "underlayColor"
-
--- Platform: IOS
-hasTVPreferredFocus :: Bool -> PropertyOrHandler handler
-hasTVPreferredFocus = (&=) "hasTVPreferredFocus"
+underlayColor :: Color -> Props TouchableHighlight handler
+underlayColor = prop "underlayColor"
 
 -- Platform: IOS
-tvParallaxProperties :: TvParallaxProperties -> PropertyOrHandler handler
-tvParallaxProperties = (&=) "tvParallaxProperties"
+hasTVPreferredFocus :: Bool -> Props TouchableHighlight handler
+hasTVPreferredFocus = prop "hasTVPreferredFocus"
+
+-- Platform: IOS
+tvParallaxProperties :: TvParallaxProperties -> Props TouchableHighlight handler
+tvParallaxProperties = prop "tvParallaxProperties"
 
 
+-- TouchableWithoutFeedbackProps:
 
--- TouchableWithoutFeedback props
-
-hitSlop :: Inset -> PropertyOrHandler handler
-hitSlop = TWF.hitSlop
-
-accessibilityComponentType :: AccessibilityComponentTypes -> PropertyOrHandler handler
-accessibilityComponentType = TWF.accessibilityComponentType
-
-accessible :: Bool -> PropertyOrHandler handler
-accessible = TWF.accessible
-
-delayLongPress :: Natural -> PropertyOrHandler handler
-delayLongPress = TWF.delayLongPress
-
-delayPressIn :: Natural -> PropertyOrHandler handler
-delayPressIn = TWF.delayPressIn
-
-delayPressOut :: Natural -> PropertyOrHandler handler
-delayPressOut = TWF.delayPressOut
-
-disabled :: Bool -> PropertyOrHandler handler
-disabled = TWF.disabled
-
-accessibilityTraits :: AccessibilityTraits -> PropertyOrHandler handler
-accessibilityTraits = TWF.accessibilityTraits
-
-onLayout :: (OnLayout -> EventHandlerType handler) -> PropertyOrHandler handler
-onLayout = TWF.onLayout
-
-onLongPress :: EventHandlerType handler -> PropertyOrHandler handler
-onLongPress = TWF.onLongPress
-
-onPress :: EventHandlerType handler -> PropertyOrHandler handler
-onPress = TWF.onPress
-
-onPressIn :: EventHandlerType handler -> PropertyOrHandler handler
-onPressIn = TWF.onPressIn
-
-onPressOut :: EventHandlerType handler -> PropertyOrHandler handler
-onPressOut = TWF.onPressOut
-
-pressRetentionOffset :: Inset -> PropertyOrHandler handler
-pressRetentionOffset = TWF.pressRetentionOffset
+hitSlop                    = TouchableWithoutFeedbackProps.hitSlop @TouchableHighlight
+accessibilityComponentType = TouchableWithoutFeedbackProps.accessibilityComponentType @TouchableHighlight
+accessible                 = TouchableWithoutFeedbackProps.accessible @TouchableHighlight
+delayLongPress             = TouchableWithoutFeedbackProps.delayLongPress @TouchableHighlight
+delayPressIn               = TouchableWithoutFeedbackProps.delayPressIn @TouchableHighlight
+delayPressOut              = TouchableWithoutFeedbackProps.delayPressOut @TouchableHighlight
+disabled                   = TouchableWithoutFeedbackProps.disabled @TouchableHighlight
+accessibilityTraits        = TouchableWithoutFeedbackProps.accessibilityTraits @TouchableHighlight
+onLayout                   = TouchableWithoutFeedbackProps.onLayout @TouchableHighlight
+onLongPress                = TouchableWithoutFeedbackProps.onLongPress @TouchableHighlight
+onPress                    = TouchableWithoutFeedbackProps.onPress @TouchableHighlight
+onPressIn                  = TouchableWithoutFeedbackProps.onPressIn @TouchableHighlight
+onPressOut                 = TouchableWithoutFeedbackProps.onPressOut @TouchableHighlight
+pressRetentionOffset       = TouchableWithoutFeedbackProps.pressRetentionOffset @TouchableHighlight

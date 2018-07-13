@@ -30,6 +30,7 @@ import           Prelude                    (Bool, Double, IO, Int, Maybe (..),
 import qualified Prelude                    as P
 import           React.Flux
 import           React.Flux.Internal        (ReactViewRef (..))
+import           React.Flux.Rn.Components   (Props)
 import           React.Flux.Rn.Events       (fromNativeJSON, nativeEvent)
 import           System.IO.Unsafe           (unsafePerformIO)
 
@@ -370,23 +371,23 @@ instance ToJSVal Route where
   toJSVal = toJSVal . toJSON
 
 -- TODO:
-type ViewStyleProps = forall handler. [PropertyOrHandler handler]
+type ViewStyleProps = forall component handler. [Props component handler]
 
--- TODO:
-type TextStyleProps = forall handler. [PropertyOrHandler handler]
+-- TODO: View | ...
+type TextStyleProps = forall component handler. [Props component handler]
 
--- TODO: excluding borderLeftWidth,borderTopWidth,borderRightWidth,borderBottomWidth,borderTopLeftRadius,borderTopRightRadius,borderBottomRightRadius,borderBottomLeftRadius
-type TextInputStyleProps = forall handler. [PropertyOrHandler handler]
+-- TODO: Text excluding borderLeftWidth,borderTopWidth,borderRightWidth,borderBottomWidth,borderTopLeftRadius,borderTopRightRadius,borderBottomRightRadius,borderBottomLeftRadius
+type TextInputStyleProps = forall component handler. [Props component handler]
 
 -- TODO: Layout | Shadow | Transforms |
 -- borderTopRightRadius | backfaceVisibility | borderBottomLeftRadius | borderBottomRightRadius | borderColor | borderRadius | borderTopLeftRadius | backgroundColor | borderWidth | opacity | overflow | resizeMode | tintColor | overlayColor
-type ImageStyleProps = forall handler. [PropertyOrHandler handler]
+type ImageStyleProps = forall component handler. [Props component handler]
 
 -- TODO: View | color
-type PickerStyleProps = forall handler. [PropertyOrHandler handler]
+type PickerStyleProps = forall component handler. [Props component handler]
 
 -- TODO: View | ...
-type TextComponentStyleProps = forall handler. [PropertyOrHandler handler]
+type TextComponentStyleProps = forall component handler. [Props component handler]
 
 -- TODO:
 data BackgroundPropType

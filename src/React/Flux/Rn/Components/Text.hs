@@ -4,67 +4,68 @@
 module React.Flux.Rn.Components.Text where
 
 import           Numeric.Natural
-import           Prelude              (Bool, Double, String, ($))
+import           Prelude                  (Bool, Double, String, ($))
 import           React.Flux
+import           React.Flux.Rn.Components (Props, Text, prop)
 import           React.Flux.Rn.Events
 import           React.Flux.Rn.Types
 
-selectable :: Bool -> PropertyOrHandler handler
-selectable = (&=) "selectable"
+selectable :: Bool -> Props Text handler
+selectable = prop "selectable"
 
-accessible :: Bool -> PropertyOrHandler handler
-accessible = (&=) "accessible"
+accessible :: Bool -> Props Text handler
+accessible = prop "accessible"
 
-ellipsizeMode :: EllipsizeMode -> PropertyOrHandler handler
-ellipsizeMode = (&=) "ellipsizeMode"
+ellipsizeMode :: EllipsizeMode -> Props Text handler
+ellipsizeMode = prop "ellipsizeMode"
 
-nativeID :: String -> PropertyOrHandler handler
-nativeID = (&=) "nativeID"
+nativeID :: String -> Props Text handler
+nativeID = prop "nativeID"
 
-numberOfLines :: Natural -> PropertyOrHandler handler
-numberOfLines = (&=) "numberOfLines"
+numberOfLines :: Natural -> Props Text handler
+numberOfLines = prop "numberOfLines"
 
-onLayout :: (OnLayoutVals -> EventHandlerType handler) -> PropertyOrHandler handler
+onLayout :: (OnLayoutVals -> EventHandlerType handler) -> Props Text handler
 onLayout f = on1 "onLayout" $ \(OnLayout x) -> f x
 
-onLongPress :: EventHandlerType handler -> PropertyOrHandler handler
+onLongPress :: EventHandlerType handler -> Props Text handler
 onLongPress = on0 "onLongPress"
 
-onPress :: EventHandlerType handler -> PropertyOrHandler handler
+onPress :: EventHandlerType handler -> Props Text handler
 onPress = on0 "onPress"
 
-pressRetentionOffset :: Inset -> PropertyOrHandler handler
-pressRetentionOffset = (&=) "pressRetentionOffset"
+pressRetentionOffset :: Inset -> Props Text handler
+pressRetentionOffset = prop "pressRetentionOffset"
 
-allowFontScaling :: Bool -> PropertyOrHandler handler
-allowFontScaling = (&=) "allowFontScaling"
+allowFontScaling :: Bool -> Props Text handler
+allowFontScaling = prop "allowFontScaling"
 
-style :: TextComponentStyleProps -> PropertyOrHandler handler
-style = nestedProperty "style"
+style :: TextComponentStyleProps -> Props Text handler
+style = nestedProp "style"
 
-testID :: String -> PropertyOrHandler handler
-testID = (&=) "testID"
-
--- Platform: Android
-disabled :: Bool -> PropertyOrHandler handler
-disabled = (&=) "disabled"
+testID :: String -> Props Text handler
+testID = prop "testID"
 
 -- Platform: Android
-selectionColor :: Color -> PropertyOrHandler handler
-selectionColor = (&=) "selectionColor"
+disabled :: Bool -> Props Text handler
+disabled = prop "disabled"
 
 -- Platform: Android
-textBreakStrategy :: TextBreakStrategy -> PropertyOrHandler handler
-textBreakStrategy = (&=) "textBreakStrategy"
+selectionColor :: Color -> Props Text handler
+selectionColor = prop "selectionColor"
+
+-- Platform: Android
+textBreakStrategy :: TextBreakStrategy -> Props Text handler
+textBreakStrategy = prop "textBreakStrategy"
 
 -- Platform: IOS
-adjustsFontSizeToFit :: Bool -> PropertyOrHandler handler
-adjustsFontSizeToFit = (&=) "adjustsFontSizeToFit"
+adjustsFontSizeToFit :: Bool -> Props Text handler
+adjustsFontSizeToFit = prop "adjustsFontSizeToFit"
 
 -- Platform: IOS
-minimumFontScale :: Double -> PropertyOrHandler handler
-minimumFontScale = (&=) "minimumFontScale"
+minimumFontScale :: Double -> Props Text handler
+minimumFontScale = prop "minimumFontScale"
 
 -- Platform: IOS
-suppressHighlighting :: Bool -> PropertyOrHandler handler
-suppressHighlighting = (&=) "suppressHighlighting"
+suppressHighlighting :: Bool -> Props Text handler
+suppressHighlighting = prop "suppressHighlighting"

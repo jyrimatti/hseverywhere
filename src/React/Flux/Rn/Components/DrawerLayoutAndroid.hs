@@ -1,48 +1,83 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.DrawerLayoutAndroid where
 
 import           Data.Typeable
 import           Numeric.Natural
 import           React.Flux
-import           React.Flux.Internal  (ReactViewRef)
+import           React.Flux.Internal      (ReactViewRef)
+import           React.Flux.Rn.Components (DrawerLayoutAndroid, Props, prop)
 import           React.Flux.Rn.Events
+import qualified React.Flux.Rn.Props.View as ViewProps
 import           React.Flux.Rn.Types
 
 -- Required
-renderNavigationView :: Typeable props => ReactViewRef props -> PropertyOrHandler handler
-renderNavigationView = (&=) "renderNavigationView"
+renderNavigationView :: Typeable props => ReactViewRef props -> Props DrawerLayoutAndroid handler
+renderNavigationView = prop "renderNavigationView"
 
-onDrawerClose :: EventHandlerType handler -> PropertyOrHandler handler
+onDrawerClose :: EventHandlerType handler -> Props DrawerLayoutAndroid handler
 onDrawerClose = on0 "onDrawerClose"
 
-drawerPosition :: DrawerPosition -> PropertyOrHandler handler
-drawerPosition = (&=) "drawerPosition"
+drawerPosition :: DrawerPosition -> Props DrawerLayoutAndroid handler
+drawerPosition = prop "drawerPosition"
 
-drawerWidth :: Natural -> PropertyOrHandler handler
-drawerWidth = (&=) "drawerWidth"
+drawerWidth :: Natural -> Props DrawerLayoutAndroid handler
+drawerWidth = prop "drawerWidth"
 
-keyboardDismissMode :: KeyboardDismissMode -> PropertyOrHandler handler
-keyboardDismissMode = (&=) "keyboardDismissMode"
+keyboardDismissMode :: KeyboardDismissMode -> Props DrawerLayoutAndroid handler
+keyboardDismissMode = prop "keyboardDismissMode"
 
-drawerLockMode :: DrawerLockMode -> PropertyOrHandler handler
-drawerLockMode = (&=) "drawerLockMode"
+drawerLockMode :: DrawerLockMode -> Props DrawerLayoutAndroid handler
+drawerLockMode = prop "drawerLockMode"
 
-onDrawerOpen :: EventHandlerType handler -> PropertyOrHandler handler
+onDrawerOpen :: EventHandlerType handler -> Props DrawerLayoutAndroid handler
 onDrawerOpen = on0 "onDrawerOpen"
 
-onDrawerSlide :: EventHandlerType handler -> PropertyOrHandler handler
+onDrawerSlide :: EventHandlerType handler -> Props DrawerLayoutAndroid handler
 onDrawerSlide = on0 "onDrawerSlide"
 
-onDrawerStateChanged :: EventHandlerType handler -> PropertyOrHandler handler
+onDrawerStateChanged :: EventHandlerType handler -> Props DrawerLayoutAndroid handler
 onDrawerStateChanged = on0 "onDrawerStateChanged"
 
-drawerBackgroundColor :: Color -> PropertyOrHandler handler
-drawerBackgroundColor = (&=) "drawerBackgroundColor"
+drawerBackgroundColor :: Color -> Props DrawerLayoutAndroid handler
+drawerBackgroundColor = prop "drawerBackgroundColor"
 
-statusBarBackgroundColor :: Color -> PropertyOrHandler handler
-statusBarBackgroundColor = (&=) "statusBarBackgroundColor"
+statusBarBackgroundColor :: Color -> Props DrawerLayoutAndroid handler
+statusBarBackgroundColor = prop "statusBarBackgroundColor"
 
--- TODO: ViewProps
+-- ViewProps:
+
+onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @DrawerLayoutAndroid
+accessibilityLabel               = ViewProps.accessibilityLabel @DrawerLayoutAndroid
+hitSlop                          = ViewProps.hitSlop @DrawerLayoutAndroid
+nativeID                         = ViewProps.nativeID @DrawerLayoutAndroid
+onAccessibilityTap               = ViewProps.onAccessibilityTap @DrawerLayoutAndroid
+onLayout                         = ViewProps.onLayout @DrawerLayoutAndroid
+onMagicTap                       = ViewProps.onMagicTap @DrawerLayoutAndroid
+onMoveShouldSetResponder         = ViewProps.onMoveShouldSetResponder @DrawerLayoutAndroid
+onMoveShouldSetResponderCapture  = ViewProps.onMoveShouldSetResponderCapture @DrawerLayoutAndroid
+onResponderGrant                 = ViewProps.onResponderGrant @DrawerLayoutAndroid
+onResponderMove                  = ViewProps.onResponderMove @DrawerLayoutAndroid
+onResponderReject                = ViewProps.onResponderReject @DrawerLayoutAndroid
+onResponderRelease               = ViewProps.onResponderRelease @DrawerLayoutAndroid
+onResponderTerminate             = ViewProps.onResponderTerminate @DrawerLayoutAndroid
+onResponderTerminationRequest    = ViewProps.onResponderTerminationRequest @DrawerLayoutAndroid
+accessible                       = ViewProps.accessible @DrawerLayoutAndroid
+onStartShouldSetResponderCapture = ViewProps.onStartShouldSetResponderCapture @DrawerLayoutAndroid
+pointerEvents                    = ViewProps.pointerEvents @DrawerLayoutAndroid
+removeClippedSubviews            = ViewProps.removeClippedSubviews @DrawerLayoutAndroid
+style                            = ViewProps.style @DrawerLayoutAndroid
+testID                           = ViewProps.testID @DrawerLayoutAndroid
+accessibilityComponentType       = ViewProps.accessibilityComponentType @DrawerLayoutAndroid
+accessibilityLiveRegion          = ViewProps.accessibilityLiveRegion @DrawerLayoutAndroid
+collapsable                      = ViewProps.collapsable @DrawerLayoutAndroid
+importantForAccessibility        = ViewProps.importantForAccessibility @DrawerLayoutAndroid
+needsOffscreenAlphaCompositing   = ViewProps.needsOffscreenAlphaCompositing @DrawerLayoutAndroid
+renderToHardwareTextureAndroid   = ViewProps.renderToHardwareTextureAndroid @DrawerLayoutAndroid
+accessibilityTraits              = ViewProps.accessibilityTraits @DrawerLayoutAndroid
+accessibilityViewIsModal         = ViewProps.accessibilityViewIsModal @DrawerLayoutAndroid
+shouldRasterizeIOS               = ViewProps.shouldRasterizeIOS @DrawerLayoutAndroid
+
 
 -- TODO: methods

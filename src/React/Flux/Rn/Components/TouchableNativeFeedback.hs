@@ -2,67 +2,43 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TouchableNativeFeedback where
 
 import           GHC.Generics
-import           GHCJS.Marshal                                     (ToJSVal (..))
+import           GHCJS.Marshal                                (ToJSVal (..))
 import           Numeric.Natural
-import           Prelude                                           (Bool)
+import           Prelude                                      (Bool)
 import           React.Flux
-import qualified React.Flux.Rn.Components.TouchableWithoutFeedback as TWF
+import           React.Flux.Rn.Components                     (Props, TouchableNativeFeedback,
+                                                               prop)
+import qualified React.Flux.Rn.Props.TouchableWithoutFeedback as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types
 
-background :: BackgroundPropType -> PropertyOrHandler handler
-background = (&=) "background"
+background :: BackgroundPropType -> Props TouchableNativeFeedback handler
+background = prop "background"
 
-useForeground :: Bool -> PropertyOrHandler handler
-useForeground = (&=) "useForeground"
+useForeground :: Bool -> Props TouchableNativeFeedback handler
+useForeground = prop "useForeground"
 
 
 
--- TouchableWithoutFeedback props
+-- TouchableWithoutFeedbackProps:
 
-hitSlop :: Inset -> PropertyOrHandler handler
-hitSlop = TWF.hitSlop
-
-accessibilityComponentType :: AccessibilityComponentTypes -> PropertyOrHandler handler
-accessibilityComponentType = TWF.accessibilityComponentType
-
-accessible :: Bool -> PropertyOrHandler handler
-accessible = TWF.accessible
-
-delayLongPress :: Natural -> PropertyOrHandler handler
-delayLongPress = TWF.delayLongPress
-
-delayPressIn :: Natural -> PropertyOrHandler handler
-delayPressIn = TWF.delayPressIn
-
-delayPressOut :: Natural -> PropertyOrHandler handler
-delayPressOut = TWF.delayPressOut
-
-disabled :: Bool -> PropertyOrHandler handler
-disabled = TWF.disabled
-
-accessibilityTraits :: AccessibilityTraits -> PropertyOrHandler handler
-accessibilityTraits = TWF.accessibilityTraits
-
-onLayout :: (OnLayout -> EventHandlerType handler) -> PropertyOrHandler handler
-onLayout = TWF.onLayout
-
-onLongPress :: EventHandlerType handler -> PropertyOrHandler handler
-onLongPress = TWF.onLongPress
-
-onPress :: EventHandlerType handler -> PropertyOrHandler handler
-onPress = TWF.onPress
-
-onPressIn :: EventHandlerType handler -> PropertyOrHandler handler
-onPressIn = TWF.onPressIn
-
-onPressOut :: EventHandlerType handler -> PropertyOrHandler handler
-onPressOut = TWF.onPressOut
-
-pressRetentionOffset :: Inset -> PropertyOrHandler handler
-pressRetentionOffset = TWF.pressRetentionOffset
+hitSlop                    = TouchableWithoutFeedbackProps.hitSlop @TouchableNativeFeedback
+accessibilityComponentType = TouchableWithoutFeedbackProps.accessibilityComponentType @TouchableNativeFeedback
+accessible                 = TouchableWithoutFeedbackProps.accessible @TouchableNativeFeedback
+delayLongPress             = TouchableWithoutFeedbackProps.delayLongPress @TouchableNativeFeedback
+delayPressIn               = TouchableWithoutFeedbackProps.delayPressIn @TouchableNativeFeedback
+delayPressOut              = TouchableWithoutFeedbackProps.delayPressOut @TouchableNativeFeedback
+disabled                   = TouchableWithoutFeedbackProps.disabled @TouchableNativeFeedback
+accessibilityTraits        = TouchableWithoutFeedbackProps.accessibilityTraits @TouchableNativeFeedback
+onLayout                   = TouchableWithoutFeedbackProps.onLayout @TouchableNativeFeedback
+onLongPress                = TouchableWithoutFeedbackProps.onLongPress @TouchableNativeFeedback
+onPress                    = TouchableWithoutFeedbackProps.onPress @TouchableNativeFeedback
+onPressIn                  = TouchableWithoutFeedbackProps.onPressIn @TouchableNativeFeedback
+onPressOut                 = TouchableWithoutFeedbackProps.onPressOut @TouchableNativeFeedback
+pressRetentionOffset       = TouchableWithoutFeedbackProps.pressRetentionOffset @TouchableNativeFeedback
 
 
 -- TODO: methods

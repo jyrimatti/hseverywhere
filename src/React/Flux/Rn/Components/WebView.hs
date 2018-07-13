@@ -1,6 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.WebView where
 
 import           Numeric.Natural
@@ -10,109 +11,143 @@ import           React.Flux
 import           React.Flux.Internal            (HandlerArg (..),
                                                  PropertyOrHandler_ (..))
 import           React.Flux.PropertiesAndEvents (callback)
+import           React.Flux.Rn.Components       (Props, WebView, prop)
 import           React.Flux.Rn.Events
+import qualified React.Flux.Rn.Props.View       as ViewProps
 import           React.Flux.Rn.Types
 
-source :: Source -> PropertyOrHandler handler
-source = (&=) "source"
+source :: Source -> Props WebView handler
+source = prop "source"
 
-automaticallyAdjustContentInsets :: Bool -> PropertyOrHandler handler
-automaticallyAdjustContentInsets = (&=) "automaticallyAdjustContentInsets"
+automaticallyAdjustContentInsets :: Bool -> Props WebView handler
+automaticallyAdjustContentInsets = prop "automaticallyAdjustContentInsets"
 
-injectJavaScript :: (JavaScript -> EventHandlerType handler) -> PropertyOrHandler handler
+injectJavaScript :: (JavaScript -> EventHandlerType handler) -> Props WebView handler
 injectJavaScript = on1 "injectJavaScript"
 
-injectedJavaScript :: JavaScript -> PropertyOrHandler handler
-injectedJavaScript = (&=) "injectedJavaScript"
+injectedJavaScript :: JavaScript -> Props WebView handler
+injectedJavaScript = prop "injectedJavaScript"
 
-mediaPlaybackRequiresUserAction :: Bool -> PropertyOrHandler handler
-mediaPlaybackRequiresUserAction = (&=) "mediaPlaybackRequiresUserAction"
+mediaPlaybackRequiresUserAction :: Bool -> Props WebView handler
+mediaPlaybackRequiresUserAction = prop "mediaPlaybackRequiresUserAction"
 
 -- TODO: ?
---nativeConfig :: NativeConfig -> PropertyOrHandler handler
---nativeConfig = (&=) "nativeConfig"
+--nativeConfig :: NativeConfig -> Props WebView handler
+--nativeConfig = prop "nativeConfig"
 
-onError :: EventHandlerType handler -> PropertyOrHandler handler
+onError :: EventHandlerType handler -> Props WebView handler
 onError = on0 "onError"
 
-onLoad :: EventHandlerType handler -> PropertyOrHandler handler
+onLoad :: EventHandlerType handler -> Props WebView handler
 onLoad = on0 "onLoad"
 
-onLoadEnd :: EventHandlerType handler -> PropertyOrHandler handler
+onLoadEnd :: EventHandlerType handler -> Props WebView handler
 onLoadEnd = on0 "onLoadEnd"
 
-onLoadStart :: EventHandlerType handler -> PropertyOrHandler handler
+onLoadStart :: EventHandlerType handler -> Props WebView handler
 onLoadStart = on0 "onLoadStart"
 
-onMessage :: (OnMessage -> EventHandlerType handler) -> PropertyOrHandler handler
+onMessage :: (OnMessage -> EventHandlerType handler) -> Props WebView handler
 onMessage = on1 "onMessage"
 
-onNavigationStateChange :: EventHandlerType handler -> PropertyOrHandler handler
+onNavigationStateChange :: EventHandlerType handler -> Props WebView handler
 onNavigationStateChange = on0 "onNavigationStateChange"
 
-renderError :: Typeable props => ReactViewRef props -> PropertyOrHandler handler
+renderError :: Typeable props => ReactViewRef props -> Props WebView handler
 renderError = view0 "renderError"
 
-renderLoading :: Typeable props => ReactViewRef props -> PropertyOrHandler handler
+renderLoading :: Typeable props => ReactViewRef props -> Props WebView handler
 renderLoading = view0 "renderLoading"
 
-scalesPageToFit :: Bool -> PropertyOrHandler handler
-scalesPageToFit = (&=) "scalesPageToFit"
+scalesPageToFit :: Bool -> Props WebView handler
+scalesPageToFit = prop "scalesPageToFit"
 
 -- Platform: IOS
-onShouldStartLoadWithRequest :: (() -> Bool) -> PropertyOrHandler handler
+onShouldStartLoadWithRequest :: (() -> Bool) -> Props WebView handler
 onShouldStartLoadWithRequest = ret1 "onShouldStartLoadWithRequest"
 
-startInLoadingState :: Bool -> PropertyOrHandler handler
-startInLoadingState = (&=) "startInLoadingState"
+startInLoadingState :: Bool -> Props WebView handler
+startInLoadingState = prop "startInLoadingState"
 
-style :: ViewStyleProps -> PropertyOrHandler handler
-style = nestedProperty "style"
+style :: ViewStyleProps -> Props WebView handler
+style = nestedProp "style"
 
 -- Platform: IOS
-decelerationRate :: DecelerationRate -> PropertyOrHandler handler
-decelerationRate = (&=) "decelerationRate"
+decelerationRate :: DecelerationRate -> Props WebView handler
+decelerationRate = prop "decelerationRate"
 
 -- Platform: Android
-domStorageEnabled :: Bool -> PropertyOrHandler handler
-domStorageEnabled = (&=) "domStorageEnabled"
+domStorageEnabled :: Bool -> Props WebView handler
+domStorageEnabled = prop "domStorageEnabled"
 
 -- Platform: Android
-javaScriptEnabled :: Bool -> PropertyOrHandler handler
-javaScriptEnabled = (&=) "javaScriptEnabled"
+javaScriptEnabled :: Bool -> Props WebView handler
+javaScriptEnabled = prop "javaScriptEnabled"
 
 -- Platform: Android
-mixedContentMode :: MixedContentMode -> PropertyOrHandler handler
-mixedContentMode = (&=) "mixedContentMode"
+mixedContentMode :: MixedContentMode -> Props WebView handler
+mixedContentMode = prop "mixedContentMode"
 
 -- Platform: Android
-thirdPartyCookiesEnabled :: Bool -> PropertyOrHandler handler
-thirdPartyCookiesEnabled = (&=) "thirdPartyCookiesEnabled"
+thirdPartyCookiesEnabled :: Bool -> Props WebView handler
+thirdPartyCookiesEnabled = prop "thirdPartyCookiesEnabled"
 
 -- Platform: Android
-userAgent :: String -> PropertyOrHandler handler
-userAgent = (&=) "userAgent"
+userAgent :: String -> Props WebView handler
+userAgent = prop "userAgent"
 
 -- Platform: IOS
-allowsInlineMediaPlayback :: Bool -> PropertyOrHandler handler
-allowsInlineMediaPlayback = (&=) "allowsInlineMediaPlayback"
+allowsInlineMediaPlayback :: Bool -> Props WebView handler
+allowsInlineMediaPlayback = prop "allowsInlineMediaPlayback"
 
 -- Platform: IOS
-bounces :: Bool -> PropertyOrHandler handler
-bounces = (&=) "bounces"
+bounces :: Bool -> Props WebView handler
+bounces = prop "bounces"
 
 -- Platform: IOS
-contentInset :: Inset -> PropertyOrHandler handler
-contentInset = (&=) "contentInset"
+contentInset :: Inset -> Props WebView handler
+contentInset = prop "contentInset"
 
 -- Platform: IOS
-dataDetectorTypes :: DataDetectorTypes -> PropertyOrHandler handler
-dataDetectorTypes = (&=) "dataDetectorTypes"
+dataDetectorTypes :: DataDetectorTypes -> Props WebView handler
+dataDetectorTypes = prop "dataDetectorTypes"
 
 -- Platform: IOS
-scrollEnabled :: Bool -> PropertyOrHandler handler
-scrollEnabled = (&=) "scrollEnabled"
+scrollEnabled :: Bool -> Props WebView handler
+scrollEnabled = prop "scrollEnabled"
 
--- TODO: ViewProps
+-- ViewProps:
+
+onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @WebView
+accessibilityLabel               = ViewProps.accessibilityLabel @WebView
+hitSlop                          = ViewProps.hitSlop @WebView
+nativeID                         = ViewProps.nativeID @WebView
+onAccessibilityTap               = ViewProps.onAccessibilityTap @WebView
+onLayout                         = ViewProps.onLayout @WebView
+onMagicTap                       = ViewProps.onMagicTap @WebView
+onMoveShouldSetResponder         = ViewProps.onMoveShouldSetResponder @WebView
+onMoveShouldSetResponderCapture  = ViewProps.onMoveShouldSetResponderCapture @WebView
+onResponderGrant                 = ViewProps.onResponderGrant @WebView
+onResponderMove                  = ViewProps.onResponderMove @WebView
+onResponderReject                = ViewProps.onResponderReject @WebView
+onResponderRelease               = ViewProps.onResponderRelease @WebView
+onResponderTerminate             = ViewProps.onResponderTerminate @WebView
+onResponderTerminationRequest    = ViewProps.onResponderTerminationRequest @WebView
+accessible                       = ViewProps.accessible @WebView
+onStartShouldSetResponderCapture = ViewProps.onStartShouldSetResponderCapture @WebView
+pointerEvents                    = ViewProps.pointerEvents @WebView
+removeClippedSubviews            = ViewProps.removeClippedSubviews @WebView
+style                            = ViewProps.style @WebView
+testID                           = ViewProps.testID @WebView
+accessibilityComponentType       = ViewProps.accessibilityComponentType @WebView
+accessibilityLiveRegion          = ViewProps.accessibilityLiveRegion @WebView
+collapsable                      = ViewProps.collapsable @WebView
+importantForAccessibility        = ViewProps.importantForAccessibility @WebView
+needsOffscreenAlphaCompositing   = ViewProps.needsOffscreenAlphaCompositing @WebView
+renderToHardwareTextureAndroid   = ViewProps.renderToHardwareTextureAndroid @WebView
+accessibilityTraits              = ViewProps.accessibilityTraits @WebView
+accessibilityViewIsModal         = ViewProps.accessibilityViewIsModal @WebView
+shouldRasterizeIOS               = ViewProps.shouldRasterizeIOS @WebView
+
 
 -- TODO: Methods

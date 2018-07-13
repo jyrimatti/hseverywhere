@@ -3,34 +3,35 @@
 {-# LANGUAGE RankNTypes        #-}
 module React.Flux.Rn.Components.StatusBar where
 
-import           Prelude              (Bool)
+import           Prelude                  (Bool)
 import           React.Flux
+import           React.Flux.Rn.Components (Props, StatusBar, prop)
 import           React.Flux.Rn.Events
 import           React.Flux.Rn.Types
 
-animated :: Bool -> PropertyOrHandler handler
-animated = (&=) "animated"
+animated :: Bool -> Props StatusBar handler
+animated = prop "animated"
 
-barStyle :: StatusBarStyle -> PropertyOrHandler handler
-barStyle = (&=) "barStyle"
+barStyle :: StatusBarStyle -> Props StatusBar handler
+barStyle = prop "barStyle"
 
-hidden :: Bool -> PropertyOrHandler handler
-hidden = (&=) "hidden"
-
--- Platform: Android
-backgroundColor :: Color -> PropertyOrHandler handler
-backgroundColor = (&=) "backgroundColor"
+hidden :: Bool -> Props StatusBar handler
+hidden = prop "hidden"
 
 -- Platform: Android
-translucent :: Bool -> PropertyOrHandler handler
-translucent = (&=) "translucent"
+backgroundColor :: Color -> Props StatusBar handler
+backgroundColor = prop "backgroundColor"
+
+-- Platform: Android
+translucent :: Bool -> Props StatusBar handler
+translucent = prop "translucent"
 
 -- Platform: IOS
-networkActivityIndicatorVisible :: Bool -> PropertyOrHandler handler
-networkActivityIndicatorVisible = (&=) "networkActivityIndicatorVisible"
+networkActivityIndicatorVisible :: Bool -> Props StatusBar handler
+networkActivityIndicatorVisible = prop "networkActivityIndicatorVisible"
 
 -- Platform: IOS
-showHideTransition :: ShowHideTransition -> PropertyOrHandler handler
-showHideTransition = (&=) "showHideTransition"
+showHideTransition :: ShowHideTransition -> Props StatusBar handler
+showHideTransition = prop "showHideTransition"
 
 -- TODO: Methods

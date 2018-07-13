@@ -1,8 +1,8 @@
 module React.Flux.Rn.Styles.Image where
 
 import           Numeric.Natural
-import           Prelude                        (Bool, String, const, pure, ($),
-                                                 (.), (<$>))
+import           Prelude                        (Bool, Double, String, const,
+                                                 pure, ($), (.), (<$>))
 import           React.Flux
 import           React.Flux.Internal            (HandlerArg (..),
                                                  PropertyOrHandler_ (..))

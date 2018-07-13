@@ -1,50 +1,85 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.RefreshControl where
 
 import           Numeric.Natural
-import           Prelude              (Bool, String)
+import           Prelude                  (Bool, String)
 import           React.Flux
+import           React.Flux.Rn.Components (Props, RefreshControl, prop)
 import           React.Flux.Rn.Events
+import qualified React.Flux.Rn.Props.View as ViewProps
 import           React.Flux.Rn.Types
 
 -- Required
-refreshing :: Bool -> PropertyOrHandler handler
-refreshing = (&=) "refreshing"
+refreshing :: Bool -> Props RefreshControl handler
+refreshing = prop "refreshing"
 
-onRefresh :: EventHandlerType handler -> PropertyOrHandler handler
+onRefresh :: EventHandlerType handler -> Props RefreshControl handler
 onRefresh = on0 "onRefresh"
 
 -- Platform: Android
-colors :: [Color] {-nonempty-} -> PropertyOrHandler handler
-colors = (&=) "colors"
+colors :: [Color] {-nonempty-} -> Props RefreshControl handler
+colors = prop "colors"
 
 -- Platform: Android
-enabled :: Bool -> PropertyOrHandler handler
-enabled = (&=) "enabled"
+enabled :: Bool -> Props RefreshControl handler
+enabled = prop "enabled"
 
 -- Platform: Android
-progressBackgroundColor :: Color -> PropertyOrHandler handler
-progressBackgroundColor = (&=) "progressBackgroundColor"
+progressBackgroundColor :: Color -> Props RefreshControl handler
+progressBackgroundColor = prop "progressBackgroundColor"
 
 -- Platform: Android
-progressViewOffset :: Natural -> PropertyOrHandler handler
-progressViewOffset = (&=) "progressViewOffset"
+progressViewOffset :: Natural -> Props RefreshControl handler
+progressViewOffset = prop "progressViewOffset"
 
 -- Platform: Android
-size :: RefreshControlSize -> PropertyOrHandler handler
-size = (&=) "size"
+size :: RefreshControlSize -> Props RefreshControl handler
+size = prop "size"
 
 -- Platform: IOS
-tintColor :: Color -> PropertyOrHandler handler
-tintColor = (&=) "tintColor"
+tintColor :: Color -> Props RefreshControl handler
+tintColor = prop "tintColor"
 
 -- Platform: IOS
-title :: String -> PropertyOrHandler handler
-title = (&=) "title"
+title :: String -> Props RefreshControl handler
+title = prop "title"
 
 -- Platform: IOS
-titleColor :: Color -> PropertyOrHandler handler
-titleColor = (&=) "titleColor"
+titleColor :: Color -> Props RefreshControl handler
+titleColor = prop "titleColor"
 
--- TODO: ViewProps
+-- ViewProps:
+
+onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @RefreshControl
+accessibilityLabel               = ViewProps.accessibilityLabel @RefreshControl
+hitSlop                          = ViewProps.hitSlop @RefreshControl
+nativeID                         = ViewProps.nativeID @RefreshControl
+onAccessibilityTap               = ViewProps.onAccessibilityTap @RefreshControl
+onLayout                         = ViewProps.onLayout @RefreshControl
+onMagicTap                       = ViewProps.onMagicTap @RefreshControl
+onMoveShouldSetResponder         = ViewProps.onMoveShouldSetResponder @RefreshControl
+onMoveShouldSetResponderCapture  = ViewProps.onMoveShouldSetResponderCapture @RefreshControl
+onResponderGrant                 = ViewProps.onResponderGrant @RefreshControl
+onResponderMove                  = ViewProps.onResponderMove @RefreshControl
+onResponderReject                = ViewProps.onResponderReject @RefreshControl
+onResponderRelease               = ViewProps.onResponderRelease @RefreshControl
+onResponderTerminate             = ViewProps.onResponderTerminate @RefreshControl
+onResponderTerminationRequest    = ViewProps.onResponderTerminationRequest @RefreshControl
+accessible                       = ViewProps.accessible @RefreshControl
+onStartShouldSetResponderCapture = ViewProps.onStartShouldSetResponderCapture @RefreshControl
+pointerEvents                    = ViewProps.pointerEvents @RefreshControl
+removeClippedSubviews            = ViewProps.removeClippedSubviews @RefreshControl
+style                            = ViewProps.style @RefreshControl
+testID                           = ViewProps.testID @RefreshControl
+accessibilityComponentType       = ViewProps.accessibilityComponentType @RefreshControl
+accessibilityLiveRegion          = ViewProps.accessibilityLiveRegion @RefreshControl
+collapsable                      = ViewProps.collapsable @RefreshControl
+importantForAccessibility        = ViewProps.importantForAccessibility @RefreshControl
+needsOffscreenAlphaCompositing   = ViewProps.needsOffscreenAlphaCompositing @RefreshControl
+renderToHardwareTextureAndroid   = ViewProps.renderToHardwareTextureAndroid @RefreshControl
+accessibilityTraits              = ViewProps.accessibilityTraits @RefreshControl
+accessibilityViewIsModal         = ViewProps.accessibilityViewIsModal @RefreshControl
+shouldRasterizeIOS               = ViewProps.shouldRasterizeIOS @RefreshControl
+

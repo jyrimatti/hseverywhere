@@ -1,70 +1,44 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TouchableOpacity where
 
 import           Numeric.Natural
-import           Prelude                                           (Bool,
-                                                                    Double)
+import           Prelude                                      (Bool, Double)
 import           React.Flux
-import qualified React.Flux.Rn.Components.TouchableWithoutFeedback as TWF
+import           React.Flux.Rn.Components                     (Props,
+                                                               TouchableOpacity,
+                                                               prop)
+import qualified React.Flux.Rn.Props.TouchableWithoutFeedback as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types
 
-activeOpacity :: Double -> PropertyOrHandler handler
-activeOpacity = (&=) "activeOpacity"
+activeOpacity :: Double -> Props TouchableOpacity handler
+activeOpacity = prop "activeOpacity"
 
-tvParallaxProperties :: TvParallaxProperties -> PropertyOrHandler handler
-tvParallaxProperties = (&=) "tvParallaxProperties"
+tvParallaxProperties :: TvParallaxProperties -> Props TouchableOpacity handler
+tvParallaxProperties = prop "tvParallaxProperties"
 
 -- Platform: IOS
-hasTVPreferredFocus :: Bool -> PropertyOrHandler handler
-hasTVPreferredFocus = (&=) "hasTVPreferredFocus"
+hasTVPreferredFocus :: Bool -> Props TouchableOpacity handler
+hasTVPreferredFocus = prop "hasTVPreferredFocus"
 
 
+-- TouchableWithoutFeedbackProps:
 
-
--- TouchableWithoutFeedback props
-
-hitSlop :: Inset -> PropertyOrHandler handler
-hitSlop = TWF.hitSlop
-
-accessibilityComponentType :: AccessibilityComponentTypes -> PropertyOrHandler handler
-accessibilityComponentType = TWF.accessibilityComponentType
-
-accessible :: Bool -> PropertyOrHandler handler
-accessible = TWF.accessible
-
-delayLongPress :: Natural -> PropertyOrHandler handler
-delayLongPress = TWF.delayLongPress
-
-delayPressIn :: Natural -> PropertyOrHandler handler
-delayPressIn = TWF.delayPressIn
-
-delayPressOut :: Natural -> PropertyOrHandler handler
-delayPressOut = TWF.delayPressOut
-
-disabled :: Bool -> PropertyOrHandler handler
-disabled = TWF.disabled
-
-accessibilityTraits :: AccessibilityTraits -> PropertyOrHandler handler
-accessibilityTraits = TWF.accessibilityTraits
-
-onLayout :: (OnLayout -> EventHandlerType handler) -> PropertyOrHandler handler
-onLayout = TWF.onLayout
-
-onLongPress :: EventHandlerType handler -> PropertyOrHandler handler
-onLongPress = TWF.onLongPress
-
-onPress :: EventHandlerType handler -> PropertyOrHandler handler
-onPress = TWF.onPress
-
-onPressIn :: EventHandlerType handler -> PropertyOrHandler handler
-onPressIn = TWF.onPressIn
-
-onPressOut :: EventHandlerType handler -> PropertyOrHandler handler
-onPressOut = TWF.onPressOut
-
-pressRetentionOffset :: Inset -> PropertyOrHandler handler
-pressRetentionOffset = TWF.pressRetentionOffset
+hitSlop                    = TouchableWithoutFeedbackProps.hitSlop @TouchableOpacity
+accessibilityComponentType = TouchableWithoutFeedbackProps.accessibilityComponentType @TouchableOpacity
+accessible                 = TouchableWithoutFeedbackProps.accessible @TouchableOpacity
+delayLongPress             = TouchableWithoutFeedbackProps.delayLongPress @TouchableOpacity
+delayPressIn               = TouchableWithoutFeedbackProps.delayPressIn @TouchableOpacity
+delayPressOut              = TouchableWithoutFeedbackProps.delayPressOut @TouchableOpacity
+disabled                   = TouchableWithoutFeedbackProps.disabled @TouchableOpacity
+accessibilityTraits        = TouchableWithoutFeedbackProps.accessibilityTraits @TouchableOpacity
+onLayout                   = TouchableWithoutFeedbackProps.onLayout @TouchableOpacity
+onLongPress                = TouchableWithoutFeedbackProps.onLongPress @TouchableOpacity
+onPress                    = TouchableWithoutFeedbackProps.onPress @TouchableOpacity
+onPressIn                  = TouchableWithoutFeedbackProps.onPressIn @TouchableOpacity
+onPressOut                 = TouchableWithoutFeedbackProps.onPressOut @TouchableOpacity
+pressRetentionOffset       = TouchableWithoutFeedbackProps.pressRetentionOffset @TouchableOpacity
 
 -- TODO: methods

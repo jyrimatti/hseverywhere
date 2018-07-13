@@ -1,161 +1,94 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ScrollView where
 
 import           Data.Typeable
 import           Numeric.Natural
-import           Prelude              (Bool, Double, String)
+import           Prelude                        (Bool, Double, String)
 import           React.Flux
-import           React.Flux.Internal  (ReactViewRef)
+import           React.Flux.Internal            (ReactViewRef)
+import           React.Flux.Rn.Components       (Props, ScrollView, prop)
 import           React.Flux.Rn.Events
+import qualified React.Flux.Rn.Props.ScrollView as ScrollViewProps
 import           React.Flux.Rn.Types
 
--- Platform: IOS
-alwaysBounceVertical :: Bool -> PropertyOrHandler handler
-alwaysBounceVertical = (&=) "alwaysBounceVertical"
+-- ScrollViewProps:
 
-contentContainerStyle :: ViewStyleProps -> PropertyOrHandler handler
-contentContainerStyle = nestedProperty "contentContainerStyle"
+alwaysBounceVertical             = ScrollViewProps.alwaysBounceVertical @ScrollView
+contentContainerStyle            = ScrollViewProps.contentContainerStyle @ScrollView
+keyboardDismissMode              = ScrollViewProps.keyboardDismissMode @ScrollView
+keyboardShouldPersistTaps        = ScrollViewProps.keyboardShouldPersistTaps @ScrollView
+onContentSizeChange              = ScrollViewProps.onContentSizeChange @ScrollView
+onMomentumScrollBegin            = ScrollViewProps.onMomentumScrollBegin @ScrollView
+onMomentumScrollEnd              = ScrollViewProps.onMomentumScrollEnd @ScrollView
+onScroll                         = ScrollViewProps.onScroll @ScrollView
+pagingEnabled                    = ScrollViewProps.pagingEnabled @ScrollView
+refreshControl                   = ScrollViewProps.refreshControl @ScrollView
+removeClippedSubviews            = ScrollViewProps.removeClippedSubviews @ScrollView
+scrollEnabled                    = ScrollViewProps.scrollEnabled @ScrollView
+showsHorizontalScrollIndicator   = ScrollViewProps.showsHorizontalScrollIndicator @ScrollView
+showsVerticalScrollIndicator     = ScrollViewProps.showsVerticalScrollIndicator @ScrollView
+stickyHeaderIndices              = ScrollViewProps.stickyHeaderIndices @ScrollView
+endFillColor                     = ScrollViewProps.endFillColor @ScrollView
+overScrollMode                   = ScrollViewProps.overScrollMode @ScrollView
+scrollPerfTag                    = ScrollViewProps.scrollPerfTag @ScrollView
+alwaysBounceHorizontal           = ScrollViewProps.alwaysBounceHorizontal @ScrollView
+horizontal                       = ScrollViewProps.horizontal @ScrollView
+automaticallyAdjustContentInsets = ScrollViewProps.automaticallyAdjustContentInsets @ScrollView
+bounces                          = ScrollViewProps.bounces @ScrollView
+bouncesZoom                      = ScrollViewProps.bouncesZoom @ScrollView
+canCancelContentTouches          = ScrollViewProps.canCancelContentTouches @ScrollView
+centerContent                    = ScrollViewProps.centerContent @ScrollView
+contentInset                     = ScrollViewProps.contentInset @ScrollView
+contentInsetAdjustmentBehavior   = ScrollViewProps.contentInsetAdjustmentBehavior @ScrollView
+contentOffset                    = ScrollViewProps.contentOffset @ScrollView
+decelerationRate                 = ScrollViewProps.decelerationRate @ScrollView
+directionalLockEnabled           = ScrollViewProps.directionalLockEnabled @ScrollView
+indicatorStyle                   = ScrollViewProps.indicatorStyle @ScrollView
+maximumZoomScale                 = ScrollViewProps.maximumZoomScale @ScrollView
+minimumZoomScale                 = ScrollViewProps.minimumZoomScale @ScrollView
+pinchGestureEnabled              = ScrollViewProps.pinchGestureEnabled @ScrollView
+scrollEventThrottle              = ScrollViewProps.scrollEventThrottle @ScrollView
+scrollIndicatorInsets            = ScrollViewProps.scrollIndicatorInsets @ScrollView
+scrollsToTop                     = ScrollViewProps.scrollsToTop @ScrollView
+snapToAlignment                  = ScrollViewProps.snapToAlignment @ScrollView
+snapToInterval                   = ScrollViewProps.snapToInterval @ScrollView
+zoomScale                        = ScrollViewProps.zoomScale @ScrollView
 
-keyboardDismissMode :: KeyboardDismissMode -> PropertyOrHandler handler
-keyboardDismissMode = (&=) "keyboardDismissMode"
 
-keyboardShouldPersistTaps :: KeyboardShouldPersistTaps -> PropertyOrHandler handler
-keyboardShouldPersistTaps = (&=) "keyboardShouldPersistTaps"
+-- ViewProps:
 
-onContentSizeChange :: (Natural -> Natural -> EventHandlerType handler) -> PropertyOrHandler handler
-onContentSizeChange = on2 "onContentSizeChange"
+onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @ScrollView
+accessibilityLabel               = ViewProps.accessibilityLabel @ScrollView
+hitSlop                          = ViewProps.hitSlop @ScrollView
+nativeID                         = ViewProps.nativeID @ScrollView
+onAccessibilityTap               = ViewProps.onAccessibilityTap @ScrollView
+onLayout                         = ViewProps.onLayout @ScrollView
+onMagicTap                       = ViewProps.onMagicTap @ScrollView
+onMoveShouldSetResponder         = ViewProps.onMoveShouldSetResponder @ScrollView
+onMoveShouldSetResponderCapture  = ViewProps.onMoveShouldSetResponderCapture @ScrollView
+onResponderGrant                 = ViewProps.onResponderGrant @ScrollView
+onResponderMove                  = ViewProps.onResponderMove @ScrollView
+onResponderReject                = ViewProps.onResponderReject @ScrollView
+onResponderRelease               = ViewProps.onResponderRelease @ScrollView
+onResponderTerminate             = ViewProps.onResponderTerminate @ScrollView
+onResponderTerminationRequest    = ViewProps.onResponderTerminationRequest @ScrollView
+accessible                       = ViewProps.accessible @ScrollView
+onStartShouldSetResponderCapture = ViewProps.onStartShouldSetResponderCapture @ScrollView
+pointerEvents                    = ViewProps.pointerEvents @ScrollView
+removeClippedSubviews            = ViewProps.removeClippedSubviews @ScrollView
+style                            = ViewProps.style @ScrollView
+testID                           = ViewProps.testID @ScrollView
+accessibilityComponentType       = ViewProps.accessibilityComponentType @ScrollView
+accessibilityLiveRegion          = ViewProps.accessibilityLiveRegion @ScrollView
+collapsable                      = ViewProps.collapsable @ScrollView
+importantForAccessibility        = ViewProps.importantForAccessibility @ScrollView
+needsOffscreenAlphaCompositing   = ViewProps.needsOffscreenAlphaCompositing @ScrollView
+renderToHardwareTextureAndroid   = ViewProps.renderToHardwareTextureAndroid @ScrollView
+accessibilityTraits              = ViewProps.accessibilityTraits @ScrollView
+accessibilityViewIsModal         = ViewProps.accessibilityViewIsModal @ScrollView
+shouldRasterizeIOS               = ViewProps.shouldRasterizeIOS @ScrollView
 
-onMomentumScrollBegin :: EventHandlerType handler -> PropertyOrHandler handler
-onMomentumScrollBegin = on0 "onMomentumScrollBegin"
-
-onMomentumScrollEnd :: EventHandlerType handler -> PropertyOrHandler handler
-onMomentumScrollEnd = on0 "onMomentumScrollEnd"
-
-onScroll :: EventHandlerType handler -> PropertyOrHandler handler
-onScroll = on0 "onScroll"
-
-pagingEnabled :: Bool -> PropertyOrHandler handler
-pagingEnabled = (&=) "pagingEnabled"
-
-refreshControl :: Typeable props => ReactViewRef props -> PropertyOrHandler handler
-refreshControl = view0 "refreshControl"
-
-removeClippedSubviews :: Bool -> PropertyOrHandler handler
-removeClippedSubviews = (&=) "removeClippedSubviews"
-
-scrollEnabled :: Bool -> PropertyOrHandler handler
-scrollEnabled = (&=) "scrollEnabled"
-
-showsHorizontalScrollIndicator :: Bool -> PropertyOrHandler handler
-showsHorizontalScrollIndicator = (&=) "showsHorizontalScrollIndicator"
-
-showsVerticalScrollIndicator :: Bool -> PropertyOrHandler handler
-showsVerticalScrollIndicator = (&=) "showsVerticalScrollIndicator"
-
-stickyHeaderIndices :: [Natural] -> PropertyOrHandler handler
-stickyHeaderIndices = (&=) "stickyHeaderIndices"
-
--- Platform: Android
-endFillColor :: Color -> PropertyOrHandler handler
-endFillColor = (&=) "endFillColor"
-
--- Platform: Android
-overScrollMode :: OverScrollMode -> PropertyOrHandler handler
-overScrollMode = (&=) "overScrollMode"
-
--- Platform: Android
-scrollPerfTag :: String -> PropertyOrHandler handler
-scrollPerfTag = (&=) "scrollPerfTag"
-
--- Platform: IOS
-alwaysBounceHorizontal :: Bool -> PropertyOrHandler handler
-alwaysBounceHorizontal = (&=) "alwaysBounceHorizontal"
-
-horizontal :: Bool -> PropertyOrHandler handler
-horizontal = (&=) "horizontal"
-
--- Platform: IOS
-automaticallyAdjustContentInsets :: Bool -> PropertyOrHandler handler
-automaticallyAdjustContentInsets = (&=) "automaticallyAdjustContentInsets"
-
--- Platform: IOS
-bounces :: Bool -> PropertyOrHandler handler
-bounces = (&=) "bounces"
-
--- Platform: IOS
-bouncesZoom :: Bool -> PropertyOrHandler handler
-bouncesZoom = (&=) "bouncesZoom"
-
--- Platform: IOS
-canCancelContentTouches :: Bool -> PropertyOrHandler handler
-canCancelContentTouches = (&=) "canCancelContentTouches"
-
--- Platform: IOS
-centerContent :: Bool -> PropertyOrHandler handler
-centerContent = (&=) "centerContent"
-
--- Platform: IOS
-contentInset :: Inset -> PropertyOrHandler handler
-contentInset = (&=) "contentInset"
-
--- Platform: IOS
-contentInsetAdjustmentBehavior :: ContentInsetAdjustmentBehavior -> PropertyOrHandler handler
-contentInsetAdjustmentBehavior = (&=) "contentInsetAdjustmentBehavior"
-
--- Platform: IOS
-contentOffset :: ContentOffset -> PropertyOrHandler handler
-contentOffset = (&=) "contentOffset"
-
--- Platform: IOS
-decelerationRate :: DecelerationRate -> PropertyOrHandler handler
-decelerationRate = (&=) "decelerationRate"
-
--- Platform: IOS
-directionalLockEnabled :: Bool -> PropertyOrHandler handler
-directionalLockEnabled = (&=) "directionalLockEnabled"
-
--- Platform: IOS
-indicatorStyle :: IndicatorStyle -> PropertyOrHandler handler
-indicatorStyle = (&=) "indicatorStyle"
-
--- Platform: IOS
-maximumZoomScale :: Double -> PropertyOrHandler handler
-maximumZoomScale = (&=) "maximumZoomScale"
-
--- Platform: IOS
-minimumZoomScale :: Double -> PropertyOrHandler handler
-minimumZoomScale = (&=) "minimumZoomScale"
-
--- Platform: IOS
-pinchGestureEnabled :: Bool -> PropertyOrHandler handler
-pinchGestureEnabled = (&=) "pinchGestureEnabled"
-
--- Platform: IOS
-scrollEventThrottle :: Natural -> PropertyOrHandler handler
-scrollEventThrottle = (&=) "scrollEventThrottle"
-
--- Platform: IOS
-scrollIndicatorInsets :: Inset -> PropertyOrHandler handler
-scrollIndicatorInsets = (&=) "scrollIndicatorInsets"
-
--- Platform: IOS
-scrollsToTop :: Bool -> PropertyOrHandler handler
-scrollsToTop = (&=) "scrollsToTop"
-
--- Platform: IOS
-snapToAlignment :: SnapToAlignment -> PropertyOrHandler handler
-snapToAlignment = (&=) "snapToAlignment"
-
--- Platform: IOS
-snapToInterval :: Natural -> PropertyOrHandler handler
-snapToInterval = (&=) "snapToInterval"
-
--- Platform: IOS
-zoomScale :: Double -> PropertyOrHandler handler
-zoomScale = (&=) "zoomScale"
-
--- TODO: ViewProps
 
 -- TODO: methods

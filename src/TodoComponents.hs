@@ -3,13 +3,13 @@
 module TodoComponents where
 
 import           Data.Maybe                         (fromMaybe)
+import           Data.Semigroup                     ((<>))
 import           Data.Typeable                      (Typeable)
 import           Prelude
-import           React.Flux                         hiding (onBlur)
+import           React.Flux                         hiding (onBlur, style)
 
-import qualified React.Flux.Rn.Components           as Rn
+import           React.Flux.Rn.Components           (textInput)
 import           React.Flux.Rn.Components.TextInput
-import qualified React.Flux.Rn.Events               as RnE
 import qualified React.Flux.Rn.Style                as RnS
 
 
@@ -34,27 +34,27 @@ tiaOnSave ta txt = dispatchTodo . f $ tiaSaveAction ta
 
 todoTextInput :: _ -> String -> View TextInputArgs
 todoTextInput styles state = mkStatefulView "todo text input" state $ \curText args ->
-    Rn.textInput
-        [ "placeholder" &= tiaPlaceholder args
-        , "value"       &= curText
-        , "autoFocus"   &= True
-        , "blurOnSubmit" &= True
-        , RnS.style $ [ RnS.flex 1
-                      , RnS.height 45
-                      , RnS.margin 8
-                      , RnS.marginLeft 0
-                      , RnS.fontFamily "HelveticaNeue"
-                      , RnS.fontSize 22
-                      , RnS.fontWeight RnS.W300
-                      , RnS.color "#4d4d4d"
-                      ] ++ styles
+    textInput [
+      placeholder (tiaPlaceholder args)
+    , value curText
+    , autoFocus True
+    , blurOnSubmit True
+    , style [ RnS.flex 1
+                    , RnS.height 45
+                    , RnS.margin 8
+                    , RnS.marginLeft 0
+                    , RnS.fontFamily "HelveticaNeue"
+                    , RnS.fontSize 22
+                    , RnS.fontWeight RnS.W300
+                    , RnS.color "#4d4d4d"
+                    ] ++ styles
 
-        , onChangeText $ \text -> const ([], Just text)
-        , onBlur $ \curState ->
-            if not (null curState)
-                then (tiaOnSave args curState, Just "")
-                else ([], Nothing)
-        ] mempty
+    , onChangeText $ \text -> const ([], Just text)
+    , onBlur $ \curState ->
+        if not (null curState)
+            then (tiaOnSave args curState, Just "")
+            else ([], Nothing)
+    ] mempty
 
 todoTextInput_ :: _ -> TextInputArgs -> ReactElementM eventHandler ()
-todoTextInput_ styles args = view_ (todoTextInput styles (fromMaybe "" $ tiaValue args)) "todo-input" args
+todoTextInput_ styles args = view_ (todoTextInput styles $ fromMaybe "" $ tiaValue args) "todo-input" args

@@ -62,11 +62,6 @@ data TextAlignVerticalEnum = AAuto | ATop | ABottom | ACenter
 data TextDecorationStyleEnum = DSolid | DDouble | DDotted | DDashed
 data WritingDirectionEnum = WAuto | WLtr | WRtl
 
-
-style :: [PropertyOrHandler handler] -> PropertyOrHandler handler
-style = nestedProperty "style"
-
-
 -- Flexbox
 
 alignItems IFlexStart = "alignItems" $= "flex-start"

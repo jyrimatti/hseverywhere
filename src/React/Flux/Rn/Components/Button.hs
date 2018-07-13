@@ -2,31 +2,32 @@
 {-# LANGUAGE OverloadedStrings #-}
 module React.Flux.Rn.Components.Button where
 
-import           Prelude              (Bool, String)
+import           Prelude                  (Bool, String)
 import           React.Flux
+import           React.Flux.Rn.Components (Props, prop, Button)
 import           React.Flux.Rn.Events
 import           React.Flux.Rn.Style
 
 -- Required
-onPress :: EventHandlerType handler -> PropertyOrHandler handler
+onPress :: EventHandlerType handler -> Props Button handler
 onPress = on0 "onPress"
 
 -- Required
-title :: String -> PropertyOrHandler handler
-title = (&=) "title"
+title :: String -> Props Button handler
+title = prop "title"
 
-accessibilityLabel :: String -> PropertyOrHandler handler
-accessibilityLabel = (&=) "accessibilityLabel"
+accessibilityLabel :: String -> Props Button handler
+accessibilityLabel = prop "accessibilityLabel"
 
-color :: Color -> PropertyOrHandler handler
-color = (&=) "color"
+color :: Color -> Props Button handler
+color = prop "color"
 
-disabled :: Bool -> PropertyOrHandler handler
-disabled = (&=) "disabled"
+disabled :: Bool -> Props Button handler
+disabled = prop "disabled"
 
-testID :: String -> PropertyOrHandler handler
-testID = (&=) "testID"
+testID :: String -> Props Button handler
+testID = prop "testID"
 
 -- Platform: AppleTV
-hasTVPreferredFocus :: Bool -> PropertyOrHandler handler
-hasTVPreferredFocus = (&=) "hasTVPreferredFocus"
+hasTVPreferredFocus :: Bool -> Props Button handler
+hasTVPreferredFocus = prop "hasTVPreferredFocus"

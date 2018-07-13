@@ -3,66 +3,67 @@
 {-# LANGUAGE RankNTypes        #-}
 module React.Flux.Rn.Components.Image where
 
-import           GHCJS.Marshal        (FromJSVal (..))
+import           GHCJS.Marshal            (FromJSVal (..))
 import           Numeric.Natural
-import           Prelude              (Bool, Double, String, ($))
+import           Prelude                  (Bool, Double, Image, String, ($))
 import           React.Flux
+import           React.Flux.Rn.Components (Props, prop)
 import           React.Flux.Rn.Events
 import           React.Flux.Rn.Types
 
-style :: ImageStyleProps -> PropertyOrHandler handler
-style = nestedProperty "style"
+style :: ImageStyleProps -> Props Image handler
+style = nestedProp "style"
 
-blurRadius :: Natural -> PropertyOrHandler handler
-blurRadius = (&=) "blurRadius"
+blurRadius :: Natural -> Props Image handler
+blurRadius = prop "blurRadius"
 
-onLayout :: (OnLayoutVals -> EventHandlerType handler) -> PropertyOrHandler handler
+onLayout :: (OnLayoutVals -> EventHandlerType handler) -> Props Image handler
 onLayout f = on1 "onLayout" $ \(OnLayout layout) -> f layout
 
-onLoad :: EventHandlerType handler -> PropertyOrHandler handler
+onLoad :: EventHandlerType handler -> Props Image handler
 onLoad = on0 "onLoad"
 
-onLoadEnd :: EventHandlerType handler -> PropertyOrHandler handler
+onLoadEnd :: EventHandlerType handler -> Props Image handler
 onLoadEnd = on0 "onLoadEnd"
 
-onLoadStart :: EventHandlerType handler -> PropertyOrHandler handler
+onLoadStart :: EventHandlerType handler -> Props Image handler
 onLoadStart = on0 "onLoadStart"
 
-source :: ImageSource -> PropertyOrHandler handler
-source = (&=) "source"
+source :: ImageSource -> Props Image handler
+source = prop "source"
 
-onError :: FromJSVal err => (err -> EventHandlerType handler) -> PropertyOrHandler handler
+onError :: FromJSVal err => (err -> EventHandlerType handler) -> Props Image handler
 onError f = on1 "onError" $ \err -> f err
 
-testID :: String -> PropertyOrHandler handler
-testID = (&=) "testID"
+testID :: String -> Props Image handler
+testID = prop "testID"
 
 -- Platform: Android
-resizeMethod :: ResizeMethod -> PropertyOrHandler handler
-resizeMethod = (&=) "resizeMethod"
+resizeMethod :: ResizeMethod -> Props Image handler
+resizeMethod = prop "resizeMethod"
 
 -- Platform: IOS
-accessibilityLabel :: String -> PropertyOrHandler handler
-accessibilityLabel = (&=) "accessibilityLabel"
+accessibilityLabel :: String -> Props Image handler
+accessibilityLabel = prop "accessibilityLabel"
 
 -- Platform: IOS
-accessible :: Bool -> PropertyOrHandler handler
-accessible = (&=) "accessible"
+accessible :: Bool -> Props Image handler
+accessible = prop "accessible"
 
 -- Platform: IOS
-capInsets :: Inset -> PropertyOrHandler handler
-capInsets = (&=) "capInsets"
+capInsets :: Inset -> Props Image handler
+capInsets = prop "capInsets"
 
 -- Platform: IOS
-defaultSource :: DefaultSource -> PropertyOrHandler handler
-defaultSource = (&=) "defaultSource"
+defaultSource :: DefaultSource -> Props Image handler
+defaultSource = prop "defaultSource"
 
 -- Platform: IOS
-onPartialLoad :: EventHandlerType handler -> PropertyOrHandler handler
+onPartialLoad :: EventHandlerType handler -> Props Image handler
 onPartialLoad = on0 "onPartialLoad"
 
 -- Platform: IOS
-onProgress :: (OnProgress -> EventHandlerType handler) -> PropertyOrHandler handler
+onProgress :: (OnProgress -> EventHandlerType handler) -> Props Image handler
 onProgress f = on1 "onProgress" $ \x -> f x
 
 -- TODO: methods

@@ -1,59 +1,94 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ToolbarAndroid where
 
-import           Data.Aeson           (FromJSON, ToJSON (..))
-import           Data.Aeson.Types     (parseJSON, parseMaybe)
+import           Data.Aeson               (FromJSON, ToJSON (..))
+import           Data.Aeson.Types         (parseJSON, parseMaybe)
 import           GHC.Generics
-import           GHCJS.Marshal        (FromJSVal (..), ToJSVal (..))
+import           GHCJS.Marshal            (FromJSVal (..), ToJSVal (..))
 import           Numeric.Natural
-import           Prelude              (Bool, Int, Show, String, pure, (<$>),
-                                       (>>=))
+import           Prelude                  (Bool, Int, Show, String, pure, (<$>),
+                                           (>>=))
 import           React.Flux
+import           React.Flux.Rn.Components (Props, ToolbarAndroid, prop)
 import           React.Flux.Rn.Events
+import qualified React.Flux.Rn.Props.View as ViewProps
 import           React.Flux.Rn.Types
 
-overflowIcon :: ImageSource -> PropertyOrHandler handler
-overflowIcon = (&=) "overflowIcon"
+overflowIcon :: ImageSource -> Props ToolbarAndroid handler
+overflowIcon = prop "overflowIcon"
 
-actions :: [Action] -> PropertyOrHandler handler
-actions = (&=) "actions"
+actions :: [Action] -> Props ToolbarAndroid handler
+actions = prop "actions"
 
-contentInsetStart :: Int -> PropertyOrHandler handler
-contentInsetStart = (&=) "contentInsetStart"
+contentInsetStart :: Int -> Props ToolbarAndroid handler
+contentInsetStart = prop "contentInsetStart"
 
-logo :: ImageSource -> PropertyOrHandler handler
-logo = (&=) "logo"
+logo :: ImageSource -> Props ToolbarAndroid handler
+logo = prop "logo"
 
-navIcon :: ImageSource -> PropertyOrHandler handler
-navIcon = (&=) "navIcon"
+navIcon :: ImageSource -> Props ToolbarAndroid handler
+navIcon = prop "navIcon"
 
-onActionSelected :: (Natural -> EventHandlerType handler) -> PropertyOrHandler handler
+onActionSelected :: (Natural -> EventHandlerType handler) -> Props ToolbarAndroid handler
 onActionSelected = on1 "onActionSelected"
 
-onIconClicked :: EventHandlerType handler -> PropertyOrHandler handler
+onIconClicked :: EventHandlerType handler -> Props ToolbarAndroid handler
 onIconClicked = on0 "onIconClicked"
 
-contentInsetEnd :: Int -> PropertyOrHandler handler
-contentInsetEnd = (&=) "contentInsetEnd"
+contentInsetEnd :: Int -> Props ToolbarAndroid handler
+contentInsetEnd = prop "contentInsetEnd"
 
-rtl :: Bool -> PropertyOrHandler handler
-rtl = (&=) "rtl"
+rtl :: Bool -> Props ToolbarAndroid handler
+rtl = prop "rtl"
 
-subtitle :: String -> PropertyOrHandler handler
-subtitle = (&=) "subtitle"
+subtitle :: String -> Props ToolbarAndroid handler
+subtitle = prop "subtitle"
 
-subtitleColor :: Color -> PropertyOrHandler handler
-subtitleColor = (&=) "subtitleColor"
+subtitleColor :: Color -> Props ToolbarAndroid handler
+subtitleColor = prop "subtitleColor"
 
-testID :: String -> PropertyOrHandler handler
-testID = (&=) "testID"
+testID :: String -> Props ToolbarAndroid handler
+testID = prop "testID"
 
-title :: String -> PropertyOrHandler handler
-title = (&=) "title"
+title :: String -> Props ToolbarAndroid handler
+title = prop "title"
 
-titleColor :: Color -> PropertyOrHandler handler
-titleColor = (&=) "titleColor"
+titleColor :: Color -> Props ToolbarAndroid handler
+titleColor = prop "titleColor"
 
--- TODO: ViewProps
+-- ViewProps:
+
+onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @ToolbarAndroid
+accessibilityLabel               = ViewProps.accessibilityLabel @ToolbarAndroid
+hitSlop                          = ViewProps.hitSlop @ToolbarAndroid
+nativeID                         = ViewProps.nativeID @ToolbarAndroid
+onAccessibilityTap               = ViewProps.onAccessibilityTap @ToolbarAndroid
+onLayout                         = ViewProps.onLayout @ToolbarAndroid
+onMagicTap                       = ViewProps.onMagicTap @ToolbarAndroid
+onMoveShouldSetResponder         = ViewProps.onMoveShouldSetResponder @ToolbarAndroid
+onMoveShouldSetResponderCapture  = ViewProps.onMoveShouldSetResponderCapture @ToolbarAndroid
+onResponderGrant                 = ViewProps.onResponderGrant @ToolbarAndroid
+onResponderMove                  = ViewProps.onResponderMove @ToolbarAndroid
+onResponderReject                = ViewProps.onResponderReject @ToolbarAndroid
+onResponderRelease               = ViewProps.onResponderRelease @ToolbarAndroid
+onResponderTerminate             = ViewProps.onResponderTerminate @ToolbarAndroid
+onResponderTerminationRequest    = ViewProps.onResponderTerminationRequest @ToolbarAndroid
+accessible                       = ViewProps.accessible @ToolbarAndroid
+onStartShouldSetResponderCapture = ViewProps.onStartShouldSetResponderCapture @ToolbarAndroid
+pointerEvents                    = ViewProps.pointerEvents @ToolbarAndroid
+removeClippedSubviews            = ViewProps.removeClippedSubviews @ToolbarAndroid
+style                            = ViewProps.style @ToolbarAndroid
+testID                           = ViewProps.testID @ToolbarAndroid
+accessibilityComponentType       = ViewProps.accessibilityComponentType @ToolbarAndroid
+accessibilityLiveRegion          = ViewProps.accessibilityLiveRegion @ToolbarAndroid
+collapsable                      = ViewProps.collapsable @ToolbarAndroid
+importantForAccessibility        = ViewProps.importantForAccessibility @ToolbarAndroid
+needsOffscreenAlphaCompositing   = ViewProps.needsOffscreenAlphaCompositing @ToolbarAndroid
+renderToHardwareTextureAndroid   = ViewProps.renderToHardwareTextureAndroid @ToolbarAndroid
+accessibilityTraits              = ViewProps.accessibilityTraits @ToolbarAndroid
+accessibilityViewIsModal         = ViewProps.accessibilityViewIsModal @ToolbarAndroid
+shouldRasterizeIOS               = ViewProps.shouldRasterizeIOS @ToolbarAndroid
+

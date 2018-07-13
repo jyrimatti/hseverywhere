@@ -1,75 +1,119 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ListView {-# DEPRECATED "Use FlatList or SectionList" #-} where
 
 import           Data.Typeable
-import           GHCJS.Marshal        (FromJSVal)
+import           GHCJS.Marshal                  (FromJSVal)
 import           Numeric.Natural
-import           Prelude              (Bool, IO)
+import           Prelude                        (Bool, IO)
 import           React.Flux
-import           React.Flux.Internal  (ReactViewRef)
+import           React.Flux.Internal            (ReactViewRef)
+import           React.Flux.Rn.Components       (ListView, Props, prop)
 import           React.Flux.Rn.Events
+import qualified React.Flux.Rn.Props.ScrollView as ScrollViewProps
 import           React.Flux.Rn.Types
 
 -- Required
-dataSource :: ListViewDataSourceRef -> PropertyOrHandler handler
-dataSource = (&=) "dataSource"
+dataSource :: ListViewDataSourceRef -> Props ListView handler
+dataSource = prop "dataSource"
 
 -- Required
-initialListSize :: Natural -> PropertyOrHandler handler
-initialListSize = (&=) "initialListSize"
+initialListSize :: Natural -> Props ListView handler
+initialListSize = prop "initialListSize"
 
 -- Required
-onEndReachedThreshold :: (Natural -> EventHandlerType handler) -> PropertyOrHandler handler
+onEndReachedThreshold :: (Natural -> EventHandlerType handler) -> Props ListView handler
 onEndReachedThreshold = on1 "onEndReachedThreshold"
 
 -- Required
-pageSize :: Natural -> PropertyOrHandler handler
-pageSize = (&=) "pageSize"
+pageSize :: Natural -> Props ListView handler
+pageSize = prop "pageSize"
 
 -- Required
-renderRow :: Typeable props => (rowdata -> sectionID -> rowID -> (sectionID -> rowID -> IO ()) -> ReactViewRef props) -> PropertyOrHandler handler
+renderRow :: Typeable props => (rowdata -> sectionID -> rowID -> (sectionID -> rowID -> IO ()) -> ReactViewRef props) -> Props ListView handler
 renderRow = view4 "renderRow"
 
 -- Required
-renderScrollComponent :: Typeable props => ([PropertyOrHandler handler] -> ReactViewRef props) -> PropertyOrHandler handler
+renderScrollComponent :: Typeable props => ([Props ListView handler] -> ReactViewRef props) -> Props ListView handler
 renderScrollComponent = view1 "renderScrollComponent"
 
 -- Required
-scrollRenderAheadDistance :: Natural -> PropertyOrHandler handler
-scrollRenderAheadDistance = (&=) "scrollRenderAheadDistance"
+scrollRenderAheadDistance :: Natural -> Props ListView handler
+scrollRenderAheadDistance = prop "scrollRenderAheadDistance"
 
 -- Required
-stickyHeaderIndices :: [Natural] -> PropertyOrHandler handler
-stickyHeaderIndices = (&=) "stickyHeaderIndices"
+stickyHeaderIndices :: [Natural] -> Props ListView handler
+stickyHeaderIndices = prop "stickyHeaderIndices"
 
-enableEmptySections :: Bool -> PropertyOrHandler handler
-enableEmptySections = (&=) "enableEmptySections"
+enableEmptySections :: Bool -> Props ListView handler
+enableEmptySections = prop "enableEmptySections"
 
-renderHeader ::  Typeable props => ReactViewRef props -> PropertyOrHandler handler
+renderHeader ::  Typeable props => ReactViewRef props -> Props ListView handler
 renderHeader = view0 "renderScrollComponent"
 
-onEndReached :: FromJSVal nativeScrollEvent => (nativeScrollEvent -> EventHandlerType handler) -> PropertyOrHandler handler
+onEndReached :: FromJSVal nativeScrollEvent => (nativeScrollEvent -> EventHandlerType handler) -> Props ListView handler
 onEndReached = on1 "onEndReached"
 
-stickySectionHeadersEnabled :: Bool -> PropertyOrHandler handler
-stickySectionHeadersEnabled = (&=) "stickySectionHeadersEnabled"
+stickySectionHeadersEnabled :: Bool -> Props ListView handler
+stickySectionHeadersEnabled = prop "stickySectionHeadersEnabled"
 
-renderSectionHeader ::  Typeable props => (sectionData -> sectionID -> ReactViewRef props) -> PropertyOrHandler handler
+renderSectionHeader ::  Typeable props => (sectionData -> sectionID -> ReactViewRef props) -> Props ListView handler
 renderSectionHeader = view2 "renderSectionHeader"
 
-renderSeparator ::  Typeable props => (sectionId -> rowID -> Bool{-adjacentRowHighlighted-} -> ReactViewRef props) -> PropertyOrHandler handler
+renderSeparator ::  Typeable props => (sectionId -> rowID -> Bool{-adjacentRowHighlighted-} -> ReactViewRef props) -> Props ListView handler
 renderSeparator = view3 "renderSeparator"
 
-onChangeVisibleRows :: (FromJSVal visibleRows, FromJSVal changedRows) => (visibleRows -> changedRows -> EventHandlerType handler) -> PropertyOrHandler handler
+onChangeVisibleRows :: (FromJSVal visibleRows, FromJSVal changedRows) => (visibleRows -> changedRows -> EventHandlerType handler) -> Props ListView handler
 onChangeVisibleRows = on2 "onChangeVisibleRows"
 
-removeClippedSubviews :: Bool -> PropertyOrHandler handler
-removeClippedSubviews = (&=) "removeClippedSubviews"
+removeClippedSubviews :: Bool -> Props ListView handler
+removeClippedSubviews = prop "removeClippedSubviews"
 
-renderFooter :: Typeable props => ReactViewRef props -> PropertyOrHandler handler
+renderFooter :: Typeable props => ReactViewRef props -> Props ListView handler
 renderFooter = view0 "renderFooter"
 
--- TODO: ScrollViewProps
+-- ScrollViewProps:
+
+alwaysBounceVertical             = ScrollViewProps.alwaysBounceVertical @ListView
+contentContainerStyle            = ScrollViewProps.contentContainerStyle @ListView
+keyboardDismissMode              = ScrollViewProps.keyboardDismissMode @ListView
+keyboardShouldPersistTaps        = ScrollViewProps.keyboardShouldPersistTaps @ListView
+onContentSizeChange              = ScrollViewProps.onContentSizeChange @ListView
+onMomentumScrollBegin            = ScrollViewProps.onMomentumScrollBegin @ListView
+onMomentumScrollEnd              = ScrollViewProps.onMomentumScrollEnd @ListView
+onScroll                         = ScrollViewProps.onScroll @ListView
+pagingEnabled                    = ScrollViewProps.pagingEnabled @ListView
+refreshControl                   = ScrollViewProps.refreshControl @ListView
+removeClippedSubviews            = ScrollViewProps.removeClippedSubviews @ListView
+scrollEnabled                    = ScrollViewProps.scrollEnabled @ListView
+showsHorizontalScrollIndicator   = ScrollViewProps.showsHorizontalScrollIndicator @ListView
+showsVerticalScrollIndicator     = ScrollViewProps.showsVerticalScrollIndicator @ListView
+stickyHeaderIndices              = ScrollViewProps.stickyHeaderIndices @ListView
+endFillColor                     = ScrollViewProps.endFillColor @ListView
+overScrollMode                   = ScrollViewProps.overScrollMode @ListView
+scrollPerfTag                    = ScrollViewProps.scrollPerfTag @ListView
+alwaysBounceHorizontal           = ScrollViewProps.alwaysBounceHorizontal @ListView
+horizontal                       = ScrollViewProps.horizontal @ListView
+automaticallyAdjustContentInsets = ScrollViewProps.automaticallyAdjustContentInsets @ListView
+bounces                          = ScrollViewProps.bounces @ListView
+bouncesZoom                      = ScrollViewProps.bouncesZoom @ListView
+canCancelContentTouches          = ScrollViewProps.canCancelContentTouches @ListView
+centerContent                    = ScrollViewProps.centerContent @ListView
+contentInset                     = ScrollViewProps.contentInset @ListView
+contentInsetAdjustmentBehavior   = ScrollViewProps.contentInsetAdjustmentBehavior @ListView
+contentOffset                    = ScrollViewProps.contentOffset @ListView
+decelerationRate                 = ScrollViewProps.decelerationRate @ListView
+directionalLockEnabled           = ScrollViewProps.directionalLockEnabled @ListView
+indicatorStyle                   = ScrollViewProps.indicatorStyle @ListView
+maximumZoomScale                 = ScrollViewProps.maximumZoomScale @ListView
+minimumZoomScale                 = ScrollViewProps.minimumZoomScale @ListView
+pinchGestureEnabled              = ScrollViewProps.pinchGestureEnabled @ListView
+scrollEventThrottle              = ScrollViewProps.scrollEventThrottle @ListView
+scrollIndicatorInsets            = ScrollViewProps.scrollIndicatorInsets @ListView
+scrollsToTop                     = ScrollViewProps.scrollsToTop @ListView
+snapToAlignment                  = ScrollViewProps.snapToAlignment @ListView
+snapToInterval                   = ScrollViewProps.snapToInterval @ListView
+zoomScale                        = ScrollViewProps.zoomScale @ListView
 
 -- TODO: methods
