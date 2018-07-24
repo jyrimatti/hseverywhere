@@ -4,11 +4,11 @@
 module React.Flux.Rn.Components.DatePickerIOS where
 
 import           Data.Time.LocalTime
-import           Prelude                  (Int)
+import           Prelude                       (Int)
 import           React.Flux
-import           React.Flux.Rn.Components (DatePickerIOS, Props, prop)
+import           React.Flux.Rn.Components      (DatePickerIOS, Props, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 -- Required

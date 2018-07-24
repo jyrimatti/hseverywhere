@@ -3,14 +3,8 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TouchableWithoutFeedback where
 
-import           Numeric.Natural
-import           Prelude                                      (Bool)
-import           React.Flux
-import           React.Flux.Rn.Components                     (Props, TouchableWithoutFeedback,
-                                                               prop)
-import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.TouchableWithoutFeedback as TouchableWithoutFeedbackProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Components                          (TouchableWithoutFeedback)
+import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
 
 -- TouchableWithoutFeedbackProps:
 

@@ -5,11 +5,11 @@
 module React.Flux.Rn.Components.Switch where
 
 import           Numeric.Natural
-import           Prelude                  (Bool, String)
+import           Prelude                       (Bool, String)
 import           React.Flux
-import           React.Flux.Rn.Components (Props, Switch, prop)
+import           React.Flux.Rn.Components      (Props, Switch, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 disabled :: Bool -> Props Switch handler
@@ -20,9 +20,6 @@ onTintColor = prop "onTintColor"
 
 onValueChange :: (Bool -> EventHandlerType handler) -> Props Switch handler
 onValueChange = on1 "onValueChange"
-
-testID :: String -> Props Switch handler
-testID = prop "testID"
 
 thumbTintColor :: Color -> Props Switch handler
 thumbTintColor = prop "thumbTintColor"

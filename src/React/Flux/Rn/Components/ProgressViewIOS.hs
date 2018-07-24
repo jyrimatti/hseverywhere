@@ -4,11 +4,11 @@
 module React.Flux.Rn.Components.ProgressViewIOS where
 
 import           React.Flux
-import           React.Flux.Rn.Components (ProgressViewIOS, Props, prop)
-import qualified React.Flux.Rn.Props.View as ViewProps
+import           React.Flux.Rn.Components      (ProgressViewIOS, Props, prop)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
-progress :: Between0and1 -> Props ProgressViewIOS handler
+progress :: UnitInterval -> Props ProgressViewIOS handler
 progress = prop "progress"
 
 progressImage :: ImageSource -> Props ProgressViewIOS handler

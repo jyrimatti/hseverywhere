@@ -6,13 +6,13 @@
 module React.Flux.Rn.Components.TouchableNativeFeedback where
 
 import           GHC.Generics
-import           GHCJS.Marshal                                (ToJSVal (..))
+import           GHCJS.Marshal                                     (ToJSVal (..))
 import           Numeric.Natural
-import           Prelude                                      (Bool)
+import           Prelude                                           (Bool)
 import           React.Flux
-import           React.Flux.Rn.Components                     (Props, TouchableNativeFeedback,
-                                                               prop)
-import qualified React.Flux.Rn.Props.TouchableWithoutFeedback as TouchableWithoutFeedbackProps
+import           React.Flux.Rn.Components                          (Props, TouchableNativeFeedback,
+                                                                    prop)
+import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types
 
 background :: BackgroundPropType -> Props TouchableNativeFeedback handler

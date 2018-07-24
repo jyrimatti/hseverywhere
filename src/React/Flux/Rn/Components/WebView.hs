@@ -4,16 +4,18 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.WebView where
 
+import           Data.Typeable
 import           Numeric.Natural
 import           Prelude                        (Bool, String, const, pure, ($),
                                                  (.), (<$>))
 import           React.Flux
 import           React.Flux.Internal            (HandlerArg (..),
-                                                 PropertyOrHandler_ (..))
+                                                 PropertyOrHandler_ (..),
+                                                 ReactViewRef)
 import           React.Flux.PropertiesAndEvents (callback)
 import           React.Flux.Rn.Components       (Props, WebView, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View       as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps  as ViewProps
 import           React.Flux.Rn.Types
 
 source :: Source -> Props WebView handler
@@ -68,9 +70,6 @@ onShouldStartLoadWithRequest = ret1 "onShouldStartLoadWithRequest"
 
 startInLoadingState :: Bool -> Props WebView handler
 startInLoadingState = prop "startInLoadingState"
-
-style :: ViewStyleProps -> Props WebView handler
-style = nestedProp "style"
 
 -- Platform: IOS
 decelerationRate :: DecelerationRate -> Props WebView handler

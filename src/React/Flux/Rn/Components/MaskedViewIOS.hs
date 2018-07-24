@@ -4,11 +4,10 @@
 module React.Flux.Rn.Components.MaskedViewIOS where
 
 import           Data.Typeable
-import           React.Flux
-import           React.Flux.Internal      (ReactViewRef)
-import           React.Flux.Rn.Components (MaskedViewIOS, Props, prop)
+import           React.Flux.Internal           (ReactViewRef)
+import           React.Flux.Rn.Components      (MaskedViewIOS, Props)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 
 -- Required
 maskElement :: Typeable props => ReactViewRef props -> Props MaskedViewIOS handler

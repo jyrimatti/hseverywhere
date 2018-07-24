@@ -3,15 +3,9 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ScrollView where
 
-import           Data.Typeable
-import           Numeric.Natural
-import           Prelude                        (Bool, Double, String)
-import           React.Flux
-import           React.Flux.Internal            (ReactViewRef)
-import           React.Flux.Rn.Components       (Props, ScrollView, prop)
-import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.ScrollView as ScrollViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Components            (ScrollView)
+import qualified React.Flux.Rn.Props.ScrollViewProps as ScrollViewProps
+import qualified React.Flux.Rn.Props.ViewProps       as ViewProps
 
 -- ScrollViewProps:
 
@@ -25,7 +19,6 @@ onMomentumScrollEnd              = ScrollViewProps.onMomentumScrollEnd @ScrollVi
 onScroll                         = ScrollViewProps.onScroll @ScrollView
 pagingEnabled                    = ScrollViewProps.pagingEnabled @ScrollView
 refreshControl                   = ScrollViewProps.refreshControl @ScrollView
-removeClippedSubviews            = ScrollViewProps.removeClippedSubviews @ScrollView
 scrollEnabled                    = ScrollViewProps.scrollEnabled @ScrollView
 showsHorizontalScrollIndicator   = ScrollViewProps.showsHorizontalScrollIndicator @ScrollView
 showsVerticalScrollIndicator     = ScrollViewProps.showsVerticalScrollIndicator @ScrollView

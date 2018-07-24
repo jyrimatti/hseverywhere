@@ -3,10 +3,10 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ProgressBarAndroid where
 
-import           Prelude                  (Bool, String)
+import           Prelude                       (Bool, String)
 import           React.Flux
-import           React.Flux.Rn.Components (ProgressBarAndroid, Props, prop)
-import qualified React.Flux.Rn.Props.View as ViewProps
+import           React.Flux.Rn.Components      (ProgressBarAndroid, Props, prop)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 animating :: Bool -> Props ProgressBarAndroid handler
@@ -18,14 +18,11 @@ color = prop "color"
 indeterminate :: Bool -> Props ProgressBarAndroid handler
 indeterminate = prop "indeterminate"
 
-progress :: Between0and1 -> Props ProgressBarAndroid handler
+progress :: UnitInterval -> Props ProgressBarAndroid handler
 progress = prop "progress"
 
 styleAttr :: StyleAttr -> Props ProgressBarAndroid handler
 styleAttr = prop "styleAttr"
-
-testID :: String -> Props ProgressBarAndroid handler
-testID = prop "testID"
 
 -- ViewProps:
 

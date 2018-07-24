@@ -1,13 +1,17 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.SectionList where
 
-import           Prelude                             (Bool)
-import           React.Flux
-import           React.Flux.Rn.Components            (Props, SectionList, prop)
-import qualified React.Flux.Rn.Props.ScrollView      as ScrollViewProps
-import qualified React.Flux.Rn.Props.VirtualizedList as VirtualizedListProps
+import           GHCJS.Marshal                            (FromJSVal)
+import           Numeric.Natural
+import           Prelude                                  (Bool, String)
+import           React.Flux.Rn.Components                 (Props, SectionList,
+                                                           prop)
+import qualified React.Flux.Rn.Props.ScrollViewProps      as ScrollViewProps
+import qualified React.Flux.Rn.Props.ViewProps            as ViewProps
+import qualified React.Flux.Rn.Props.VirtualizedListProps as VirtualizedListProps
 
 -- Platform: IOS
 stickySectionHeadersEnabled :: Bool -> Props SectionList handler
@@ -17,13 +21,12 @@ stickySectionHeadersEnabled = prop "stickySectionHeadersEnabled"
 
 last                      = VirtualizedListProps.last @SectionList
 first                     = VirtualizedListProps.first @SectionList
-horizontal                = VirtualizedListProps.horizontal @SectionList
 initialNumToRender        = VirtualizedListProps.initialNumToRender @SectionList
+keyExtractor :: forall item handler. FromJSVal item => (item -> Natural {-index-} -> String) -> Props SectionList handler
 keyExtractor              = VirtualizedListProps.keyExtractor @SectionList
 disableVirtualization     = VirtualizedListProps.disableVirtualization @SectionList
 maxToRenderPerBatch       = VirtualizedListProps.maxToRenderPerBatch @SectionList
 onEndReachedThreshold     = VirtualizedListProps.onEndReachedThreshold @SectionList
-scrollEventThrottle       = VirtualizedListProps.scrollEventThrottle @SectionList
 updateCellsBatchingPeriod = VirtualizedListProps.updateCellsBatchingPeriod @SectionList
 windowSize                = VirtualizedListProps.windowSize @SectionList
 
@@ -39,7 +42,6 @@ onMomentumScrollEnd              = ScrollViewProps.onMomentumScrollEnd @SectionL
 onScroll                         = ScrollViewProps.onScroll @SectionList
 pagingEnabled                    = ScrollViewProps.pagingEnabled @SectionList
 refreshControl                   = ScrollViewProps.refreshControl @SectionList
-removeClippedSubviews            = ScrollViewProps.removeClippedSubviews @SectionList
 scrollEnabled                    = ScrollViewProps.scrollEnabled @SectionList
 showsHorizontalScrollIndicator   = ScrollViewProps.showsHorizontalScrollIndicator @SectionList
 showsVerticalScrollIndicator     = ScrollViewProps.showsVerticalScrollIndicator @SectionList
@@ -69,5 +71,39 @@ scrollsToTop                     = ScrollViewProps.scrollsToTop @SectionList
 snapToAlignment                  = ScrollViewProps.snapToAlignment @SectionList
 snapToInterval                   = ScrollViewProps.snapToInterval @SectionList
 zoomScale                        = ScrollViewProps.zoomScale @SectionList
+
+
+-- ViewProps:
+
+onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @SectionList
+accessibilityLabel               = ViewProps.accessibilityLabel @SectionList
+hitSlop                          = ViewProps.hitSlop @SectionList
+nativeID                         = ViewProps.nativeID @SectionList
+onAccessibilityTap               = ViewProps.onAccessibilityTap @SectionList
+onLayout                         = ViewProps.onLayout @SectionList
+onMagicTap                       = ViewProps.onMagicTap @SectionList
+onMoveShouldSetResponder         = ViewProps.onMoveShouldSetResponder @SectionList
+onMoveShouldSetResponderCapture  = ViewProps.onMoveShouldSetResponderCapture @SectionList
+onResponderGrant                 = ViewProps.onResponderGrant @SectionList
+onResponderMove                  = ViewProps.onResponderMove @SectionList
+onResponderReject                = ViewProps.onResponderReject @SectionList
+onResponderRelease               = ViewProps.onResponderRelease @SectionList
+onResponderTerminate             = ViewProps.onResponderTerminate @SectionList
+onResponderTerminationRequest    = ViewProps.onResponderTerminationRequest @SectionList
+accessible                       = ViewProps.accessible @SectionList
+onStartShouldSetResponderCapture = ViewProps.onStartShouldSetResponderCapture @SectionList
+pointerEvents                    = ViewProps.pointerEvents @SectionList
+removeClippedSubviews            = ViewProps.removeClippedSubviews @SectionList
+style                            = ViewProps.style @SectionList
+testID                           = ViewProps.testID @SectionList
+accessibilityComponentType       = ViewProps.accessibilityComponentType @SectionList
+accessibilityLiveRegion          = ViewProps.accessibilityLiveRegion @SectionList
+collapsable                      = ViewProps.collapsable @SectionList
+importantForAccessibility        = ViewProps.importantForAccessibility @SectionList
+needsOffscreenAlphaCompositing   = ViewProps.needsOffscreenAlphaCompositing @SectionList
+renderToHardwareTextureAndroid   = ViewProps.renderToHardwareTextureAndroid @SectionList
+accessibilityTraits              = ViewProps.accessibilityTraits @SectionList
+accessibilityViewIsModal         = ViewProps.accessibilityViewIsModal @SectionList
+shouldRasterizeIOS               = ViewProps.shouldRasterizeIOS @SectionList
 
 -- TODO: methods

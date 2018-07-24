@@ -5,9 +5,9 @@
 module React.Flux.Rn.Components.KeyboardAvoidingView where
 
 import           Numeric.Natural
-import           React.Flux
-import           React.Flux.Rn.Components (KeyboardAvoidingView, Props, prop)
-import qualified React.Flux.Rn.Props.View as ViewProps
+import           React.Flux.Rn.Components      (KeyboardAvoidingView, Props,
+                                                Styles, View, nestedProp, prop)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 -- Required
@@ -17,7 +17,7 @@ keyboardVerticalOffset = prop "keyboardVerticalOffset"
 behavior :: Behavior -> Props KeyboardAvoidingView handler
 behavior = prop "behavior"
 
-contentContainerStyle :: ViewStyleProps -> Props KeyboardAvoidingView handler
+contentContainerStyle :: [Styles View handler] -> Props KeyboardAvoidingView handler
 contentContainerStyle = nestedProp "contentContainerStyle"
 
 -- ViewProps:

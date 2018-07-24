@@ -1,14 +1,10 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Views.View where
+module React.Flux.Rn.Components.View where
 
-import           Prelude                  (Bool, String)
-import           React.Flux
-import           React.Flux.Rn.Components (Props, View, prop)
-import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Components      (View)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 
 -- ViewProps:
 

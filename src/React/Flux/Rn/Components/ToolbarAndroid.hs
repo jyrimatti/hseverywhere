@@ -4,17 +4,17 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ToolbarAndroid where
 
-import           Data.Aeson               (FromJSON, ToJSON (..))
-import           Data.Aeson.Types         (parseJSON, parseMaybe)
+import           Data.Aeson                    (FromJSON, ToJSON (..))
+import           Data.Aeson.Types              (parseJSON, parseMaybe)
 import           GHC.Generics
-import           GHCJS.Marshal            (FromJSVal (..), ToJSVal (..))
+import           GHCJS.Marshal                 (FromJSVal (..), ToJSVal (..))
 import           Numeric.Natural
-import           Prelude                  (Bool, Int, Show, String, pure, (<$>),
-                                           (>>=))
+import           Prelude                       (Bool, Int, Show, String, pure,
+                                                (<$>), (>>=))
 import           React.Flux
-import           React.Flux.Rn.Components (Props, ToolbarAndroid, prop)
+import           React.Flux.Rn.Components      (Props, ToolbarAndroid, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 overflowIcon :: ImageSource -> Props ToolbarAndroid handler
@@ -49,9 +49,6 @@ subtitle = prop "subtitle"
 
 subtitleColor :: Color -> Props ToolbarAndroid handler
 subtitleColor = prop "subtitleColor"
-
-testID :: String -> Props ToolbarAndroid handler
-testID = prop "testID"
 
 title :: String -> Props ToolbarAndroid handler
 title = prop "title"

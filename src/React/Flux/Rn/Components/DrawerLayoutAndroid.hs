@@ -6,10 +6,11 @@ module React.Flux.Rn.Components.DrawerLayoutAndroid where
 import           Data.Typeable
 import           Numeric.Natural
 import           React.Flux
-import           React.Flux.Internal      (ReactViewRef)
-import           React.Flux.Rn.Components (DrawerLayoutAndroid, Props, prop)
+import           React.Flux.Internal           (ReactViewRef)
+import           React.Flux.Rn.Components      (DrawerLayoutAndroid, Props,
+                                                prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 -- Required

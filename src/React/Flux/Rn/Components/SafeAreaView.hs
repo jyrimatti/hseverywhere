@@ -2,8 +2,8 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.SafeAreaView where
 
-import           React.Flux.Rn.Components (Props, SafeAreaView, prop)
-import qualified React.Flux.Rn.Props.View as ViewProps
+import           React.Flux.Rn.Components      (SafeAreaView)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 
 -- ViewProps:
 

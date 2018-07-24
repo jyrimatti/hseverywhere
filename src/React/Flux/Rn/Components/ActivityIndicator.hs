@@ -3,11 +3,9 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ActivityIndicator where
 
-import           Prelude                  (Bool)
-import           React.Flux
-import           React.Flux.Rn.Components (ActivityIndicator, Props, prop)
-import qualified React.Flux.Rn.Props.View as ViewProps
-import           React.Flux.Rn.Style
+import           Prelude                       (Bool)
+import           React.Flux.Rn.Components      (ActivityIndicator, Props, prop)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 animating :: Bool -> Props ActivityIndicator handler

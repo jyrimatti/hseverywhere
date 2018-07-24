@@ -4,16 +4,13 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TouchableOpacity where
 
-import           Numeric.Natural
-import           Prelude                                      (Bool, Double)
-import           React.Flux
-import           React.Flux.Rn.Components                     (Props,
-                                                               TouchableOpacity,
-                                                               prop)
-import qualified React.Flux.Rn.Props.TouchableWithoutFeedback as TouchableWithoutFeedbackProps
+import           Prelude                                           (Bool)
+import           React.Flux.Rn.Components                          (Props, TouchableOpacity,
+                                                                    prop)
+import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types
 
-activeOpacity :: Double -> Props TouchableOpacity handler
+activeOpacity :: UnitInterval -> Props TouchableOpacity handler
 activeOpacity = prop "activeOpacity"
 
 tvParallaxProperties :: TvParallaxProperties -> Props TouchableOpacity handler

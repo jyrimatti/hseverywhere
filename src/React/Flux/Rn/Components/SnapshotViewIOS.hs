@@ -4,11 +4,11 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.SnapshotViewIOS where
 
-import           Prelude                  (String)
+import           Prelude                       (String)
 import           React.Flux
-import           React.Flux.Rn.Components (Props, SnapshotViewIOS, prop)
+import           React.Flux.Rn.Components      (Props, SnapshotViewIOS, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 
 onSnapshotReady :: EventHandlerType handler -> Props SnapshotViewIOS handler
 onSnapshotReady = on0 "onSnapshotReady"

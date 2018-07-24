@@ -1,11 +1,12 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Props.View where
+module React.Flux.Rn.Props.ViewProps where
 
 import           Prelude                  (Bool, String)
 import           React.Flux               (EventHandlerType)
-import           React.Flux.Rn.Components (Props, nestedProp, prop)
+import           React.Flux.Rn.Components (Props, Styles, View, nestedProp,
+                                           prop)
 import           React.Flux.Rn.Events
 import           React.Flux.Rn.Types
 
@@ -66,7 +67,7 @@ pointerEvents = prop "pointerEvents"
 removeClippedSubviews :: Bool -> Props component handler
 removeClippedSubviews = prop "removeClippedSubviews"
 
-style :: ViewStyleProps -> Props component handler
+style :: forall component handler. [Styles View handler] -> Props component handler
 style = nestedProp "style"
 
 testID :: String -> Props component handler

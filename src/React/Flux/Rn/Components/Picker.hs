@@ -4,13 +4,14 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.Picker where
 
-import           GHCJS.Marshal            (FromJSVal, ToJSVal)
+import           GHCJS.Marshal                 (FromJSVal, ToJSVal)
 import           Numeric.Natural
-import           Prelude                  (Bool, String)
+import           Prelude                       (Bool, String)
 import           React.Flux
-import           React.Flux.Rn.Components (Picker, Props, prop)
+import           React.Flux.Rn.Components      (Picker, Props, Styles, Text,
+                                                nestedProp, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 onValueChange :: FromJSVal value => (value -> Natural -> EventHandlerType handler) -> Props Picker handler
@@ -18,12 +19,6 @@ onValueChange = on2 "onValueChange"
 
 selectedValue :: ToJSVal value => value -> Props Picker handler
 selectedValue = prop "selectedValue"
-
-style :: PickerStyleProps -> Props Picker handler
-style = nestedProp "style"
-
-testID :: String -> Props Picker handler
-testID = prop "testID"
 
 -- Platform: Android
 enabled :: Bool -> Props Picker handler
@@ -38,7 +33,7 @@ prompt :: String -> Props Picker handler
 prompt = prop "prompt"
 
 -- Platform: IOS
-itemStyle :: TextStyleProps -> Props Picker handler
+itemStyle :: [Styles Text handler] -> Props Picker handler
 itemStyle = nestedProp "itemStyle"
 
 -- ViewProps:

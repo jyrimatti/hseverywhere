@@ -10,7 +10,7 @@ app=$(basename $PWD)
 cp -fR files/* $app/
 
 # https://github.com/facebook/react-native/issues/5615
-nix-shell -p nodejs --run "cd $app && mkdir -p android/app/build/intermediates/assets/release && PLATFORM=android ./node_modules/.bin/react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/build/intermediates/assets/release/index.android.bundle --assets-dest android/app/src/main/res/"
+nix-shell -p nodejs --run "cd $app && mkdir -p android/app/build/intermediates/assets/release && PLATFORM=android node --max-old-space-size=4096 ./node_modules/.bin/react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/build/intermediates/assets/release/index.android.bundle --assets-dest android/app/src/main/res/"
 
 nix-shell -p nodejs jre8 --run "cd $app/android; ANDROID_HOME=$(pwd)/$app/android/androidsdk/libexec ./gradlew --no-daemon assembleRelease"
 

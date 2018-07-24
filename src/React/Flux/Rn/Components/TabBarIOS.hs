@@ -4,10 +4,10 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TabBarIOS where
 
-import           Prelude                  (Bool)
+import           Prelude                       (Bool)
 import           React.Flux
-import           React.Flux.Rn.Components (Props, TabBarIOS, prop)
-import qualified React.Flux.Rn.Props.View as ViewProps
+import           React.Flux.Rn.Components      (Props, TabBarIOS, prop)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 barStyle :: BarStyle -> Props TabBarIOS handler
@@ -18,9 +18,6 @@ barTintColor = prop "barTintColor"
 
 itemPositioning :: ItemPositioning -> Props TabBarIOS handler
 itemPositioning = prop "itemPositioning"
-
-style :: ViewStyleProps -> Props TabBarIOS handler
-style = nestedProp "style"
 
 tintColor :: Color -> Props TabBarIOS handler
 tintColor = prop "tintColor"

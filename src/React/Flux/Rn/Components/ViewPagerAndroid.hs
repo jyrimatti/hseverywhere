@@ -5,15 +5,12 @@
 module React.Flux.Rn.Components.ViewPagerAndroid where
 
 import           Numeric.Natural
-import           Prelude                        (Bool, Int, String, const, pure,
-                                                 ($), (.), (<$>))
+import           Prelude                       (Bool, Int, String, const, pure,
+                                                ($), (.), (<$>))
 import           React.Flux
-import           React.Flux.Internal            (HandlerArg (..),
-                                                 PropertyOrHandler_ (..))
-import           React.Flux.PropertiesAndEvents (callback)
-import           React.Flux.Rn.Components       (Props, ViewPagerAndroid, prop)
+import           React.Flux.Rn.Components      (Props, ViewPagerAndroid, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View       as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 initialPage :: Natural -> Props ViewPagerAndroid handler
@@ -42,9 +39,9 @@ scrollEnabled = prop "scrollEnabled"
 
 -- ViewProps:
 
-onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @ViewPagerAndroidPagerAndroid
-accessibilityLabel               = ViewProps.accessibilityLabel @ViewPagerAndroidPagerAndroid
-hitSlop                          = ViewProps.hitSlop @ViewPagerAndroidPagerAndroid
+onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @ViewPagerAndroid
+accessibilityLabel               = ViewProps.accessibilityLabel @ViewPagerAndroid
+hitSlop                          = ViewProps.hitSlop @ViewPagerAndroid
 nativeID                         = ViewProps.nativeID @ViewPagerAndroid
 onAccessibilityTap               = ViewProps.onAccessibilityTap @ViewPagerAndroid
 onLayout                         = ViewProps.onLayout @ViewPagerAndroid

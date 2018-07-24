@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Props.TouchableWithoutFeedback where
+module React.Flux.Rn.Props.TouchableWithoutFeedbackProps where
 
 import           Numeric.Natural
 import           Prelude                  (Bool)

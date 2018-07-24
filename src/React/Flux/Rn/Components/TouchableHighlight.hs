@@ -5,15 +5,20 @@
 module React.Flux.Rn.Components.TouchableHighlight where
 
 import           Numeric.Natural
-import           Prelude                                      (Bool, Double)
-import           React.Flux
-import           React.Flux.Rn.Components                     (Props, TouchableHighlight,
-                                                               nestedProp, prop)
+import           Prelude                                           (Bool,
+                                                                    Double)
+import           React.Flux                                        (EventHandlerType)
+import           React.Flux.Rn.Components                          (Props,
+                                                                    Styles,
+                                                                    TouchableHighlight,
+                                                                    View,
+                                                                    nestedProp,
+                                                                    prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.TouchableWithoutFeedback as TouchableWithoutFeedbackProps
+import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types
 
-activeOpacity :: Double -> Props TouchableHighlight handler
+activeOpacity :: UnitInterval -> Props TouchableHighlight handler
 activeOpacity = prop "activeOpacity"
 
 onHideUnderlay :: EventHandlerType handler -> Props TouchableHighlight handler
@@ -22,7 +27,7 @@ onHideUnderlay = on0 "onHideUnderlay"
 onShowUnderlay :: EventHandlerType handler -> Props TouchableHighlight handler
 onShowUnderlay = on0 "onShowUnderlay"
 
-style :: ViewStyleProps -> Props TouchableHighlight handler
+style :: [Styles View handler] -> Props TouchableHighlight handler
 style = nestedProp "style"
 
 underlayColor :: Color -> Props TouchableHighlight handler

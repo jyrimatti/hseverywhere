@@ -4,9 +4,9 @@ module React.Flux.Rn.Components.Modal where
 
 import           Prelude
 import           React.Flux
-import           React.Flux.Rn.Components (Modal, Props, prop)
+import           React.Flux.Rn.Components      (Modal, Props, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 visible :: Bool -> Props Modal handler

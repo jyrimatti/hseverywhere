@@ -15,250 +15,258 @@
 
 module TodoViews where
 
-import           Control.Monad                             (forM_, unless, when)
-import           Prelude
+import           Control.Monad                                     (forM_,
+                                                                    unless,
+                                                                    when)
+import           Prelude                                           (Int,
+                                                                    Maybe (..),
+                                                                    all, filter,
+                                                                    id, length,
+                                                                    not, snd,
+                                                                    ($), (++),
+                                                                    (-), (.),
+                                                                    (==))
+import qualified Prelude                                           as P
 
-import           React.Flux                                (EventHandlerCode (..),
-                                                            ReactElementM,
-                                                            StoreArg, View,
-                                                            elemShow,
-                                                            elemString,
-                                                            mkControllerView,
-                                                            mkView, view_,
-                                                            xview_, ($=))
+import           React.Flux                                        (EventHandlerCode (..),
+                                                                    ReactElementM,
+                                                                    StoreArg,
+                                                                    View,
+                                                                    elemShow,
+                                                                    elemString,
+                                                                    mkControllerView,
+                                                                    mkView,
+                                                                    view_,
+                                                                    xview_,
+                                                                    ($=))
 
-import qualified React.Flux.Rn.APIs                        as RnA
-import qualified React.Flux.Rn.Components                  as Rn
+import qualified React.Flux.Rn.APIs                                as RnA
+import           React.Flux.Rn.Components                          (scrollView,
+                                                                    text,
+                                                                    touchableOpacity,
+                                                                    touchableWithoutFeedback,
+                                                                    view)
+import           React.Flux.Rn.Components.ScrollView
+import qualified React.Flux.Rn.Components.ScrollView               as SV
+import           React.Flux.Rn.Components.Text
+import qualified React.Flux.Rn.Components.Text                     as T
 import           React.Flux.Rn.Components.TouchableOpacity
-import qualified React.Flux.Rn.Style                       as RnS
+import qualified React.Flux.Rn.Components.TouchableOpacity         as TO
+import           React.Flux.Rn.Components.TouchableWithoutFeedback
+import qualified React.Flux.Rn.Components.TouchableWithoutFeedback as TWF
+import           React.Flux.Rn.Components.View
+import qualified React.Flux.Rn.Components.View                     as V
+import           React.Flux.Rn.Styles.Text
+import qualified React.Flux.Rn.Styles.Text                         as T_
+import qualified React.Flux.Rn.Styles.TextInput                    as TI_
+import           React.Flux.Rn.Styles.View
+import qualified React.Flux.Rn.Styles.View                         as V_
+import           React.Flux.Rn.Types
 
 import           TodoComponents
 import           TodoDispatcher
 import           TodoStore
 
+rview s x = xview_ $ mkView s x
+
 todoApp :: View ()
 todoApp = mkControllerView @'[StoreArg TodoState] "todo app" $ \todoState () ->
-    Rn.scrollView [ RnS.style [ RnS.backgroundColor "#f5f5f5"
-                              ]] $ do
-       todoHeader_
-       mainSection_ todoState
-       todoFooter_
+    scrollView [ SV.style [ V_.backgroundColor "#f5f5f5" ]] $ do
+        todoHeader ()
+        mainSection todoState
+        todoFooter ()
 
-todoHeader :: View ()
-todoHeader = mkView "header" $ \() ->
-        Rn.text [RnS.style [ RnS.alignSelf RnS.SCenter
-                           , RnS.fontSize 100
-                           , RnS.fontFamily "HelveticaNeue"
-                           , RnS.fontWeight RnS.W100
-                           , RnS.color $ RnS.Rgba 175 47 47 0.15
-                           , RnS.marginHorizontal 30
-                           ]]
-            "todos!"
+todoHeader = rview "header" $ \() ->
+    text [ T.style [ fontSize 100
+                   , fontFamily "HelveticaNeue"
+                   , fontWeight W100
+                   , color $ Rgba 175 47 47 0.15
+                   ]]
+        "todos!"
 
-todoHeader_ :: ReactElementM eventHandler ()
-todoHeader_ = view_ todoHeader "header" ()
-
-infoStyles = [ RnS.fontFamily "HelveticaNeue"
-             , RnS.fontSize 10
-             , RnS.color "#bfbfbf"
-             , RnS.textShadowOffset 0 1
-             , RnS.textShadowColor $ RnS.Rgba 255 255 255 0.5
-             , RnS.alignSelf RnS.SCenter
+infoStyles = [ fontFamily "HelveticaNeue"
+             , fontSize 10
+             , color "#bfbfbf"
+             , textShadowOffset $ ContentSize 0 1
+             , textShadowColor $ Rgba 255 255 255 0.5
+             , T_.alignSelf Center____
              ]
 
-todoFooter :: View ()
-todoFooter = mkView "todoFooter" $ \() ->
-    Rn.view [RnS.style [ RnS.marginTop 20
-                       , RnS.marginBottom 10
-                       , RnS.marginHorizontal 30
-                       ]] $ do
-        Rn.text [RnS.style $ RnS.marginBottom 10 : infoStyles] "Long-press to edit, double-click x to delete"
-        Rn.text [RnS.style infoStyles] $ elemString ("You are running on: " ++ show RnA.platform)
-        Rn.view [ RnS.style [ RnS.flexWrap RnS.Wrap
-                            , RnS.alignSelf RnS.SCenter
-                            ]] $
+todoFooter = rview "todoFooter" $ \() ->
+    view [ V.style [ V_.marginTop 20
+                   , V_.marginBottom 10
+                   , V_.marginHorizontal 30
+                   ]] $ do
+        text [ T.style (T_.marginBottom 10 : infoStyles) ]
+            "Long-press to edit, double-click x to delete"
+        text [ T.style infoStyles ] $
+            elemString ("You are running on: " ++ P.show RnA.platform)
+        view [ V.style [ V_.flexWrap Wrap
+                       , V_.alignSelf Center____
+                       ]] $
             credit "Credits: Jyri-Matti Lähteenmäki" "https://twitter.com/jyrimatti"
-        Rn.text [RnS.style infoStyles] "standing on the shoulders of"
-        Rn.view [ RnS.style [ RnS.flexDirection RnS.Row
-                            , RnS.flexWrap RnS.Wrap
-                            , RnS.alignSelf RnS.SCenter
-                            ]] $ do
-            credit "GHCJS, " "https://github.com/ghcjs/ghcjs"
-            credit "React, " "https://facebook.github.io/react/"
-            credit "React-flux, " "https://hackage.haskell.org/package/react-flux"
-            credit "React-native, " "https://facebook.github.io/react-native/"
-            credit "React-native-desktop, " "https://www.npmjs.com/package/react-native-desktop"
-            credit "React-native-web" "https://github.com/necolas/react-native-web"
-  where credit text link = Rn.touchableOpacity [ onPress $ dispatchTodo $ OpenLink link ] $
-                               Rn.text [RnS.style infoStyles] text
-
-todoFooter_ :: ReactElementM eventHandler ()
-todoFooter_ = view_ todoFooter "footer" ()
-
-mainSection_ :: TodoState -> ReactElementM 'EventHandlerCode ()
-mainSection_ todoState@(TodoState todoList filt) =
-    Rn.view [RnS.style [ RnS.backgroundColor "#fff"
-                       , RnS.marginHorizontal 30
-                       , RnS.shadowOffset 0 2
-                       , RnS.shadowRadius 4
-                       , RnS.shadowColor $ RnS.Rgba 0 0 0 0.2
-                       , RnS.shadowOpacity 1
+        text [ T.style infoStyles ]
+            "standing on the shoulders of"
+        view [ V.style [ V_.flexDirection Row
+                       , V_.flexWrap Wrap
+                       , V_.alignSelf Center____
                        ]] $ do
-        Rn.view [RnS.style [RnS.flexDirection RnS.Row]] $ do
-            Rn.touchableOpacity [ onPress $ dispatchTodo ToggleAllComplete
-                                , RnS.style [ RnS.alignItems RnS.ICenter
-                                            , RnS.alignSelf RnS.SCenter
-                                            , RnS.flexDirection RnS.Column
-                                            , RnS.width 50
-                                            ]] $
-                Rn.text [ "checked" $= if all (todoComplete . snd) todoList then "checked" else ""
-                        , RnS.style [ RnS.transform [RnS.RotateZ "90deg"]
-                                    , RnS.color $ if allCompleted then "#4d4d4d" else "#d9d9d9"
-                                    , RnS.fontSize 20
-                                    , RnS.fontFamily "HelveticaNeue"
-                                    ]]
-                    ">"
-            todoTextInput_ [ RnS.fontStyle RnS.Italic
-                           , RnS.fontSize 16
-                           ] TextInputArgs { tiaPlaceholder = "What needs to be done?"
-                                           , tiaSaveAction = SACreate
-                                           , tiaOnCancel = []
-                                           , tiaValue = Nothing
-                                           }
+            credit "GHCJS, "                "https://github.com/ghcjs/ghcjs"
+            credit "React, "                "https://facebook.github.io/react/"
+            credit "React-flux, "           "https://hackage.haskell.org/package/react-flux"
+            credit "React-native, "         "https://facebook.github.io/react-native/"
+            credit "React-native-desktop, " "https://www.npmjs.com/package/react-native-desktop"
+            credit "React-native-web"       "https://github.com/necolas/react-native-web"
+  where credit txt link = touchableOpacity [ TO.onPress $ dispatchTodo $ OpenLink link ] $
+                              text [T.style  infoStyles] txt
 
-        Rn.view [ RnS.style [ RnS.borderTopWidth 1
-                            , RnS.borderTopColor "#e6e6e6"
-                            ]] $
-            forM_ (doFilter filt todoList) todoItem_
-
-        -- FIXME: Would use ListView but it's not working yet (react-flux and react-native-web)
-        {-
-        Rn.listView
-           [ property "dataSource" $ JsApply js_newListViewDataSource (doFilter filt $ map snd $ todoList)
-           , property "renderRow" js_renderRow
-           , RnS.style [ RnS.borderTopWidth 1
-                       , RnS.borderTopColor "#e6e6e6"
-                       ]
-           ] mempty
-        -}
-
-        mainSectionFooter todoState
-  where doFilter All       = id
-        doFilter Active    = filter (not . todoComplete . snd)
-        doFilter Completed = filter (todoComplete . snd)
+mainSection todoState@(TodoState todoList filt) =
+    let doFilter AcceptAll       = id
+        doFilter AcceptActive    = filter (not . todoComplete . snd)
+        doFilter AcceptCompleted = filter (todoComplete . snd)
         allCompleted = all (todoComplete . snd) todoList
-
-
-todoItem :: View (Int, Todo)
-todoItem = mkView "todo item" $ \(todoIdx, todo) ->
-    let isComplete = todoComplete todo
-    in Rn.view [ RnS.style [ RnS.flexDirection RnS.Row ]
-               ] $ do
-        unless (todoIsEditing todo) $ do
-            Rn.touchableWithoutFeedback [ onPress $ dispatchTodo $ TodoSetComplete todoIdx (not isComplete) ] $
-                -- I guess IOS does not support rendering inline SVG, so let's use border and unicode instead of a check-mark image.
-                Rn.view [ RnS.style [ RnS.width 30
-                                    , RnS.height 30
-                                    , RnS.alignSelf RnS.SCenter
-                                    , RnS.marginLeft 8
-                                    , RnS.paddingTop 4
-                                    , RnS.borderWidth 1
-                                    , RnS.borderRadius 30
-                                    , RnS.borderColor "#bddad5"
-                                    , RnS.alignItems RnS.ICenter
-                                    ]] $
-                    case RnA.platform of
-                        --RnA.IOS | isComplete -> Addons.icon_materialicons ["name" $= "done", "size" @= (20 :: Int), "color" $= "#5dc2af"] mempty
-                        --RnA.IOS              -> mempty
-                        _                    -> Rn.text [ RnS.style [ RnS.fontSize 20, RnS.color "#5dc2af", RnS.fontFamily "HelveticaNeue" ]] $ if isComplete then "\x2713" else ""
-            Rn.touchableOpacity [ onLongPress $ dispatchTodo $ TodoEdit todoIdx
-                                , RnS.style [ RnS.padding 15
-                                            , RnS.flex 1
-                                            ]] $
-                Rn.text [ RnS.style [ RnS.fontSize 22
-                                    , RnS.marginVertical 3
-                                    , RnS.fontWeight RnS.W300
-                                    , RnS.color $ RnS.Color $ if isComplete then "#d9d9d9" else "#4d4d4d"
-                                    , RnS.fontFamily "HelveticaNeue"
-                                    , RnS.textDecorationLine $ if isComplete then RnS.LineThrough else RnS.None
-                                    ]] $
-                    elemString $ todoText todo
-
-        when (todoIsEditing todo) $ do
-            Rn.touchableWithoutFeedback [ onPress $ dispatchTodo $ TodoDelete todoIdx ] $
-                Rn.view [ RnS.style [ RnS.width 30
-                                    , RnS.height 30
-                                    , RnS.alignSelf RnS.SCenter
-                                    , RnS.marginLeft 8
-                                    , RnS.paddingTop 4
-                                    , RnS.alignItems RnS.ICenter
-                                    ]] $
-                    Rn.text [ RnS.style [ RnS.fontSize 20
-                                        , RnS.fontFamily "HelveticaNeue"
-                                        , RnS.color "#cc9a9a"
-                                        ]]
-                        "x"
-
-            Rn.view [ RnS.style [ RnS.flex 1
-                                , RnS.marginLeft 15
-                                , RnS.marginTop 1
+    in
+        view [ V.style [ V_.backgroundColor "#fff"
+                   , V_.marginHorizontal 30
+                   , V_.shadowOffset $ ContentSize 0 2
+                   , V_.shadowRadius 4
+                   , V_.shadowColor $ Rgba 0 0 0 0.2
+                   , V_.shadowOpacity 1
+                   ]] $ do
+            view [ V.style [ V_.flexDirection Row ]] $ do
+                touchableOpacity [ TO.onPress $ dispatchTodo ToggleAllComplete ] $
+                    view [ V.style [ V_.alignItems Center______
+                                , V_.alignSelf Center____
+                                , V_.flexDirection Column
+                                , V_.width 50
                                 ]] $
-                todoTextInput_ [] TextInputArgs { tiaPlaceholder = ""
-                                                , tiaSaveAction = SAUpdate todoIdx
-                                                , tiaOnCancel = [CancelUpdateWithDelay todoIdx]
-                                                , tiaValue = Just $ todoText todo
-                                                }
+                        text [ T.style [ T_.transform [RotateZ (Deg 90.0)]
+                                    , color $ if allCompleted then "#4d4d4d" else "#d9d9d9"
+                                    , fontSize 20
+                                    , fontFamily "HelveticaNeue"
+                                    ]]
+                            ">"
+                todoTextInput_ [ TI_.fontStyle Italic
+                            , TI_.fontSize 16
+                            ] TextInputArgs { tiaPlaceholder = "What needs to be done?"
+                                            , tiaSaveAction = SACreate
+                                            , tiaOnCancel = []
+                                            , tiaValue = Nothing
+                                            }
 
-todoItem_ :: (Int, Todo) -> ReactElementM eventHandler ()
-todoItem_ todo = xview_ todoItem todo
+            view [ V.style [ V_.borderTopWidth 1
+                        , V_.borderTopColor "#e6e6e6"
+                        ]] $
+                forM_ (doFilter filt todoList) todoItem
 
+            mainSectionFooter todoState
 
-footerStyles = [ RnS.color "#777"
-               , RnS.fontFamily "HelveticaNeue"
-               , RnS.fontWeight RnS.W300
+todoItem = rview "todo item" $ \(todoIdx, todo) ->
+    let isComplete = todoComplete todo
+    in
+        view [ V.style [ V_.flexDirection Row ] ] $ do
+            unless (todoIsEditing todo) $ do
+                touchableWithoutFeedback [ TWF.onPress $ dispatchTodo $ TodoSetComplete todoIdx (not isComplete) ] $
+                    -- I guess IOS does not support rendering inline SVG, so let's use border and unicode instead of a check-mark image.
+                    view [ V.style [ V_.width 30
+                                , V_.height 30
+                                , V_.alignSelf Center____
+                                , V_.marginLeft 8
+                                , V_.paddingTop 4
+                                , V_.borderWidth 1
+                                , V_.borderRadius 30
+                                , V_.borderColor "#bddad5"
+                                , V_.alignItems Center______
+                                ]] $
+                        text [ T.style [ fontSize 20, color "#5dc2af", fontFamily "HelveticaNeue" ]] $
+                            if isComplete then "\x2713" else ""
+                touchableOpacity [ TO.onLongPress $ dispatchTodo $ TodoEdit todoIdx ] $
+                    view [ V.style [ V_.padding 15
+                                , V_.flex 1
+                                ]] $
+                        text [ T.style [ fontSize 22
+                                    , T_.marginVertical 3
+                                    , fontWeight W300
+                                    , color $ Color $ if isComplete then "#d9d9d9" else "#4d4d4d"
+                                    , fontFamily "HelveticaNeue"
+                                    , textDecorationLine $ if isComplete then LineThrough else None__________
+                                    ]] $
+                            elemString $ todoText todo
+
+            when (todoIsEditing todo) $ do
+                touchableWithoutFeedback [ TWF.onPress $ dispatchTodo $ TodoDelete todoIdx ] $
+                    view [ V.style [ V_.width 30
+                                , V_.height 30
+                                , V_.alignSelf Center____
+                                , V_.marginLeft 8
+                                , V_.paddingTop 4
+                                , V_.alignItems Center______
+                                ]] $
+                        text [ T.style [ fontSize 20
+                                    , fontFamily "HelveticaNeue"
+                                    , color "#cc9a9a"
+                                    ]]
+                            "x"
+
+                view [ V.style [ V_.flex 1
+                            , V_.marginLeft 15
+                            , V_.marginTop 1
+                            ]] $
+                    todoTextInput_ [] TextInputArgs { tiaPlaceholder = ""
+                                                    , tiaSaveAction = SAUpdate todoIdx
+                                                    , tiaOnCancel = [CancelUpdateWithDelay todoIdx]
+                                                    , tiaValue = Just $ todoText todo
+                                                    }
+
+footerStyles = [ color "#777"
+               , fontFamily "HelveticaNeue"
+               , fontWeight W300
                ]
 
-filterStyle = [ RnS.paddingHorizontal 7
-              , RnS.marginHorizontal 10
+filterStyle = [ V_.paddingHorizontal 7
+              , V_.marginHorizontal 10
               ]
-activeFilterStyle = [ RnS.borderWidth 1
-                    , RnS.borderColor $ RnS.Rgba 175 47 47 0.2
-                    , RnS.borderRadius 3
+activeFilterStyle = [ V_.borderWidth 1
+                    , V_.borderColor $ Rgba 175 47 47 0.2
+                    , V_.borderRadius 3
                     ]
 
 mainSectionFooter :: TodoState -> ReactElementM eventHandler ()
-mainSectionFooter = xview_ $ mkView "msfooter" $ \(TodoState todos filtering) ->
+mainSectionFooter = rview "msfooter" $ \(TodoState todos filtering) ->
     let completed = length (filter (todoComplete . snd) todos)
         itemsLeft = length todos - completed
-        styling f = RnS.style $ filterStyle ++ (if f == filtering then activeFilterStyle else [])
-     in Rn.view [RnS.style [ RnS.flexDirection RnS.Row
-                           , RnS.borderTopWidth 1
-                           , RnS.borderTopColor "#e6e6e6"
-                           , RnS.paddingVertical 10
-                           , RnS.paddingHorizontal 15
-                           , RnS.justifyContent RnS.JSpaceBetween
+        styling f = V.style  $ filterStyle ++ (if f == filtering then activeFilterStyle else [])
+     in
+        view [V.style [ V_.flexDirection Row
+                      , V_.borderTopWidth 1
+                      , V_.borderTopColor "#e6e6e6"
+                      , V_.paddingVertical 10
+                      , V_.paddingHorizontal 15
+                      , V_.justifyContent SpaceBetween_
                 ]] $ do
-            Rn.view [ RnS.style [RnS.flexDirection RnS.Row] ] $ do
-                Rn.text [RnS.style $ RnS.fontWeight RnS.WBold : footerStyles] $ elemShow itemsLeft
-                Rn.text [RnS.style footerStyles] $ if itemsLeft == 1 then " item left" else " items left"
+            view [ V.style  [V_.flexDirection Row] ] $ do
+                text [T.style  $ fontWeight Bold : footerStyles] $
+                    elemShow itemsLeft
+                text [T.style  footerStyles] $
+                    if itemsLeft == 1 then " item left" else " items left"
 
-            Rn.view [ RnS.style [ RnS.flexDirection RnS.Row
-                                , RnS.justifyContent RnS.JCenter
-                                , RnS.flexWrap RnS.Wrap
-                                , RnS.flex 1
-                                ]] $ do
-                Rn.touchableOpacity [ onPress $ dispatchTodo (SetFilter All), styling All] $
-                    Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "All"
-                Rn.touchableOpacity [ onPress $ dispatchTodo (SetFilter Active), styling Active] $
-                    Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Active"
-                Rn.touchableOpacity [ onPress $ dispatchTodo (SetFilter Completed), styling Completed] $
-                    Rn.text [RnS.style [RnS.fontFamily "HelveticaNeue"]] "Completed"
+            view [ V.style [ V_.flexDirection Row
+                           , V_.justifyContent Center_____
+                           , V_.flexWrap Wrap
+                           , V_.flex 1
+                           ]] $ do
+                touchableOpacity [ TO.onPress $ dispatchTodo (SetFilter AcceptAll) ] $
+                    view [styling AcceptAll] $
+                        text [T.style  [fontFamily "HelveticaNeue"]] "All"
+                touchableOpacity [ TO.onPress $ dispatchTodo (SetFilter AcceptActive) ] $
+                    view [styling AcceptActive] $
+                        text [T.style  [fontFamily "HelveticaNeue"]] "Active"
+                touchableOpacity [ TO.onPress $ dispatchTodo (SetFilter AcceptCompleted) ] $
+                    view [styling AcceptCompleted] $
+                        text [T.style  [fontFamily "HelveticaNeue"]] "Completed"
 
-            Rn.touchableOpacity [ onPress $ dispatchTodo ClearCompletedTodos
-                                , RnS.style (if completed == 0 then [RnS.opacity 0] else [])
-                                ] $
-                Rn.text [ RnS.style footerStyles
-                        , RnS.flexWrap RnS.Wrap
-                        ]
-                    "Clear completed"
+            touchableOpacity [ TO.onPress $ dispatchTodo ClearCompletedTodos ] $
+                view [ V.style (if completed == 0 then [V_.opacity 0] else []) ] $
+                    text [ T.style (T_.flexWrap Wrap : footerStyles) ]
+                        "Clear completed"
 

@@ -4,14 +4,15 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.PickerIOS where
 
-import           GHCJS.Marshal            (ToJSVal)
+import           GHCJS.Marshal                 (ToJSVal)
 import           React.Flux
-import           React.Flux.Rn.Components (PickerIOS, Props, prop)
+import           React.Flux.Rn.Components      (PickerIOS, Props, Styles, Text,
+                                                nestedProp, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
-itemStyle :: TextStyleProps -> Props PickerIOS handler
+itemStyle :: [Styles Text handler] -> Props PickerIOS handler
 itemStyle = nestedProp "itemStyle"
 
 onValueChange :: EventHandlerType handler -> Props PickerIOS handler

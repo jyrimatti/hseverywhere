@@ -5,13 +5,14 @@ module React.Flux.Rn.Components.Image where
 
 import           GHCJS.Marshal            (FromJSVal (..))
 import           Numeric.Natural
-import           Prelude                  (Bool, Double, Image, String, ($))
+import           Prelude                  (Bool, String, ($))
 import           React.Flux
-import           React.Flux.Rn.Components (Props, prop)
+import           React.Flux.Rn.Components (Image, Props, Styles, nestedProp,
+                                           prop)
 import           React.Flux.Rn.Events
 import           React.Flux.Rn.Types
 
-style :: ImageStyleProps -> Props Image handler
+style :: [Styles Image handler] -> Props Image handler
 style = nestedProp "style"
 
 blurRadius :: Natural -> Props Image handler

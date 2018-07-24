@@ -4,9 +4,9 @@ module React.Flux.Rn.Components.Button where
 
 import           Prelude                  (Bool, String)
 import           React.Flux
-import           React.Flux.Rn.Components (Props, prop, Button)
+import           React.Flux.Rn.Components (Button, Props, prop)
 import           React.Flux.Rn.Events
-import           React.Flux.Rn.Style
+import           React.Flux.Rn.Types
 
 -- Required
 onPress :: EventHandlerType handler -> Props Button handler

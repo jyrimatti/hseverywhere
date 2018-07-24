@@ -5,8 +5,9 @@ module React.Flux.Rn.Components.Text where
 
 import           Numeric.Natural
 import           Prelude                  (Bool, Double, String, ($))
-import           React.Flux
-import           React.Flux.Rn.Components (Props, Text, prop)
+import           React.Flux               (EventHandlerType)
+import           React.Flux.Rn.Components (Props, Styles, Text, nestedProp,
+                                           prop)
 import           React.Flux.Rn.Events
 import           React.Flux.Rn.Types
 
@@ -40,7 +41,7 @@ pressRetentionOffset = prop "pressRetentionOffset"
 allowFontScaling :: Bool -> Props Text handler
 allowFontScaling = prop "allowFontScaling"
 
-style :: TextComponentStyleProps -> Props Text handler
+style :: [Styles Text handler] -> Props Text handler
 style = nestedProp "style"
 
 testID :: String -> Props Text handler

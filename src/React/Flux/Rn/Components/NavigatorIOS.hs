@@ -4,8 +4,8 @@
 module React.Flux.Rn.Components.NavigatorIOS where
 
 import           Prelude                  (Bool)
-import           React.Flux
-import           React.Flux.Rn.Components (NavigatorIOS, Props, prop)
+import           React.Flux.Rn.Components (NavigatorIOS, Props, Styles, View,
+                                           nestedProp, prop)
 import           React.Flux.Rn.Types
 
 -- Required
@@ -21,7 +21,7 @@ barTintColor = prop "barTintColor"
 interactivePopGestureEnabled :: Bool -> Props NavigatorIOS handler
 interactivePopGestureEnabled = prop "interactivePopGestureEnabled"
 
-itemWrapperStyle :: ViewStyleProps -> Props NavigatorIOS handler
+itemWrapperStyle :: [Styles View handler] -> Props NavigatorIOS handler
 itemWrapperStyle = nestedProp "itemWrapperStyle"
 
 navigationBarHidden :: Bool -> Props NavigatorIOS handler

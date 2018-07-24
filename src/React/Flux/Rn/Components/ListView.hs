@@ -4,14 +4,14 @@
 module React.Flux.Rn.Components.ListView {-# DEPRECATED "Use FlatList or SectionList" #-} where
 
 import           Data.Typeable
-import           GHCJS.Marshal                  (FromJSVal)
+import           GHCJS.Marshal                       (FromJSVal)
 import           Numeric.Natural
-import           Prelude                        (Bool, IO)
+import           Prelude                             (Bool, IO)
 import           React.Flux
-import           React.Flux.Internal            (ReactViewRef)
-import           React.Flux.Rn.Components       (ListView, Props, prop)
+import           React.Flux.Internal                 (ReactViewRef)
+import           React.Flux.Rn.Components            (ListView, Props, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.ScrollView as ScrollViewProps
+import qualified React.Flux.Rn.Props.ScrollViewProps as ScrollViewProps
 import           React.Flux.Rn.Types
 
 -- Required
@@ -42,10 +42,6 @@ renderScrollComponent = view1 "renderScrollComponent"
 scrollRenderAheadDistance :: Natural -> Props ListView handler
 scrollRenderAheadDistance = prop "scrollRenderAheadDistance"
 
--- Required
-stickyHeaderIndices :: [Natural] -> Props ListView handler
-stickyHeaderIndices = prop "stickyHeaderIndices"
-
 enableEmptySections :: Bool -> Props ListView handler
 enableEmptySections = prop "enableEmptySections"
 
@@ -67,9 +63,6 @@ renderSeparator = view3 "renderSeparator"
 onChangeVisibleRows :: (FromJSVal visibleRows, FromJSVal changedRows) => (visibleRows -> changedRows -> EventHandlerType handler) -> Props ListView handler
 onChangeVisibleRows = on2 "onChangeVisibleRows"
 
-removeClippedSubviews :: Bool -> Props ListView handler
-removeClippedSubviews = prop "removeClippedSubviews"
-
 renderFooter :: Typeable props => ReactViewRef props -> Props ListView handler
 renderFooter = view0 "renderFooter"
 
@@ -85,7 +78,6 @@ onMomentumScrollEnd              = ScrollViewProps.onMomentumScrollEnd @ListView
 onScroll                         = ScrollViewProps.onScroll @ListView
 pagingEnabled                    = ScrollViewProps.pagingEnabled @ListView
 refreshControl                   = ScrollViewProps.refreshControl @ListView
-removeClippedSubviews            = ScrollViewProps.removeClippedSubviews @ListView
 scrollEnabled                    = ScrollViewProps.scrollEnabled @ListView
 showsHorizontalScrollIndicator   = ScrollViewProps.showsHorizontalScrollIndicator @ListView
 showsVerticalScrollIndicator     = ScrollViewProps.showsVerticalScrollIndicator @ListView

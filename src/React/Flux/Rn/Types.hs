@@ -24,13 +24,13 @@ import           Network.Http.Types         (Method)
 import           Network.URI
 import           Numeric.Natural            (Natural)
 import           Prelude                    (Bool, Double, IO, Int, Maybe (..),
-                                             Show, String, error, fmap,
-                                             fromIntegral, id, pure, undefined,
-                                             ($), (++), (.), (<$>), (>>=))
+                                             Num, Show, String, error, fmap,
+                                             fromIntegral, id, pure, read,
+                                             undefined, ($), (+), (++), (.),
+                                             (<$>), (>>=))
 import qualified Prelude                    as P
 import           React.Flux
 import           React.Flux.Internal        (ReactViewRef (..))
-import           React.Flux.Rn.Components   (Props)
 import           React.Flux.Rn.Events       (fromNativeJSON, nativeEvent)
 import           System.IO.Unsafe           (unsafePerformIO)
 
@@ -46,6 +46,8 @@ type NodeID = String
 
 type JavaScript = String
 
+type UnitInterval = Double -- TODO
+
 instance ToJSVal (ReactViewRef x) where
   toJSVal (ReactViewRef x) = pure x
 
@@ -54,7 +56,20 @@ instance ToJSVal Natural where
 instance FromJSVal Natural where
   fromJSVal jsval = fmap fromIntegral <$> (fromJSVal jsval :: IO (Maybe Int))
 
-type Percentage = Natural
+newtype Percentage = Percent Natural
+  deriving (Show, Generic)
+instance ToJSVal Percentage where
+  toJSVal (Percent x) = toJSVal $ P.show x ++ "%"
+
+data Length = Pt Natural | Perc Natural
+  deriving (Show, Generic)
+instance Num Length where
+  Pt a + Pt b = Pt (a+b)
+instance IsString Length where
+  fromString x@[_,'%'] = Perc (read x)
+instance ToJSVal Length where
+  toJSVal (Pt x)   = toJSVal x
+  toJSVal (Perc x) = toJSVal $ P.show x ++ "%"
 
 data Size = Small
           | Large
@@ -84,7 +99,8 @@ instance ToJSVal Color where
   toJSVal Transparent    = str "transparent"
 
 instance IsString Color where
-   fromString = Color
+   fromString "transparent" = Transparent
+   fromString x             = Color x
 
 -- TODO: ?
 instance ToJSVal LocalTime where
@@ -134,17 +150,17 @@ instance ToJSVal DrawerLockMode where
   toJSVal LockedClosed = str "locked-closed"
   toJSVal LockedOpen   = str "locked-open"
 
-data VisibilityEnum = Visible | Hidden
+data Visibility = Visible | Hidden
   deriving (Show, Generic)
-instance ToJSVal VisibilityEnum where
+instance ToJSVal Visibility where
   toJSVal Visible = str "visible"
   toJSVal Hidden  = str "hidden"
 
 data ResizeMode = Contain
-                     | Cover
-                     | Stretch
-                     | Center
-                     | Repeat
+                | Cover
+                | Stretch
+                | Center
+                | Repeat
   deriving (Show,Generic)
 instance ToJSVal ResizeMode where
   toJSVal Contain = str "contain"
@@ -371,25 +387,6 @@ instance ToJSVal Route where
   toJSVal = toJSVal . toJSON
 
 -- TODO:
-type ViewStyleProps = forall component handler. [Props component handler]
-
--- TODO: View | ...
-type TextStyleProps = forall component handler. [Props component handler]
-
--- TODO: Text excluding borderLeftWidth,borderTopWidth,borderRightWidth,borderBottomWidth,borderTopLeftRadius,borderTopRightRadius,borderBottomRightRadius,borderBottomLeftRadius
-type TextInputStyleProps = forall component handler. [Props component handler]
-
--- TODO: Layout | Shadow | Transforms |
--- borderTopRightRadius | backfaceVisibility | borderBottomLeftRadius | borderBottomRightRadius | borderColor | borderRadius | borderTopLeftRadius | backgroundColor | borderWidth | opacity | overflow | resizeMode | tintColor | overlayColor
-type ImageStyleProps = forall component handler. [Props component handler]
-
--- TODO: View | color
-type PickerStyleProps = forall component handler. [Props component handler]
-
--- TODO: View | ...
-type TextComponentStyleProps = forall component handler. [Props component handler]
-
--- TODO:
 data BackgroundPropType
   deriving Generic
 instance ToJSVal BackgroundPropType
@@ -410,8 +407,6 @@ instance ToJSVal StyleAttr where
   toJSVal Inverse      = str "Inverse"
   toJSVal SmallInverse = str "SmallInverse"
   toJSVal LargeInverse = str "LargeInverse"
-
-type Between0and1 = Double
 
 data ProgressViewStyle = Default_ | Bar_
   deriving (Show, Generic)
@@ -600,6 +595,10 @@ data ContentSize = ContentSize {
   height :: Natural
 } deriving (Show, Generic)
 instance FromJSON ContentSize
+instance ToJSON ContentSize
+instance ToJSVal ContentSize where
+  toJSVal = toJSVal . toJSON
+
 newtype OnContentSizeChange = OnContentSizeChange {
     contentSize :: ContentSize
 } deriving (Show, Generic)
@@ -857,11 +856,205 @@ instance ToJSVal MixedContentMode where
   toJSVal Always______  = str "always"
   toJSVal Compatibility = str "compatibility"
 
+data AlignContent = FlexStart | FlexEnd | Center___ | Stretch_ | SpaceBetween | SpaceAround
+  deriving (Show, Generic)
+instance ToJSVal AlignContent where
+  toJSVal FlexStart    = str "flex-start"
+  toJSVal FlexEnd      = str "flex-end"
+  toJSVal Center___    = str "center"
+  toJSVal Stretch_     = str "stretch"
+  toJSVal SpaceBetween = str "space-between"
+  toJSVal SpaceAround  = str "space-around"
+
+data AlignSelf = Auto_______ | FlexStart_ | FlexEnd_ | Center____ | Stretch__ | Baseline
+  deriving (Show, Generic)
+instance ToJSVal AlignSelf where
+  toJSVal Auto_______ = str "auto"
+  toJSVal FlexStart_  = str "flex-start"
+  toJSVal FlexEnd_    = str "flex-end"
+  toJSVal Center____  = str "center"
+  toJSVal Stretch__   = str "strech"
+  toJSVal Baseline    = str "baseline"
+
+data Display = None_________ | Flex
+  deriving (Show, Generic)
+instance ToJSVal Display where
+  toJSVal None_________ = str "none"
+  toJSVal Flex          = str "flex"
+
+data FlexDirection = Row | RowReverse | Column | ColumnReverse
+  deriving (Show, Generic)
+instance ToJSVal FlexDirection where
+  toJSVal Row           = str "row"
+  toJSVal RowReverse    = str "row-reverse"
+  toJSVal Column        = str "column"
+  toJSVal ColumnReverse = str "column-reverse"
+
+data FlexWrap = Wrap | NoWrap
+  deriving (Show, Generic)
+instance ToJSVal FlexWrap where
+  toJSVal Wrap   = str "wrap"
+  toJSVal NoWrap = str "nowrap"
+
+data JustifyContent = FlexStart__ | FlexEnd__ | Center_____ | SpaceBetween_ | SpaceAround_
+  deriving (Show, Generic)
+instance ToJSVal JustifyContent where
+  toJSVal FlexStart__   = str "flex-start"
+  toJSVal FlexEnd__     = str "flex-end"
+  toJSVal Center_____   = str "center"
+  toJSVal SpaceBetween_ = str "space-between"
+  toJSVal SpaceAround_  = str "space-around"
+
+data AlignItems = FlexStart___ | FlexEnd___ | Center______ | Stretch___ | Baseline_
+  deriving (Show, Generic)
+instance ToJSVal AlignItems where
+  toJSVal FlexStart___ = str "flex-start"
+  toJSVal FlexEnd___   = str "flex-end"
+  toJSVal Center______ = str "center"
+  toJSVal Stretch___   = str "stretch"
+  toJSVal Baseline_    = str "baseline"
+
+data Overflow = Visible_ | Hidden_ | Scroll
+  deriving (Show, Generic)
+instance ToJSVal Overflow where
+  toJSVal Visible_ = str "visible"
+  toJSVal Hidden_  = str "hidden"
+  toJSVal Scroll   = str "scroll"
+
+data Position = Absolute | Relative
+  deriving (Show, Generic)
+instance ToJSVal Position where
+  toJSVal Absolute = str "absolute"
+  toJSVal Relative = str "relative"
+
+data Direction = Inherit | LtR | RtL
+  deriving (Show, Generic)
+instance ToJSVal Direction where
+  toJSVal Inherit = str "inherit"
+  toJSVal LtR     = str "ltr"
+  toJSVal RtL     = str "rtl"
+
+data FontStyle = Normal__ | Italic
+  deriving (Show, Generic)
+instance ToJSVal FontStyle where
+  toJSVal Normal__ = str "normal"
+  toJSVal Italic   = str "italic"
+
+data FontWeight = Normal___ | Bold | W100 | W200 | W300 | W400 | W500 | W600 | W700 | W800 | W900
+  deriving (Show, Generic)
+instance ToJSVal FontWeight where
+  toJSVal Normal___ = str "normal"
+  toJSVal Bold      = str "bold"
+  toJSVal W100      = str "100"
+  toJSVal W200      = str "200"
+  toJSVal W300      = str "300"
+  toJSVal W400      = str "400"
+  toJSVal W500      = str "500"
+  toJSVal W600      = str "600"
+  toJSVal W700      = str "700"
+  toJSVal W800      = str "800"
+  toJSVal W900      = str "900"
+
+data TextAlign = Auto________ | Left_ | Right_ | Center_______ | Justify
+  deriving (Show, Generic)
+instance ToJSVal TextAlign where
+  toJSVal Auto________  = str "normal"
+  toJSVal Left_         = str "italic"
+  toJSVal Right_        = str "italic"
+  toJSVal Center_______ = str "italic"
+  toJSVal Justify       = str "italic"
+
+data TextDecorationLine = None__________ | Underline | LineThrough | UnderlineLineThrough
+  deriving (Show, Generic)
+instance ToJSVal TextDecorationLine where
+  toJSVal None__________       = str "none"
+  toJSVal Underline            = str "underline"
+  toJSVal LineThrough          = str "line-through"
+  toJSVal UnderlineLineThrough = str "underline line-through"
+
+data TextAlignVertical = Auto_________ | Top | Bottom | Center________
+  deriving (Show, Generic)
+instance ToJSVal TextAlignVertical where
+  toJSVal Auto_________  = str "auto"
+  toJSVal Top            = str "top"
+  toJSVal Bottom         = str "bottom"
+  toJSVal Center________ = str "center"
+
+data FontVariant = SmallCaps | OldStyleNums | LiningNums | TabularNums | ProportionalNums
+  deriving (Show, Generic)
+instance ToJSVal FontVariant where
+  toJSVal SmallCaps        = str "small-caps"
+  toJSVal OldStyleNums     = str "oldstyle-nums"
+  toJSVal LiningNums       = str "lining-nums"
+  toJSVal TabularNums      = str "tabular-nums"
+  toJSVal ProportionalNums = str "proportional-nums"
+
+data TextDecorationStyle = Solid | Double | Dotted | Dashed
+  deriving (Show, Generic)
+instance ToJSVal TextDecorationStyle where
+  toJSVal Solid  = str "solid"
+  toJSVal Double = str "double"
+  toJSVal Dotted = str "dotted"
+  toJSVal Dashed = str "dashed"
+
+data WritingDirection = Auto__________ | LtR_ | RtL_
+  deriving (Show, Generic)
+instance ToJSVal WritingDirection where
+  toJSVal Auto__________ = str "auto"
+  toJSVal LtR_           = str "ltr"
+  toJSVal RtL_           = str "rtl"
+
+
+-- Transform:
+
+data Angle = Deg Double | Rad Double
+  deriving (Show, Generic)
+instance ToJSON Angle where
+  toJSON (Deg x) = toJSON $ P.show x ++ "deg"
+  toJSON (Rad x) = toJSON $ P.show x ++ "rad"
+
+data Transform = Perspective Int
+               | Rotate Angle
+               | RotateX Angle
+               | RotateY Angle
+               | RotateZ Angle
+               | Scale_ Natural
+               | ScaleX Natural
+               | ScaleY Natural
+               | TranslateX Int
+               | TranslateY Int
+               | SkewX Angle
+               | SkewY Angle
+  deriving (Show, Generic)
+
+instance ToJSON Transform where
+  toJSON (Perspective x) = object [ "perspective" .= x ]
+  toJSON (Rotate x)      = object [ "rotate"      .= x ]
+  toJSON (RotateX x)     = object [ "rotateX"     .= x ]
+  toJSON (RotateY x)     = object [ "rotateY"     .= x ]
+  toJSON (RotateZ x)     = object [ "rotateZ"     .= x ]
+  toJSON (Scale_ x)      = object [ "scale"       .= x ]
+  toJSON (ScaleX x)      = object [ "scaleX"      .= x ]
+  toJSON (ScaleY x)      = object [ "scaleY"      .= x ]
+  toJSON (TranslateX x)  = object [ "translateX"  .= x ]
+  toJSON (TranslateY x)  = object [ "translateY"  .= x ]
+  toJSON (SkewX x)       = object [ "skewX"       .= x ]
+  toJSON (SkewY x)       = object [ "skewY"       .= x ]
+
+instance ToJSVal Transform where
+  toJSVal = toJSVal . toJSON
+
+data BorderStyle = Solid_ | Dotted_ | Dashed_
+  deriving (Show, Generic)
+instance ToJSVal BorderStyle where
+  toJSVal Solid_  = str "solid"
+  toJSVal Dotted_ = str "dotted"
+  toJSVal Dashed_ = str "dashed"
 
 #ifdef __GHCJS__
 
 foreign import javascript unsafe
-  "require($1)"
+  "require_FIXME_DOES_NOT_WORK($1)"
   js_require :: JSString -> IO JSVal
 
 foreign import javascript unsafe
@@ -877,4 +1070,3 @@ js_getProp :: JSVal -> JSString -> JSVal
 js_getProp _ = error "js_getProp only works with GHCJS"
 
 #endif
-

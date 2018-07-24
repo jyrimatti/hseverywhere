@@ -20,7 +20,7 @@ data Todo = Todo {
   , todoIsEditing :: Bool
 } deriving (Show, Typeable, Eq)
 
-data Filter = All | Active | Completed
+data Filter = AcceptAll | AcceptActive | AcceptCompleted
   deriving (Show, Eq, Typeable, NFData, Generic)
 
 data TodoState = TodoState {
@@ -101,4 +101,4 @@ todoStore = TodoState
       (0, Todo "Learn react" True False)
     , (1, Todo "Learn react-flux" False False)
     ]
-    All
+    AcceptAll

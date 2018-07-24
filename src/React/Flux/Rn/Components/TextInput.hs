@@ -5,11 +5,12 @@
 module React.Flux.Rn.Components.TextInput where
 
 import           Numeric.Natural
-import           Prelude                  (Bool, Int, String)
-import           React.Flux               (EventHandlerType)
-import           React.Flux.Rn.Components (Props, TextInput, nestedProp, prop)
+import           Prelude                        (Bool, Int, String)
+import           React.Flux                     (EventHandlerType)
+import           React.Flux.Rn.Components       (Props, Styles, TextInput,
+                                                 nestedProp, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps  as ViewProps
 import           React.Flux.Rn.Types
 
 placeholderTextColor :: Color -> Props TextInput handler
@@ -96,7 +97,7 @@ selection = prop "selection"
 selectionColor :: Color -> Props TextInput handler
 selectionColor = prop "selectionColor"
 
-style :: TextInputStyleProps -> Props TextInput handler
+style :: [Styles TextInput handler] -> Props TextInput handler
 style = nestedProp "style"
 
 value :: String -> Props TextInput handler

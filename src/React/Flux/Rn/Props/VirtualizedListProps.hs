@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Props.VirtualizedList where
+module React.Flux.Rn.Props.VirtualizedListProps where
 
 import           GHCJS.Marshal            (FromJSVal)
 import           Numeric.Natural

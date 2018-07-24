@@ -2,23 +2,23 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Props.ScrollView where
+module React.Flux.Rn.Props.ScrollViewProps where
 
 import           Data.Typeable
 import           Numeric.Natural
 import           Prelude                  (Bool, Double, String)
-import           React.Flux
+import           React.Flux               (EventHandlerType)
 import           React.Flux.Internal      (ReactViewRef)
-import           React.Flux.Rn.Components (Props, ScrollView, prop)
+import           React.Flux.Rn.Components (Props, Styles, View, nestedProp,
+                                           prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
 import           React.Flux.Rn.Types
 
 -- Platform: IOS
 alwaysBounceVertical :: Bool -> Props component handler
 alwaysBounceVertical = prop "alwaysBounceVertical"
 
-contentContainerStyle :: ViewStyleProps -> Props component handler
+contentContainerStyle :: forall component handler. [Styles View handler] -> Props component handler
 contentContainerStyle = nestedProp "contentContainerStyle"
 
 keyboardDismissMode :: KeyboardDismissMode -> Props component handler
@@ -155,39 +155,3 @@ snapToInterval = prop "snapToInterval"
 -- Platform: IOS
 zoomScale :: Double -> Props component handler
 zoomScale = prop "zoomScale"
-
--- ViewProps:
-
-onStartShouldSetResponder        = ViewProps.onStartShouldSetResponder @ScrollView
-accessibilityLabel               = ViewProps.accessibilityLabel @ScrollView
-hitSlop                          = ViewProps.hitSlop @ScrollView
-nativeID                         = ViewProps.nativeID @ScrollView
-onAccessibilityTap               = ViewProps.onAccessibilityTap @ScrollView
-onLayout                         = ViewProps.onLayout @ScrollView
-onMagicTap                       = ViewProps.onMagicTap @ScrollView
-onMoveShouldSetResponder         = ViewProps.onMoveShouldSetResponder @ScrollView
-onMoveShouldSetResponderCapture  = ViewProps.onMoveShouldSetResponderCapture @ScrollView
-onResponderGrant                 = ViewProps.onResponderGrant @ScrollView
-onResponderMove                  = ViewProps.onResponderMove @ScrollView
-onResponderReject                = ViewProps.onResponderReject @ScrollView
-onResponderRelease               = ViewProps.onResponderRelease @ScrollView
-onResponderTerminate             = ViewProps.onResponderTerminate @ScrollView
-onResponderTerminationRequest    = ViewProps.onResponderTerminationRequest @ScrollView
-accessible                       = ViewProps.accessible @ScrollView
-onStartShouldSetResponderCapture = ViewProps.onStartShouldSetResponderCapture @ScrollView
-pointerEvents                    = ViewProps.pointerEvents @ScrollView
-removeClippedSubviews            = ViewProps.removeClippedSubviews @ScrollView
-style                            = ViewProps.style @ScrollView
-testID                           = ViewProps.testID @ScrollView
-accessibilityComponentType       = ViewProps.accessibilityComponentType @ScrollView
-accessibilityLiveRegion          = ViewProps.accessibilityLiveRegion @ScrollView
-collapsable                      = ViewProps.collapsable @ScrollView
-importantForAccessibility        = ViewProps.importantForAccessibility @ScrollView
-needsOffscreenAlphaCompositing   = ViewProps.needsOffscreenAlphaCompositing @ScrollView
-renderToHardwareTextureAndroid   = ViewProps.renderToHardwareTextureAndroid @ScrollView
-accessibilityTraits              = ViewProps.accessibilityTraits @ScrollView
-accessibilityViewIsModal         = ViewProps.accessibilityViewIsModal @ScrollView
-shouldRasterizeIOS               = ViewProps.shouldRasterizeIOS @ScrollView
-
-
--- TODO: methods

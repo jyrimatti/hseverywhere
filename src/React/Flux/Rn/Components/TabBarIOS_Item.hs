@@ -4,19 +4,19 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TabBarIOS_Item where
 
-import           Prelude                  (Bool, Either (..), Int, String)
+import           Prelude                       (Bool, Either (..), Int, String)
 import           React.Flux
-import           React.Flux.Rn.Components (Props, TabBarIOS_Item, prop)
+import           React.Flux.Rn.Components      (Props, TabBarIOS_Item, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
-import           React.Flux.Rn.Types      hiding (Left, Right)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
+import           React.Flux.Rn.Types           hiding (Left, Right)
 
 selected :: Bool -> Props TabBarIOS_Item handler
 selected = prop "selected"
 
 badge :: Either String Int -> Props TabBarIOS_Item handler
-badge (Left x)  = "badge" &= x
-badge (Right x) = "badge" &= x
+badge (Left x)  = prop "badge" x
+badge (Right x) = prop "badge" x
 
 icon :: ImageSource -> Props TabBarIOS_Item handler
 icon = prop "icon"
@@ -32,9 +32,6 @@ badgeColor = prop "badgeColor"
 
 selectedIcon :: ImageSource -> Props TabBarIOS_Item handler
 selectedIcon = prop "selectedIcon"
-
-style :: ViewStyleProps -> Props TabBarIOS_Item handler
-style = nestedProp "style"
 
 systemIcon :: TabBarSystemIcon -> Props TabBarIOS_Item handler
 systemIcon = prop "systemIcon"

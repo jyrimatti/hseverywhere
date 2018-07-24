@@ -5,15 +5,12 @@
 module React.Flux.Rn.Components.Slider where
 
 import           Numeric.Natural
-import           Prelude                  (Bool, Int, String)
+import           Prelude                       (Bool, Int, String)
 import           React.Flux
-import           React.Flux.Rn.Components (Props, Slider, prop)
+import           React.Flux.Rn.Components      (Props, Slider, prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
-
-style :: ViewStyleProps -> Props Slider handler
-style = nestedProp "style"
 
 disabled :: Bool -> Props Slider handler
 disabled = prop "disabled"
@@ -38,9 +35,6 @@ step = prop "step"
 
 maximumTrackTintColor :: Color -> Props Slider handler
 maximumTrackTintColor = prop "maximumTrackTintColor"
-
-testID :: String -> Props Slider handler
-testID = prop "testID"
 
 value :: Int -> Props Slider handler
 value = prop "value"

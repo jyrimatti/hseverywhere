@@ -3,14 +3,15 @@
 module TodoComponents where
 
 import           Data.Maybe                         (fromMaybe)
-import           Data.Semigroup                     ((<>))
 import           Data.Typeable                      (Typeable)
 import           Prelude
 import           React.Flux                         hiding (onBlur, style)
 
-import           React.Flux.Rn.Components           (textInput)
+import           React.Flux.Rn.Components           (Styles, TextInput,
+                                                     textInput)
 import           React.Flux.Rn.Components.TextInput
-import qualified React.Flux.Rn.Style                as RnS
+import           React.Flux.Rn.Styles.TextInput
+import           React.Flux.Rn.Types                (FontWeight (..))
 
 
 import           TodoDispatcher
@@ -21,7 +22,7 @@ data TextInputArgs = TextInputArgs {
     , tiaSaveAction  :: SaveAction
     , tiaOnCancel    :: [TodoAction]
     , tiaValue       :: Maybe String
-} deriving (Typeable, Eq)
+} deriving (Eq, Typeable)
 
 data SaveAction = SACreate | SAUpdate Int
   deriving (Eq, Typeable)
@@ -32,22 +33,22 @@ tiaOnSave ta txt = dispatchTodo . f $ tiaSaveAction ta
     f SACreate     = TodoCreate txt
     f (SAUpdate i) = UpdateText i txt
 
-todoTextInput :: _ -> String -> View TextInputArgs
+todoTextInput :: [Styles TextInput _] -> String -> View TextInputArgs
 todoTextInput styles state = mkStatefulView "todo text input" state $ \curText args ->
     textInput [
       placeholder (tiaPlaceholder args)
     , value curText
     , autoFocus True
     , blurOnSubmit True
-    , style [ RnS.flex 1
-                    , RnS.height 45
-                    , RnS.margin 8
-                    , RnS.marginLeft 0
-                    , RnS.fontFamily "HelveticaNeue"
-                    , RnS.fontSize 22
-                    , RnS.fontWeight RnS.W300
-                    , RnS.color "#4d4d4d"
-                    ] ++ styles
+    , style $ [ flex 1
+              , height 45
+              , margin "8%"
+              , marginLeft 0
+              , fontFamily "HelveticaNeue"
+              , fontSize 22
+              , fontWeight W300
+              , color "#4d4d4d"
+              ] ++ styles
 
     , onChangeText $ \text -> const ([], Just text)
     , onBlur $ \curState ->

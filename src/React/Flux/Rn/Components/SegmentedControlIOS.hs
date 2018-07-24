@@ -3,13 +3,14 @@
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.SegmentedControlIOS where
 
-import           GHCJS.Marshal            (FromJSVal)
+import           GHCJS.Marshal                 (FromJSVal)
 import           Numeric.Natural
-import           Prelude                  (Bool, String)
+import           Prelude                       (Bool, String)
 import           React.Flux
-import           React.Flux.Rn.Components (Props, SegmentedControlIOS, prop)
+import           React.Flux.Rn.Components      (Props, SegmentedControlIOS,
+                                                prop)
 import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.View as ViewProps
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types
 
 enabled :: Bool -> Props SegmentedControlIOS handler

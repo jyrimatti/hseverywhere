@@ -5,7 +5,7 @@ let
   inherit (nixpkgs) pkgs;
 
   f = { mkDerivation, base, deepseq, ghcjs-base, react-flux, stdenv
-      , text, time, transformers, containers, http-common, network-uri, semigroups
+      , text, time, transformers, containers, http-common, network-uri, semigroups, nodejs
       }:
       mkDerivation {
         pname = "hseverywhere";
@@ -18,7 +18,7 @@ let
         ];
         buildDepends = [pkgs.haskellPackages.cabal-install] ++
           (if compiler == "default"
-             then with pkgs.haskellPackages; [hlint stack intero hasktags pointfree hdevtools stylish-haskell hindent (hoogle.override { process-extras = pkgs.haskell.lib.dontCheck process-extras; }) (apply-refact.override { ghc-exactprint = pkgs.haskell.lib.dontCheck ghc-exactprint; })]
+             then with pkgs.haskellPackages; [nodejs hlint stack intero hasktags pointfree hdevtools stylish-haskell hindent (hoogle.override { process-extras = pkgs.haskell.lib.dontCheck process-extras; }) (apply-refact.override { ghc-exactprint = pkgs.haskell.lib.dontCheck ghc-exactprint; })]
              else []);
         license = stdenv.lib.licenses.mit;
       };
