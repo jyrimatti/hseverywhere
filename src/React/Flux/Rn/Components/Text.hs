@@ -1,15 +1,22 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Components.Text where
+module React.Flux.Rn.Components.Text (
+    module React.Flux.Rn.Components.Text,
+    Color(..), EllipsizeMode(..), Inset(Inset),
+    OnLayout (OnLayout), OnLayoutVals(OnLayoutVals),
+    TextBreakStrategy(..)
+) where
 
-import           Numeric.Natural
+import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, Double, String, ($))
-import           React.Flux               (EventHandlerType)
 import           React.Flux.Rn.Components (Props, Styles, Text, nestedProp,
                                            prop)
-import           React.Flux.Rn.Events
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Events     (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Types      (Color (..), EllipsizeMode (..),
+                                           Inset (Inset), OnLayout (OnLayout),
+                                           OnLayoutVals (OnLayoutVals),
+                                           TextBreakStrategy (..))
 
 selectable :: Bool -> Props Text handler
 selectable = prop "selectable"

@@ -2,13 +2,22 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.TouchableOpacity where
+module React.Flux.Rn.Components.TouchableOpacity (
+    module React.Flux.Rn.Components.TouchableOpacity,
+    TvParallaxProperties(TvParallaxProperties),
+    UnitInterval,
+    TouchableWithoutFeedbackProps.AccessibilityComponentTypes(..),
+    TouchableWithoutFeedbackProps.AccessibilityTraits(..),
+    TouchableWithoutFeedbackProps.Inset(Inset),
+    TouchableWithoutFeedbackProps.OnLayout(OnLayout)
+) where
 
 import           Prelude                                           (Bool)
 import           React.Flux.Rn.Components                          (Props, TouchableOpacity,
                                                                     prop)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types                               (TvParallaxProperties (TvParallaxProperties),
+                                                                    UnitInterval)
 
 activeOpacity :: UnitInterval -> Props TouchableOpacity handler
 activeOpacity = prop "activeOpacity"

@@ -1,11 +1,20 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.StyleProps.TextStyleProps where
+module React.Flux.Rn.StyleProps.TextStyleProps (
+    module React.Flux.Rn.StyleProps.TextStyleProps,
+    Color (..), ContentSize (ContentSize), FontStyle (..), FontVariant (..), FontWeight (..), TextAlign (..), TextAlignVertical (..), TextDecorationLine (..), TextDecorationStyle (..), WritingDirection (..)
+) where
 
-import           Numeric.Natural
+import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, Double, String)
 import           React.Flux.Rn.Components (Styles, style)
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types      (Color (..), ContentSize (ContentSize),
+                                           FontStyle (..), FontVariant (..),
+                                           FontWeight (..), TextAlign (..),
+                                           TextAlignVertical (..),
+                                           TextDecorationLine (..),
+                                           TextDecorationStyle (..),
+                                           WritingDirection (..))
 
 textShadowOffset :: ContentSize -> Styles component handler
 textShadowOffset = style "textShadowOffset"

@@ -1,18 +1,31 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Styles.View where
+module React.Flux.Rn.Styles.View (
+    module React.Flux.Rn.Styles.View,
+    ViewStyleProps.BorderStyle (..),
+    ViewStyleProps.Color (..),
+    ViewStyleProps.UnitInterval,
+    ViewStyleProps.Visibility (..),
+    LayoutStyleProps.AlignContent (..),
+    LayoutStyleProps.AlignItems (..),
+    LayoutStyleProps.AlignSelf (..),
+    LayoutStyleProps.Direction (..),
+    LayoutStyleProps.Display (..),
+    LayoutStyleProps.FlexDirection (..),
+    LayoutStyleProps.FlexWrap (..),
+    LayoutStyleProps.JustifyContent (..),
+    LayoutStyleProps.Length (..),
+    LayoutStyleProps.Overflow (..),
+    LayoutStyleProps.Position (..),
+    ShadowStyleProps.ContentSize (ContentSize),
+    TransformsStyleProps.Transform (..)
+) where
 
-import           Numeric.Natural
-import           Prelude                                       (Bool, String,
-                                                                const, pure,
-                                                                ($), (.), (<$>))
-import           React.Flux.Rn.Components                      (Styles, View,
-                                                                style)
+import           React.Flux.Rn.Components                      (View)
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps
 import qualified React.Flux.Rn.StyleProps.TransformsStyleProps as TransformsStyleProps
 import qualified React.Flux.Rn.StyleProps.ViewStyleProps       as ViewStyleProps
-import           React.Flux.Rn.Types
 
 -- ViewStyleProps:
 

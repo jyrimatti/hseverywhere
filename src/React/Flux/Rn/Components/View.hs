@@ -1,7 +1,17 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.View where
+module React.Flux.Rn.Components.View (
+    module React.Flux.Rn.Components.View,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           React.Flux.Rn.Components      (View)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps

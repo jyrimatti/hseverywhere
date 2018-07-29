@@ -6,22 +6,26 @@
 {-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE PolyKinds             #-}
 {-# LANGUAGE RankNTypes            #-}
-module React.Flux.Rn.Types where
+module React.Flux.Rn.Types (
+  module React.Flux.Rn.Types,
+  ReactViewRef
+) where
 
-import           Data.Aeson
-import           Data.Aeson.Types           hiding ((.:))
-import           Data.JSString              (pack)
-import           Data.Map
+import           Data.Aeson                 (FromJSON (..), ToJSON (..), (.:),
+                                             (.=))
+import           Data.Aeson.Types           (object, parseMaybe, withObject)
+import           Data.List.NonEmpty         (NonEmpty, toList)
+import           Data.Map                   (Map, empty)
 import           Data.Maybe                 (fromMaybe)
 import           Data.String                (IsString (..))
-import           Data.Time.LocalTime
+import           Data.Time.LocalTime        (LocalTime)
 import           Data.Word                  (Word8)
 import           GHC.Generics               (Generic)
-import           GHCJS.Marshal
+import           GHCJS.Marshal              (FromJSVal (..), ToJSVal (..))
 import           GHCJS.Types                (JSString, JSVal)
 import qualified JavaScript.Object.Internal as OI
 import           Network.Http.Types         (Method)
-import           Network.URI
+import           Network.URI                (URI, uriToString)
 import           Numeric.Natural            (Natural)
 import           Prelude                    (Bool, Double, IO, Int, Maybe (..),
                                              Num, Show, String, error, fmap,
@@ -29,7 +33,8 @@ import           Prelude                    (Bool, Double, IO, Int, Maybe (..),
                                              undefined, ($), (+), (++), (.),
                                              (<$>), (>>=))
 import qualified Prelude                    as P
-import           React.Flux
+import           React.Flux                 (EventHandlerType, EventTarget (..),
+                                             PropertyOrHandler, Touch (..))
 import           React.Flux.Internal        (ReactViewRef (..))
 import           React.Flux.Rn.Events       (fromNativeJSON, nativeEvent)
 import           System.IO.Unsafe           (unsafePerformIO)
@@ -46,7 +51,14 @@ type NodeID = String
 
 type JavaScript = String
 
+type Index = Natural
+
+type JSRequireRef = JSVal
+
 type UnitInterval = Double -- TODO
+
+instance ToJSVal x => ToJSVal (NonEmpty x) where
+  toJSVal = toJSVal . toList
 
 instance ToJSVal (ReactViewRef x) where
   toJSVal (ReactViewRef x) = pure x
@@ -190,12 +202,12 @@ instance ToJSVal ImageURISource where
 
 imageURISource uri = ImageURISource uri Nothing Nothing empty Nothing Nothing Nothing Nothing
 
-data ImageSource = ImageSourceURI ImageURISource | ImageSourceResource String | ImageSourceURIs [ImageURISource]
-  deriving (Show, Generic)
+data ImageSource = ImageSourceURI ImageURISource | ImageSourceResource JSRequireRef | ImageSourceURIs [ImageURISource]
+  deriving (Generic)
 instance ToJSVal ImageSource where
   toJSVal (ImageSourceURI x)      = toJSVal $ toJSON x
   toJSVal (ImageSourceURIs xs)    = toJSVal $ toJSON xs
-  toJSVal (ImageSourceResource x) = js_require $ pack x
+  toJSVal (ImageSourceResource x) = pure x
 
 data URISource = URISource {
   uri     :: URI,
@@ -215,12 +227,12 @@ instance ToJSON StaticSource
 instance ToJSVal StaticSource where
   toJSVal = toJSVal . toJSON
 
-data Source = SourceURI URISource | SourceStatic StaticSource | SourceResource String
-  deriving (Show, Generic)
+data Source = SourceURI URISource | SourceStatic StaticSource | SourceResource JSRequireRef
+  deriving (Generic)
 instance ToJSVal Source where
   toJSVal (SourceURI x)      = toJSVal $ toJSON x
   toJSVal (SourceStatic x)   = toJSVal $ toJSON x
-  toJSVal (SourceResource x) = js_require $ pack x
+  toJSVal (SourceResource x) = pure x
 
 data ResizeMethod = Auto | Resize | Scale
   deriving (Show, Generic)
@@ -722,7 +734,7 @@ data Action = Action_ {
   icon         :: ImageSource,
   show         :: ActionShow,
   showWithText :: Bool
-} deriving (Show,Generic)
+} deriving (Generic)
 instance ToJSVal Action where
   toJSVal (Action_ t i s w) = do
     obj@(OI.Object obj') <- OI.create
@@ -1054,17 +1066,10 @@ instance ToJSVal BorderStyle where
 #ifdef __GHCJS__
 
 foreign import javascript unsafe
-  "require_FIXME_DOES_NOT_WORK($1)"
-  js_require :: JSString -> IO JSVal
-
-foreign import javascript unsafe
   "$1[$2]"
   js_getProp :: JSVal -> JSString -> JSVal
 
 #else
-
-js_require :: JSString -> IO JSVal
-js_require _ = error "js_require only works with GHCJS"
 
 js_getProp :: JSVal -> JSString -> JSVal
 js_getProp _ = error "js_getProp only works with GHCJS"

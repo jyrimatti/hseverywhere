@@ -2,16 +2,41 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.TextInput where
+module React.Flux.Rn.Components.TextInput (
+    module React.Flux.Rn.Components.TextInput,
+    Color(..), KeyboardType(..),
+    OnContentSizeChange(OnContentSizeChange), DataDetectorTypes(..), KeyboardAppearance(..), OnKeyPress(OnKeyPress), DocumentSelectionState,
+    ReturnKeyType(..), Selection(Selection), TextBreakStrategy(..), ClearButtonMode(..), OnScroll(OnScroll), OnSelectionChange(OnSelectionChange), AutoCapitalize(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Numeric.Natural
-import           Prelude                        (Bool, Int, String)
-import           React.Flux                     (EventHandlerType)
-import           React.Flux.Rn.Components       (Props, Styles, TextInput,
-                                                 nestedProp, prop)
-import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.ViewProps  as ViewProps
-import           React.Flux.Rn.Types
+import           Numeric.Natural               (Natural)
+import           Prelude                       (Bool, Int, String)
+import           React.Flux.Rn.Components      (Props, Styles, TextInput,
+                                                nestedProp, prop)
+import           React.Flux.Rn.Events          (EventHandlerType, on0, on1)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
+import           React.Flux.Rn.Types           (AutoCapitalize (..),
+                                                ClearButtonMode (..),
+                                                Color (..),
+                                                DataDetectorTypes (..),
+                                                DocumentSelectionState,
+                                                KeyboardAppearance (..),
+                                                KeyboardType (..),
+                                                OnContentSizeChange (OnContentSizeChange),
+                                                OnKeyPress (OnKeyPress),
+                                                OnScroll (OnScroll),
+                                                OnSelectionChange (OnSelectionChange),
+                                                ReturnKeyType (..),
+                                                Selection (Selection),
+                                                TextBreakStrategy (..))
 
 placeholderTextColor :: Color -> Props TextInput handler
 placeholderTextColor = prop "placeholderTextColor"

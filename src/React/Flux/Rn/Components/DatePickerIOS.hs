@@ -1,15 +1,25 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.DatePickerIOS where
+module React.Flux.Rn.Components.DatePickerIOS (
+    module React.Flux.Rn.Components.DatePickerIOS,
+    MinuteInterval(..), Mode(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Data.Time.LocalTime
+import           Data.Time.LocalTime           (LocalTime)
 import           Prelude                       (Int)
-import           React.Flux
 import           React.Flux.Rn.Components      (DatePickerIOS, Props, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on1)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (MinuteInterval (..), Mode (..))
 
 -- Required
 date :: LocalTime -> Props DatePickerIOS handler

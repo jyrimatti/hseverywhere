@@ -2,13 +2,25 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.TabBarIOS where
+module React.Flux.Rn.Components.TabBarIOS (
+    module React.Flux.Rn.Components.TabBarIOS,
+    BarStyle(..), Color(..),
+    ItemPositioning(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           Prelude                       (Bool)
-import           React.Flux
 import           React.Flux.Rn.Components      (Props, TabBarIOS, prop)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (BarStyle (..), Color (..),
+                                                ItemPositioning (..))
 
 barStyle :: BarStyle -> Props TabBarIOS handler
 barStyle = prop "barStyle"

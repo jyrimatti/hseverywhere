@@ -1,18 +1,33 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-{-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Props.ScrollViewProps where
+module React.Flux.Rn.Props.ScrollViewProps (
+    module React.Flux.Rn.Props.ScrollViewProps,
+    Color (..),
+    ContentInsetAdjustmentBehavior (..),
+    ContentOffset (ContentOffset), DecelerationRate (..),
+    IndicatorStyle (..), Inset (Inset),
+    KeyboardDismissMode (..),
+    KeyboardShouldPersistTaps (..),
+    OverScrollMode (..), ReactViewRef,
+    SnapToAlignment (..)
+) where
 
-import           Data.Typeable
-import           Numeric.Natural
+import           Data.Typeable            (Typeable)
+import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, Double, String)
-import           React.Flux               (EventHandlerType)
-import           React.Flux.Internal      (ReactViewRef)
 import           React.Flux.Rn.Components (Props, Styles, View, nestedProp,
                                            prop)
-import           React.Flux.Rn.Events
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Events     (EventHandlerType, on0, on2, view0)
+import           React.Flux.Rn.Types      (Color (..),
+                                           ContentInsetAdjustmentBehavior (..),
+                                           ContentOffset (ContentOffset),
+                                           DecelerationRate (..),
+                                           IndicatorStyle (..), Inset (Inset),
+                                           KeyboardDismissMode (..),
+                                           KeyboardShouldPersistTaps (..),
+                                           OverScrollMode (..), ReactViewRef,
+                                           SnapToAlignment (..))
 
 -- Platform: IOS
 alwaysBounceVertical :: Bool -> Props component handler

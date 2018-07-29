@@ -1,13 +1,24 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.ProgressBarAndroid where
+module React.Flux.Rn.Components.ProgressBarAndroid (
+    module React.Flux.Rn.Components.ProgressBarAndroid,
+    Color(..), StyleAttr(..), UnitInterval,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Prelude                       (Bool, String)
-import           React.Flux
+import           Prelude                       (Bool)
 import           React.Flux.Rn.Components      (ProgressBarAndroid, Props, prop)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Color (..), StyleAttr (..),
+                                                UnitInterval)
 
 animating :: Bool -> Props ProgressBarAndroid handler
 animating = prop "animating"

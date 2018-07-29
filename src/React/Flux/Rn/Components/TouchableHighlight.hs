@@ -2,21 +2,28 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.TouchableHighlight where
+module React.Flux.Rn.Components.TouchableHighlight (
+    module React.Flux.Rn.Components.TouchableHighlight,
+    Color(..), TvParallaxProperties(TvParallaxProperties),
+    UnitInterval,
+    TouchableWithoutFeedbackProps.AccessibilityComponentTypes(..),
+    TouchableWithoutFeedbackProps.AccessibilityTraits(..),
+    TouchableWithoutFeedbackProps.Inset(Inset),
+    TouchableWithoutFeedbackProps.OnLayout(OnLayout)
+) where
 
-import           Numeric.Natural
-import           Prelude                                           (Bool,
-                                                                    Double)
-import           React.Flux                                        (EventHandlerType)
+import           Prelude                                           (Bool)
 import           React.Flux.Rn.Components                          (Props,
                                                                     Styles,
                                                                     TouchableHighlight,
                                                                     View,
                                                                     nestedProp,
                                                                     prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events                              (EventHandlerType,
+                                                                    on0)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types                               (Color (..), TvParallaxProperties (TvParallaxProperties),
+                                                                    UnitInterval)
 
 activeOpacity :: UnitInterval -> Props TouchableHighlight handler
 activeOpacity = prop "activeOpacity"

@@ -1,19 +1,21 @@
-{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.TouchableNativeFeedback where
+module React.Flux.Rn.Components.TouchableNativeFeedback (
+    module React.Flux.Rn.Components.TouchableNativeFeedback,
+    BackgroundPropType,
+    TouchableWithoutFeedbackProps.AccessibilityComponentTypes(..),
+    TouchableWithoutFeedbackProps.AccessibilityTraits(..),
+    TouchableWithoutFeedbackProps.Inset(Inset),
+    TouchableWithoutFeedbackProps.OnLayout(OnLayout)
+) where
 
-import           GHC.Generics
-import           GHCJS.Marshal                                     (ToJSVal (..))
-import           Numeric.Natural
 import           Prelude                                           (Bool)
-import           React.Flux
 import           React.Flux.Rn.Components                          (Props, TouchableNativeFeedback,
                                                                     prop)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types                               (BackgroundPropType)
 
 background :: BackgroundPropType -> Props TouchableNativeFeedback handler
 background = prop "background"

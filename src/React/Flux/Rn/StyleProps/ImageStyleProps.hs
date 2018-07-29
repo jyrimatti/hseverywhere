@@ -1,12 +1,14 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.StyleProps.ImageStyleProps where
+module React.Flux.Rn.StyleProps.ImageStyleProps (
+    module React.Flux.Rn.StyleProps.ImageStyleProps,
+    Color(..), ResizeMode(..), UnitInterval, Visibility(..)
+) where
 
-import           Numeric.Natural
-import           Prelude                  (Bool, Double, String, const, pure,
-                                           ($), (.), (<$>))
+import           Numeric.Natural          (Natural)
 import           React.Flux.Rn.Components (Styles, style)
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types      (Color (..), ResizeMode (..),
+                                           UnitInterval, Visibility (..))
 
 borderTopRightRadius :: Natural -> Styles component handler
 borderTopRightRadius = style "borderTopRightRadius"
@@ -49,4 +51,3 @@ tintColor = style "tintColor"
 
 overlayColor :: Color -> Styles component handler
 overlayColor = style "overlayColor"
-

@@ -1,16 +1,24 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Components.Image where
+module React.Flux.Rn.Components.Image (
+    module React.Flux.Rn.Components.Image,
+    DefaultSource(..), ImageSource(..), Inset(Inset),
+    OnLayout(OnLayout), OnLayoutVals(OnLayoutVals),
+    OnProgress(OnProgress), ResizeMethod(..)
+) where
 
 import           GHCJS.Marshal            (FromJSVal (..))
-import           Numeric.Natural
+import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, String, ($))
-import           React.Flux
 import           React.Flux.Rn.Components (Image, Props, Styles, nestedProp,
                                            prop)
-import           React.Flux.Rn.Events
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Events     (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Types      (DefaultSource (..), ImageSource (..),
+                                           Inset (Inset), OnLayout (OnLayout),
+                                           OnLayoutVals (OnLayoutVals),
+                                           OnProgress (OnProgress),
+                                           ResizeMethod (..))
 
 style :: [Styles Image handler] -> Props Image handler
 style = nestedProp "style"

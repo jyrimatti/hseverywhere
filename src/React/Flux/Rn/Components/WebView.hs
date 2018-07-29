@@ -2,21 +2,33 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.WebView where
+module React.Flux.Rn.Components.WebView (
+    module React.Flux.Rn.Components.WebView,
+    DataDetectorTypes(..),
+    DecelerationRate(..), Inset(Inset),
+    JavaScript, MixedContentMode(..),
+    OnMessage(OnMessage), Source(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Data.Typeable
-import           Numeric.Natural
-import           Prelude                        (Bool, String, const, pure, ($),
-                                                 (.), (<$>))
-import           React.Flux
-import           React.Flux.Internal            (HandlerArg (..),
-                                                 PropertyOrHandler_ (..),
-                                                 ReactViewRef)
-import           React.Flux.PropertiesAndEvents (callback)
-import           React.Flux.Rn.Components       (Props, WebView, prop)
-import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.ViewProps  as ViewProps
-import           React.Flux.Rn.Types
+import           Data.Typeable                 (Typeable)
+import           Prelude                       (Bool, String)
+import           React.Flux.Rn.Components      (Props, WebView, prop)
+import           React.Flux.Rn.Events          (EventHandlerType, on0, on1,
+                                                ret1, view0)
+import qualified React.Flux.Rn.Props.ViewProps as ViewProps
+import           React.Flux.Rn.Types           (DataDetectorTypes (..),
+                                                DecelerationRate (..),
+                                                Inset (Inset), JavaScript,
+                                                MixedContentMode (..),
+                                                OnMessage (OnMessage),
+                                                ReactViewRef, Source (..))
 
 source :: Source -> Props WebView handler
 source = prop "source"

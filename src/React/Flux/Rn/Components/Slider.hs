@@ -2,15 +2,25 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.Slider where
+module React.Flux.Rn.Components.Slider (
+    module React.Flux.Rn.Components.Slider,
+    Color(..), ImageSource(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Numeric.Natural
-import           Prelude                       (Bool, Int, String)
-import           React.Flux
+import           Numeric.Natural               (Natural)
+import           Prelude                       (Bool, Int)
 import           React.Flux.Rn.Components      (Props, Slider, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on1)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Color (..), ImageSource (..))
 
 disabled :: Bool -> Props Slider handler
 disabled = prop "disabled"

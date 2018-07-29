@@ -1,13 +1,24 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.MaskedViewIOS where
+module React.Flux.Rn.Components.MaskedViewIOS (
+    module React.Flux.Rn.Components.MaskedViewIOS,
+    ReactViewRef,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Data.Typeable
-import           React.Flux.Internal           (ReactViewRef)
+import           Data.Typeable                 (Typeable)
 import           React.Flux.Rn.Components      (MaskedViewIOS, Props)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (view0)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
+import           React.Flux.Rn.Types           (ReactViewRef)
 
 -- Required
 maskElement :: Typeable props => ReactViewRef props -> Props MaskedViewIOS handler

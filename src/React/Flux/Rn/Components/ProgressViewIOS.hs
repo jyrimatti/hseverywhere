@@ -1,12 +1,25 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.ProgressViewIOS where
+module React.Flux.Rn.Components.ProgressViewIOS (
+    module React.Flux.Rn.Components.ProgressViewIOS,
+    Color(..), ImageSource(..),
+    ProgressViewStyle(..), UnitInterval,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           React.Flux
 import           React.Flux.Rn.Components      (ProgressViewIOS, Props, prop)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Color (..), ImageSource (..),
+                                                ProgressViewStyle (..),
+                                                UnitInterval)
 
 progress :: UnitInterval -> Props ProgressViewIOS handler
 progress = prop "progress"

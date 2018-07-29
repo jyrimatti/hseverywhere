@@ -11,7 +11,6 @@ import           React.Flux.Rn.Components           (Styles, TextInput,
                                                      textInput)
 import           React.Flux.Rn.Components.TextInput
 import           React.Flux.Rn.Styles.TextInput
-import           React.Flux.Rn.Types                (FontWeight (..))
 
 
 import           TodoDispatcher

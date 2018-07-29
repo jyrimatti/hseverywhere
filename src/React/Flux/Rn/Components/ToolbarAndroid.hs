@@ -2,20 +2,26 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.ToolbarAndroid where
+module React.Flux.Rn.Components.ToolbarAndroid (
+    module React.Flux.Rn.Components.ToolbarAndroid,
+    Action(Action_), Color(..), ImageSource(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Data.Aeson                    (FromJSON, ToJSON (..))
-import           Data.Aeson.Types              (parseJSON, parseMaybe)
-import           GHC.Generics
-import           GHCJS.Marshal                 (FromJSVal (..), ToJSVal (..))
-import           Numeric.Natural
-import           Prelude                       (Bool, Int, Show, String, pure,
-                                                (<$>), (>>=))
-import           React.Flux
+import           Numeric.Natural               (Natural)
+import           Prelude                       (Bool, Int, String)
 import           React.Flux.Rn.Components      (Props, ToolbarAndroid, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on0, on1)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Action (Action_), Color (..),
+                                                ImageSource (..))
 
 overflowIcon :: ImageSource -> Props ToolbarAndroid handler
 overflowIcon = prop "overflowIcon"

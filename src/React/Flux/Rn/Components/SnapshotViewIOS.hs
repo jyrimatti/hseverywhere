@@ -2,12 +2,21 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.SnapshotViewIOS where
+module React.Flux.Rn.Components.SnapshotViewIOS (
+    module React.Flux.Rn.Components.SnapshotViewIOS,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           Prelude                       (String)
-import           React.Flux
 import           React.Flux.Rn.Components      (Props, SnapshotViewIOS, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on0)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 
 onSnapshotReady :: EventHandlerType handler -> Props SnapshotViewIOS handler

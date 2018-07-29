@@ -2,17 +2,38 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.FlatList where
+module React.Flux.Rn.Components.FlatList (
+    module React.Flux.Rn.Components.FlatList,
+    Index,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent),
+    ScrollViewProps.Color (..),
+    ScrollViewProps.ContentInsetAdjustmentBehavior (..),
+    ScrollViewProps.ContentOffset (ContentOffset),
+    ScrollViewProps.DecelerationRate (..),
+    ScrollViewProps.IndicatorStyle (..),
+    ScrollViewProps.KeyboardDismissMode (..),
+    ScrollViewProps.KeyboardShouldPersistTaps (..),
+    ScrollViewProps.OverScrollMode (..),
+    ScrollViewProps.ReactViewRef,
+    ScrollViewProps.SnapToAlignment (..)
+) where
 
 import           GHCJS.Marshal                            (FromJSVal)
-import           Numeric.Natural
+import           Numeric.Natural                          (Natural)
 import           Prelude                                  (String)
 import           React.Flux.Rn.Components                 (FlatList, Props,
                                                            prop)
 import qualified React.Flux.Rn.Props.ScrollViewProps      as ScrollViewProps
 import qualified React.Flux.Rn.Props.ViewProps            as ViewProps
 import qualified React.Flux.Rn.Props.VirtualizedListProps as VirtualizedListProps
-import           React.Flux.Rn.Types                      ()
+import           React.Flux.Rn.Types                      (Index)
 
 numColumns :: Natural -> Props FlatList handler
 numColumns = prop "numColumns"
@@ -23,7 +44,7 @@ last                      = VirtualizedListProps.last @FlatList
 first                     = VirtualizedListProps.first @FlatList
 horizontal                = VirtualizedListProps.horizontal @FlatList
 initialNumToRender        = VirtualizedListProps.initialNumToRender @FlatList
-keyExtractor :: forall item handler. FromJSVal item => (item -> Natural {-index-} -> String) -> Props FlatList handler
+keyExtractor :: forall item handler. FromJSVal item => (item -> Index -> String) -> Props FlatList handler
 keyExtractor              = VirtualizedListProps.keyExtractor @FlatList
 disableVirtualization     = VirtualizedListProps.disableVirtualization @FlatList
 maxToRenderPerBatch       = VirtualizedListProps.maxToRenderPerBatch @FlatList

@@ -2,17 +2,27 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.Picker where
+module React.Flux.Rn.Components.Picker (
+    module React.Flux.Rn.Components.Picker,
+    PickerMode(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           GHCJS.Marshal                 (FromJSVal, ToJSVal)
-import           Numeric.Natural
+import           Numeric.Natural               (Natural)
 import           Prelude                       (Bool, String)
-import           React.Flux
 import           React.Flux.Rn.Components      (Picker, Props, Styles, Text,
                                                 nestedProp, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on2)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (PickerMode (..))
 
 onValueChange :: FromJSVal value => (value -> Natural -> EventHandlerType handler) -> Props Picker handler
 onValueChange = on2 "onValueChange"

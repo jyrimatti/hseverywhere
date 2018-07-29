@@ -1,17 +1,29 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.DrawerLayoutAndroid where
+module React.Flux.Rn.Components.DrawerLayoutAndroid (
+    module React.Flux.Rn.Components.DrawerLayoutAndroid,
+    Color(..), DrawerLockMode(..), DrawerPosition(..), KeyboardDismissMode(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Data.Typeable
-import           Numeric.Natural
-import           React.Flux
-import           React.Flux.Internal           (ReactViewRef)
+import           Data.Typeable                 (Typeable)
+import           Numeric.Natural               (Natural)
 import           React.Flux.Rn.Components      (DrawerLayoutAndroid, Props,
                                                 prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on0)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Color (..), DrawerLockMode (..),
+                                                DrawerPosition (..),
+                                                KeyboardDismissMode (..),
+                                                ReactViewRef)
 
 -- Required
 renderNavigationView :: Typeable props => ReactViewRef props -> Props DrawerLayoutAndroid handler

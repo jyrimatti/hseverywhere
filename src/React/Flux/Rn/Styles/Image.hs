@@ -1,19 +1,31 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Styles.Image where
+module React.Flux.Rn.Styles.Image (
+    module React.Flux.Rn.Styles.Image,
+    ImageStyleProps.Color (..),
+    ImageStyleProps.ResizeMode (..),
+    ImageStyleProps.UnitInterval,
+    ImageStyleProps.Visibility (..),
+    LayoutStyleProps.AlignContent (..),
+    LayoutStyleProps.AlignItems (..),
+    LayoutStyleProps.AlignSelf (..),
+    LayoutStyleProps.Direction (..),
+    LayoutStyleProps.Display (..),
+    LayoutStyleProps.FlexDirection (..),
+    LayoutStyleProps.FlexWrap (..),
+    LayoutStyleProps.JustifyContent (..),
+    LayoutStyleProps.Length (..),
+    LayoutStyleProps.Overflow (..),
+    LayoutStyleProps.Position (..),
+    ShadowStyleProps.ContentSize (ContentSize),
+    TransformsStyleProps.Transform (..)
+) where
 
-import           Numeric.Natural
-import           Prelude                                       (Bool, Double,
-                                                                String, const,
-                                                                pure, ($), (.),
-                                                                (<$>))
-import           React.Flux.Rn.Components                      (Image, Styles,
-                                                                style)
+import           React.Flux.Rn.Components                      (Image)
 import qualified React.Flux.Rn.StyleProps.ImageStyleProps      as ImageStyleProps
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps
 import qualified React.Flux.Rn.StyleProps.TransformsStyleProps as TransformsStyleProps
-import           React.Flux.Rn.Types
 
 -- ImageStyleProps:
 

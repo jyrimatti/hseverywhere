@@ -1,11 +1,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Components.StatusBar where
+module React.Flux.Rn.Components.StatusBar (
+    module React.Flux.Rn.Components.StatusBar,
+    Color(..), ShowHideTransition(..),
+    StatusBarStyle(..)
+) where
 
 import           Prelude                  (Bool)
 import           React.Flux.Rn.Components (Props, StatusBar, prop)
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types      (Color (..), ShowHideTransition (..),
+                                           StatusBarStyle (..))
 
 animated :: Bool -> Props StatusBar handler
 animated = prop "animated"

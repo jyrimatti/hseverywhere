@@ -1,6 +1,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.SafeAreaView where
+module React.Flux.Rn.Components.SafeAreaView (
+    module React.Flux.Rn.Components.SafeAreaView,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           React.Flux.Rn.Components      (SafeAreaView)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps

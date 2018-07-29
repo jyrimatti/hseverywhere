@@ -1,12 +1,24 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.ActivityIndicator where
+module React.Flux.Rn.Components.ActivityIndicator (
+    module React.Flux.Rn.Components.ActivityIndicator,
+    ActivityIndicatorSize(..), Color(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           Prelude                       (Bool)
 import           React.Flux.Rn.Components      (ActivityIndicator, Props, prop)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (ActivityIndicatorSize (..),
+                                                Color (..))
 
 animating :: Bool -> Props ActivityIndicator handler
 animating = prop "animating"

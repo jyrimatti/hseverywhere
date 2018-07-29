@@ -1,7 +1,26 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.ScrollView where
+module React.Flux.Rn.Components.ScrollView (
+    module React.Flux.Rn.Components.ScrollView,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent),
+    ScrollViewProps.Color (..),
+    ScrollViewProps.ContentInsetAdjustmentBehavior (..),
+    ScrollViewProps.ContentOffset (ContentOffset),
+    ScrollViewProps.DecelerationRate (..),
+    ScrollViewProps.IndicatorStyle (..),
+    ScrollViewProps.KeyboardDismissMode (..),
+    ScrollViewProps.KeyboardShouldPersistTaps (..),
+    ScrollViewProps.OverScrollMode (..),
+    ScrollViewProps.SnapToAlignment (..)
+) where
 
 import           React.Flux.Rn.Components            (ScrollView)
 import qualified React.Flux.Rn.Props.ScrollViewProps as ScrollViewProps

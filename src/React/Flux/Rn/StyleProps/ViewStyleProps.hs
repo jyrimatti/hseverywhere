@@ -1,10 +1,14 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.StyleProps.ViewStyleProps where
+module React.Flux.Rn.StyleProps.ViewStyleProps (
+    module React.Flux.Rn.StyleProps.ViewStyleProps,
+    BorderStyle(..), Color(..), UnitInterval, Visibility(..)
+) where
 
-import           Numeric.Natural
+import           Numeric.Natural          (Natural)
 import           React.Flux.Rn.Components (Styles, style)
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types      (BorderStyle (..), Color (..),
+                                           UnitInterval, Visibility (..))
 
 borderRightColor :: Color -> Styles component handler
 borderRightColor = style "borderRightColor"

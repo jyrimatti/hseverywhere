@@ -1,17 +1,17 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Props.VirtualizedListProps where
+module React.Flux.Rn.Props.VirtualizedListProps (
+    module React.Flux.Rn.Props.VirtualizedListProps,
+    Index
+) where
 
 import           GHCJS.Marshal            (FromJSVal)
-import           Numeric.Natural
+import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, String)
-import           React.Flux
-import           React.Flux.Internal      (HandlerArg (..),
-                                           PropertyOrHandler_ (..))
-import           React.Flux.Rn.Components (Props, VirtualizedList, prop)
-import           React.Flux.Rn.Events
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Components (Props, prop)
+import           React.Flux.Rn.Events     (EventHandlerType, on1, ret2)
+import           React.Flux.Rn.Types      (Index)
 
 -- Required
 last :: Natural -> Props component handler
@@ -27,7 +27,7 @@ horizontal = prop "horizontal"
 initialNumToRender :: Natural -> Props component handler
 initialNumToRender = prop "initialNumToRender"
 
-keyExtractor :: forall component item handler. FromJSVal item => (item -> Natural {-index-} -> String) -> Props component handler
+keyExtractor :: forall component item handler. FromJSVal item => (item -> Index -> String) -> Props component handler
 keyExtractor = ret2 "keyExtractor"
 
 disableVirtualization :: Bool -> Props component handler

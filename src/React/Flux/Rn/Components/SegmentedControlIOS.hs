@@ -1,17 +1,27 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.SegmentedControlIOS where
+module React.Flux.Rn.Components.SegmentedControlIOS (
+    module React.Flux.Rn.Components.SegmentedControlIOS,
+    Color(..), OnChange(OnChange),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           GHCJS.Marshal                 (FromJSVal)
-import           Numeric.Natural
+import           Numeric.Natural               (Natural)
 import           Prelude                       (Bool, String)
-import           React.Flux
 import           React.Flux.Rn.Components      (Props, SegmentedControlIOS,
                                                 prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on1)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Color (..), OnChange (OnChange))
 
 enabled :: Bool -> Props SegmentedControlIOS handler
 enabled = prop "enabled"

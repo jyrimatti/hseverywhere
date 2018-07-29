@@ -2,15 +2,24 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.Switch where
+module React.Flux.Rn.Components.Switch (
+    module React.Flux.Rn.Components.Switch,
+    Color(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Numeric.Natural
-import           Prelude                       (Bool, String)
-import           React.Flux
+import           Prelude                       (Bool)
 import           React.Flux.Rn.Components      (Props, Switch, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on1)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Color (..))
 
 disabled :: Bool -> Props Switch handler
 disabled = prop "disabled"

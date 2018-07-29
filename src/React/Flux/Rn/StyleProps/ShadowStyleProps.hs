@@ -1,12 +1,15 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.StyleProps.ShadowStyleProps where
+module React.Flux.Rn.StyleProps.ShadowStyleProps (
+    module React.Flux.Rn.StyleProps.ShadowStyleProps,
+    Color(..), ContentSize(ContentSize), UnitInterval
+) where
 
-import           Numeric.Natural
-import           Prelude                  (Bool, Double, String, const, pure,
-                                           ($), (.), (<$>))
+import           Numeric.Natural          (Natural)
 import           React.Flux.Rn.Components (Styles, style)
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types      (Color (..),
+                                           ContentSize (ContentSize),
+                                           UnitInterval)
 
 -- Platform: IOS
 shadowColor :: Color -> Styles component handler

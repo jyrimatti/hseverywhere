@@ -1,14 +1,19 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Props.TouchableWithoutFeedbackProps where
+module React.Flux.Rn.Props.TouchableWithoutFeedbackProps (
+    module React.Flux.Rn.Props.TouchableWithoutFeedbackProps,
+    AccessibilityComponentTypes(..),
+    AccessibilityTraits(..), Inset(Inset), OnLayout(OnLayout)
+) where
 
-import           Numeric.Natural
+import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool)
-import           React.Flux
 import           React.Flux.Rn.Components (Props, prop)
-import           React.Flux.Rn.Events
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Events     (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Types      (AccessibilityComponentTypes (..),
+                                           AccessibilityTraits (..),
+                                           Inset (Inset), OnLayout (OnLayout))
 
 hitSlop :: Inset -> Props component handler
 hitSlop = prop "hitSlop"

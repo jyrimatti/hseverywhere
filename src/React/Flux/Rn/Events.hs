@@ -1,21 +1,23 @@
 {-# LANGUAGE CPP               #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.Events where
+module React.Flux.Rn.Events (
+  module React.Flux.Rn.Events,
+  EventHandlerType,
+  ReactViewRef
+) where
 
-import           Data.Aeson
+import           Data.Aeson               (FromJSON, parseJSON)
 import           Data.Aeson.Types         (parseMaybe)
 import           Data.Maybe               (fromMaybe)
-import           Data.Typeable
+import           Data.Typeable            (Typeable)
+import           GHCJS.Marshal            (FromJSVal (..), ToJSVal (..))
+import           GHCJS.Types              (JSString, JSVal)
 import           JavaScript.Array         (index)
 import           Prelude                  (IO, Maybe, String, const, error,
                                            print, pure, undefined, ($), (<$>),
                                            (<*>))
-
-import           GHCJS.Marshal            (FromJSVal (..), ToJSVal (..))
-import           GHCJS.Types              (JSString, JSVal)
-
-import           React.Flux
+import           React.Flux               (EventHandlerType)
 import           React.Flux.Internal      (HandlerArg (..),
                                            PropertyOrHandler_ (..),
                                            ReactViewRef)

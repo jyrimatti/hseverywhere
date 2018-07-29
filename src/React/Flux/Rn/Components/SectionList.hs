@@ -2,16 +2,37 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.SectionList where
+module React.Flux.Rn.Components.SectionList (
+    module React.Flux.Rn.Components.SectionList,
+    Index,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent),
+    ScrollViewProps.Color (..),
+    ScrollViewProps.ContentInsetAdjustmentBehavior (..),
+    ScrollViewProps.ContentOffset (ContentOffset),
+    ScrollViewProps.DecelerationRate (..),
+    ScrollViewProps.IndicatorStyle (..),
+    ScrollViewProps.KeyboardDismissMode (..),
+    ScrollViewProps.KeyboardShouldPersistTaps (..),
+    ScrollViewProps.OverScrollMode (..),
+    ScrollViewProps.ReactViewRef,
+    ScrollViewProps.SnapToAlignment (..)
+) where
 
 import           GHCJS.Marshal                            (FromJSVal)
-import           Numeric.Natural
 import           Prelude                                  (Bool, String)
 import           React.Flux.Rn.Components                 (Props, SectionList,
                                                            prop)
 import qualified React.Flux.Rn.Props.ScrollViewProps      as ScrollViewProps
 import qualified React.Flux.Rn.Props.ViewProps            as ViewProps
 import qualified React.Flux.Rn.Props.VirtualizedListProps as VirtualizedListProps
+import           React.Flux.Rn.Types                      (Index)
 
 -- Platform: IOS
 stickySectionHeadersEnabled :: Bool -> Props SectionList handler
@@ -22,7 +43,7 @@ stickySectionHeadersEnabled = prop "stickySectionHeadersEnabled"
 last                      = VirtualizedListProps.last @SectionList
 first                     = VirtualizedListProps.first @SectionList
 initialNumToRender        = VirtualizedListProps.initialNumToRender @SectionList
-keyExtractor :: forall item handler. FromJSVal item => (item -> Natural {-index-} -> String) -> Props SectionList handler
+keyExtractor :: forall item handler. FromJSVal item => (item -> Index -> String) -> Props SectionList handler
 keyExtractor              = VirtualizedListProps.keyExtractor @SectionList
 disableVirtualization     = VirtualizedListProps.disableVirtualization @SectionList
 maxToRenderPerBatch       = VirtualizedListProps.maxToRenderPerBatch @SectionList

@@ -1,14 +1,27 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Props.ViewProps where
+module React.Flux.Rn.Props.ViewProps (
+    module React.Flux.Rn.Props.ViewProps,
+    AccessibilityComponentTypes(..),
+    AccessibilityLiveRegion(..),
+    AccessibilityTraits(..),
+    ImportantForAccessibility(..), Inset(Inset),
+    OnLayout(OnLayout), PointerEvents(..),
+    SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           Prelude                  (Bool, String)
-import           React.Flux               (EventHandlerType)
 import           React.Flux.Rn.Components (Props, Styles, View, nestedProp,
                                            prop)
-import           React.Flux.Rn.Events
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Events     (EventHandlerType, on0, on1, ret1)
+import           React.Flux.Rn.Types      (AccessibilityComponentTypes (..),
+                                           AccessibilityLiveRegion (..),
+                                           AccessibilityTraits (..),
+                                           ImportantForAccessibility (..),
+                                           Inset (Inset), OnLayout (OnLayout),
+                                           PointerEvents (..),
+                                           SyntheticTouchEvent (SyntheticTouchEvent))
 
 onStartShouldSetResponder :: (SyntheticTouchEvent -> Bool) -> Props component handler
 onStartShouldSetResponder = ret1 "onStartShouldSetResponder"

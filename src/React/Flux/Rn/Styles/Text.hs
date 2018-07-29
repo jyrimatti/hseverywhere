@@ -1,20 +1,40 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Styles.Text where
+module React.Flux.Rn.Styles.Text (
+    module React.Flux.Rn.Styles.Text,
+    TextStyleProps.Color (..),
+    TextStyleProps.ContentSize (ContentSize),
+    TextStyleProps.FontStyle (..),
+    TextStyleProps.FontVariant (..),
+    TextStyleProps.FontWeight (..),
+    TextStyleProps.TextAlign (..),
+    TextStyleProps.TextAlignVertical (..),
+    TextStyleProps.TextDecorationLine (..),
+    TextStyleProps.TextDecorationStyle (..),
+    TextStyleProps.WritingDirection (..),
+    ViewStyleProps.BorderStyle (..),
+    ViewStyleProps.UnitInterval,
+    ViewStyleProps.Visibility (..),
+    LayoutStyleProps.AlignContent (..),
+    LayoutStyleProps.AlignItems (..),
+    LayoutStyleProps.AlignSelf (..),
+    LayoutStyleProps.Direction (..),
+    LayoutStyleProps.Display (..),
+    LayoutStyleProps.FlexDirection (..),
+    LayoutStyleProps.FlexWrap (..),
+    LayoutStyleProps.JustifyContent (..),
+    LayoutStyleProps.Length (..),
+    LayoutStyleProps.Overflow (..),
+    LayoutStyleProps.Position (..),
+    TransformsStyleProps.Transform (..)
+) where
 
-import           Numeric.Natural
-import           Prelude                                       (Bool, Double,
-                                                                String, const,
-                                                                pure, ($), (.),
-                                                                (<$>))
-import           React.Flux.Rn.Components                      (Styles, Text,
-                                                                style)
+import           React.Flux.Rn.Components                      (Text)
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps
 import qualified React.Flux.Rn.StyleProps.TextStyleProps       as TextStyleProps
 import qualified React.Flux.Rn.StyleProps.TransformsStyleProps as TransformsStyleProps
 import qualified React.Flux.Rn.StyleProps.ViewStyleProps       as ViewStyleProps
-import           React.Flux.Rn.Types
 
 -- TextStyleProps:
 

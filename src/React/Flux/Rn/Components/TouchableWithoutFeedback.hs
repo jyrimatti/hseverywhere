@@ -1,7 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.TouchableWithoutFeedback where
+module React.Flux.Rn.Components.TouchableWithoutFeedback (
+    module React.Flux.Rn.Components.TouchableWithoutFeedback,
+    TouchableWithoutFeedbackProps.AccessibilityComponentTypes(..),
+    TouchableWithoutFeedbackProps.AccessibilityTraits(..),
+    TouchableWithoutFeedbackProps.Inset(Inset),
+    TouchableWithoutFeedbackProps.OnLayout(OnLayout)
+) where
 
 import           React.Flux.Rn.Components                          (TouchableWithoutFeedback)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps

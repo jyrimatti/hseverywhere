@@ -1,15 +1,27 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.RefreshControl where
+module React.Flux.Rn.Components.RefreshControl (
+    module React.Flux.Rn.Components.RefreshControl,
+    Color(..), RefreshControlSize(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Numeric.Natural
+import           Data.List.NonEmpty            (NonEmpty)
+import           Numeric.Natural               (Natural)
 import           Prelude                       (Bool, String)
-import           React.Flux
 import           React.Flux.Rn.Components      (Props, RefreshControl, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on0)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Color (..),
+                                                RefreshControlSize (..))
 
 -- Required
 refreshing :: Bool -> Props RefreshControl handler
@@ -19,7 +31,7 @@ onRefresh :: EventHandlerType handler -> Props RefreshControl handler
 onRefresh = on0 "onRefresh"
 
 -- Platform: Android
-colors :: [Color] {-nonempty-} -> Props RefreshControl handler
+colors :: NonEmpty Color -> Props RefreshControl handler
 colors = prop "colors"
 
 -- Platform: Android

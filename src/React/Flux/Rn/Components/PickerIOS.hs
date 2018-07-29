@@ -2,15 +2,23 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.PickerIOS where
+module React.Flux.Rn.Components.PickerIOS (
+    module React.Flux.Rn.Components.PickerIOS,
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           GHCJS.Marshal                 (ToJSVal)
-import           React.Flux
 import           React.Flux.Rn.Components      (PickerIOS, Props, Styles, Text,
                                                 nestedProp, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on0)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
 
 itemStyle :: [Styles Text handler] -> Props PickerIOS handler
 itemStyle = nestedProp "itemStyle"

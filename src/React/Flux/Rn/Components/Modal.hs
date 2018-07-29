@@ -1,13 +1,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.Components.Modal where
+module React.Flux.Rn.Components.Modal (
+    module React.Flux.Rn.Components.Modal,
+    AnimationType(..), SupportedOrientations(..), PresentationStyle(..)
+) where
 
-import           Prelude
-import           React.Flux
-import           React.Flux.Rn.Components      (Modal, Props, prop)
-import           React.Flux.Rn.Events
-import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           Prelude                  (Bool)
+import           React.Flux.Rn.Components (Modal, Props, prop)
+import           React.Flux.Rn.Events     (EventHandlerType, on0)
+import           React.Flux.Rn.Types      (AnimationType (..),
+                                           PresentationStyle (..),
+                                           SupportedOrientations (..))
 
 visible :: Bool -> Props Modal handler
 visible = prop "visible"

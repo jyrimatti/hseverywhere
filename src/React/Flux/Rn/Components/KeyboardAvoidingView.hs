@@ -2,13 +2,24 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.KeyboardAvoidingView where
+module React.Flux.Rn.Components.KeyboardAvoidingView (
+    module React.Flux.Rn.Components.KeyboardAvoidingView,
+    Behavior(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Numeric.Natural
+import           Numeric.Natural               (Natural)
 import           React.Flux.Rn.Components      (KeyboardAvoidingView, Props,
                                                 Styles, View, nestedProp, prop)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (Behavior (..))
 
 -- Required
 keyboardVerticalOffset :: Natural -> Props KeyboardAvoidingView handler

@@ -1,11 +1,19 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.StyleProps.LayoutStyleProps where
+module React.Flux.Rn.StyleProps.LayoutStyleProps (
+    module React.Flux.Rn.StyleProps.LayoutStyleProps,
+    AlignContent(..), AlignItems(..), AlignSelf(..), Direction(..), Display(..), FlexDirection(..), FlexWrap(..), JustifyContent(..), Length(..), Overflow(..), Position(..)
+) where
 
-import           Numeric.Natural
+import           Numeric.Natural          (Natural)
 import           Prelude                  (Int)
 import           React.Flux.Rn.Components (Styles, style)
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types      (AlignContent (..), AlignItems (..),
+                                           AlignSelf (..), Direction (..),
+                                           Display (..), FlexDirection (..),
+                                           FlexWrap (..), JustifyContent (..),
+                                           Length (..), Overflow (..),
+                                           Position (..))
 
 marginHorizontal :: Length -> Styles component handler
 marginHorizontal = style "marginHorizontal"

@@ -1,12 +1,14 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
-module React.Flux.Rn.Components.Button where
+module React.Flux.Rn.Components.Button (
+    module React.Flux.Rn.Components.Button,
+    Color(..)
+) where
 
 import           Prelude                  (Bool, String)
-import           React.Flux
 import           React.Flux.Rn.Components (Button, Props, prop)
-import           React.Flux.Rn.Events
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Events     (EventHandlerType, on0)
+import           React.Flux.Rn.Types      (Color (..))
 
 -- Required
 onPress :: EventHandlerType handler -> Props Button handler

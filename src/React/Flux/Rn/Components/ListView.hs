@@ -1,18 +1,32 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.ListView {-# DEPRECATED "Use FlatList or SectionList" #-} where
+module React.Flux.Rn.Components.ListView {-# DEPRECATED "Use FlatList or SectionList" #-} (
+    module React.Flux.Rn.Components.ListView,
+    ListViewDataSourceRef, ReactViewRef,
+    ScrollViewProps.Color (..),
+    ScrollViewProps.ContentInsetAdjustmentBehavior (..),
+    ScrollViewProps.ContentOffset (ContentOffset),
+    ScrollViewProps.DecelerationRate (..),
+    ScrollViewProps.IndicatorStyle (..),
+    ScrollViewProps.Inset (Inset),
+    ScrollViewProps.KeyboardDismissMode (..),
+    ScrollViewProps.KeyboardShouldPersistTaps (..),
+    ScrollViewProps.OverScrollMode (..),
+    ScrollViewProps.SnapToAlignment (..)
+) where
 
-import           Data.Typeable
+import           Data.Typeable                       (Typeable)
 import           GHCJS.Marshal                       (FromJSVal)
-import           Numeric.Natural
+import           Numeric.Natural                     (Natural)
 import           Prelude                             (Bool, IO)
-import           React.Flux
-import           React.Flux.Internal                 (ReactViewRef)
 import           React.Flux.Rn.Components            (ListView, Props, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events                (EventHandlerType, on1,
+                                                      on2, view0, view1, view2,
+                                                      view3, view4)
 import qualified React.Flux.Rn.Props.ScrollViewProps as ScrollViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types                 (ListViewDataSourceRef,
+                                                      ReactViewRef)
 
 -- Required
 dataSource :: ListViewDataSourceRef -> Props ListView handler

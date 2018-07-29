@@ -2,16 +2,28 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.ViewPagerAndroid where
+module React.Flux.Rn.Components.ViewPagerAndroid (
+    module React.Flux.Rn.Components.ViewPagerAndroid,
+    KeyboardDismissMode(..), OnPageScroll(OnPageScroll), OnPageSelected(OnPageSelected), PageScrollingState(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
-import           Numeric.Natural
-import           Prelude                       (Bool, Int, String, const, pure,
-                                                ($), (.), (<$>))
-import           React.Flux
+import           Numeric.Natural               (Natural)
+import           Prelude                       (Bool, Int)
 import           React.Flux.Rn.Components      (Props, ViewPagerAndroid, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on1)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types           (KeyboardDismissMode (..),
+                                                OnPageScroll (OnPageScroll),
+                                                OnPageSelected (OnPageSelected),
+                                                PageScrollingState (..))
 
 initialPage :: Natural -> Props ViewPagerAndroid handler
 initialPage = prop "initialPage"

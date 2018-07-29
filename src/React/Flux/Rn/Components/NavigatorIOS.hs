@@ -1,12 +1,16 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
-module React.Flux.Rn.Components.NavigatorIOS where
+module React.Flux.Rn.Components.NavigatorIOS (
+    module React.Flux.Rn.Components.NavigatorIOS,
+    BarStyle(..), Color(..), Route(Route)
+) where
 
 import           Prelude                  (Bool)
 import           React.Flux.Rn.Components (NavigatorIOS, Props, Styles, View,
                                            nestedProp, prop)
-import           React.Flux.Rn.Types
+import           React.Flux.Rn.Types      (BarStyle (..), Color (..),
+                                           Route (Route))
 
 -- Required
 initialRoute :: Route -> Props NavigatorIOS handler

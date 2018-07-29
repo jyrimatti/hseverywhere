@@ -18,8 +18,7 @@ module TodoViews where
 import           Control.Monad                                     (forM_,
                                                                     unless,
                                                                     when)
-import           Prelude                                           (Int,
-                                                                    Maybe (..),
+import           Prelude                                           (Maybe (..),
                                                                     all, filter,
                                                                     id, length,
                                                                     not, snd,

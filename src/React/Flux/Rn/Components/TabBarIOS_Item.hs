@@ -2,14 +2,26 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
-module React.Flux.Rn.Components.TabBarIOS_Item where
+module React.Flux.Rn.Components.TabBarIOS_Item (
+    module React.Flux.Rn.Components.TabBarIOS_Item,
+    Color(..), ImageSource(..),
+    TabBarSystemIcon(..),
+    ViewProps.AccessibilityComponentTypes(..),
+    ViewProps.AccessibilityLiveRegion(..),
+    ViewProps.AccessibilityTraits(..),
+    ViewProps.ImportantForAccessibility(..),
+    ViewProps.Inset(Inset),
+    ViewProps.OnLayout(OnLayout),
+    ViewProps.PointerEvents(..),
+    ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
+) where
 
 import           Prelude                       (Bool, Either (..), Int, String)
-import           React.Flux
 import           React.Flux.Rn.Components      (Props, TabBarIOS_Item, prop)
-import           React.Flux.Rn.Events
+import           React.Flux.Rn.Events          (EventHandlerType, on0)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
-import           React.Flux.Rn.Types           hiding (Left, Right)
+import           React.Flux.Rn.Types           (Color (..), ImageSource (..),
+                                                TabBarSystemIcon (..))
 
 selected :: Bool -> Props TabBarIOS_Item handler
 selected = prop "selected"
