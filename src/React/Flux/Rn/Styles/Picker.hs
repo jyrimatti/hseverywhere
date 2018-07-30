@@ -19,6 +19,7 @@ module React.Flux.Rn.Styles.Picker (
     LayoutStyleProps.Overflow (..),
     LayoutStyleProps.Position (..),
     ShadowStyleProps.ContentSize (ContentSize),
+    TransformsStyleProps.Angle (..),
     TransformsStyleProps.Transform (..)
 ) where
 

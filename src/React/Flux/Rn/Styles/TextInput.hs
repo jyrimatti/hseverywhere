@@ -26,6 +26,7 @@ module React.Flux.Rn.Styles.TextInput (
     LayoutStyleProps.Length (..),
     LayoutStyleProps.Overflow (..),
     LayoutStyleProps.Position (..),
+    TransformsStyleProps.Angle (..),
     TransformsStyleProps.Transform (..)
 ) where
 

@@ -53,6 +53,7 @@ library
                     React.Flux.Rn.Components,
                     React.Flux.Rn.Events,
                     React.Flux.Rn.Types,
+                    React.Flux.Rn.Views,
                     React.Flux.Rn.Components.ActivityIndicator,
                     React.Flux.Rn.Components.Button,
                     React.Flux.Rn.Components.DatePickerIOS,

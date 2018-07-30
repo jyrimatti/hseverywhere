@@ -27,18 +27,11 @@ import           Prelude                                           (Maybe (..),
                                                                     (==))
 import qualified Prelude                                           as P
 
-import           React.Flux                                        (EventHandlerCode (..),
-                                                                    ReactElementM,
-                                                                    StoreArg,
-                                                                    View,
-                                                                    elemShow,
-                                                                    elemString,
-                                                                    mkControllerView,
-                                                                    mkView,
-                                                                    view_,
-                                                                    xview_,
-                                                                    ($=))
+import           React.Flux.Rn.Views
 
+import           React.Flux                                        (StoreArg,
+                                                                    elemShow,
+                                                                    elemString)
 import qualified React.Flux.Rn.APIs                                as RnA
 import           React.Flux.Rn.Components                          (scrollView,
                                                                     text,
@@ -60,13 +53,10 @@ import qualified React.Flux.Rn.Styles.Text                         as T_
 import qualified React.Flux.Rn.Styles.TextInput                    as TI_
 import           React.Flux.Rn.Styles.View
 import qualified React.Flux.Rn.Styles.View                         as V_
-import           React.Flux.Rn.Types
 
 import           TodoComponents
 import           TodoDispatcher
 import           TodoStore
-
-rview s x = xview_ $ mkView s x
 
 todoApp :: View ()
 todoApp = mkControllerView @'[StoreArg TodoState] "todo app" $ \todoState () ->
@@ -75,7 +65,7 @@ todoApp = mkControllerView @'[StoreArg TodoState] "todo app" $ \todoState () ->
         mainSection todoState
         todoFooter ()
 
-todoHeader = rview "header" $ \() ->
+todoHeader = mkView "header" $ \() ->
     text [ T.style [ fontSize 100
                    , fontFamily "HelveticaNeue"
                    , fontWeight W100
@@ -91,7 +81,7 @@ infoStyles = [ fontFamily "HelveticaNeue"
              , T_.alignSelf Center____
              ]
 
-todoFooter = rview "todoFooter" $ \() ->
+todoFooter = mkView "todoFooter" $ \() ->
     view [ V.style [ V_.marginTop 20
                    , V_.marginBottom 10
                    , V_.marginHorizontal 30
@@ -145,7 +135,7 @@ mainSection todoState@(TodoState todoList filt) =
                                     , fontFamily "HelveticaNeue"
                                     ]]
                             ">"
-                todoTextInput_ [ TI_.fontStyle Italic
+                todoTextInput [ TI_.fontStyle Italic
                             , TI_.fontSize 16
                             ] TextInputArgs { tiaPlaceholder = "What needs to be done?"
                                             , tiaSaveAction = SACreate
@@ -160,7 +150,7 @@ mainSection todoState@(TodoState todoList filt) =
 
             mainSectionFooter todoState
 
-todoItem = rview "todo item" $ \(todoIdx, todo) ->
+todoItem = mkView "todo item" $ \(todoIdx, todo) ->
     let isComplete = todoComplete todo
     in
         view [ V.style [ V_.flexDirection Row ] ] $ do
@@ -211,7 +201,7 @@ todoItem = rview "todo item" $ \(todoIdx, todo) ->
                             , V_.marginLeft 15
                             , V_.marginTop 1
                             ]] $
-                    todoTextInput_ [] TextInputArgs { tiaPlaceholder = ""
+                    todoTextInput [] TextInputArgs { tiaPlaceholder = ""
                                                     , tiaSaveAction = SAUpdate todoIdx
                                                     , tiaOnCancel = [CancelUpdateWithDelay todoIdx]
                                                     , tiaValue = Just $ todoText todo
@@ -231,7 +221,7 @@ activeFilterStyle = [ V_.borderWidth 1
                     ]
 
 mainSectionFooter :: TodoState -> ReactElementM eventHandler ()
-mainSectionFooter = rview "msfooter" $ \(TodoState todos filtering) ->
+mainSectionFooter = mkView "msfooter" $ \(TodoState todos filtering) ->
     let completed = length (filter (todoComplete . snd) todos)
         itemsLeft = length todos - completed
         styling f = V.style  $ filterStyle ++ (if f == filtering then activeFilterStyle else [])

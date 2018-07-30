@@ -1,16 +1,21 @@
+{-# LANGUAGE NoImplicitPrelude     #-}
 {-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE PartialTypeSignatures #-}
 module TodoComponents where
 
 import           Data.Maybe                         (fromMaybe)
 import           Data.Typeable                      (Typeable)
-import           Prelude
-import           React.Flux                         hiding (onBlur, style)
+import           Prelude                            (Bool (..), Eq, Int,
+                                                     Maybe (..), String, const,
+                                                     flip, mempty, not, null,
+                                                     ($), (++), (.))
 
+import           React.Flux                         (SomeStoreAction)
 import           React.Flux.Rn.Components           (Styles, TextInput,
                                                      textInput)
 import           React.Flux.Rn.Components.TextInput
 import           React.Flux.Rn.Styles.TextInput
+import           React.Flux.Rn.Views
 
 
 import           TodoDispatcher
@@ -32,8 +37,8 @@ tiaOnSave ta txt = dispatchTodo . f $ tiaSaveAction ta
     f SACreate     = TodoCreate txt
     f (SAUpdate i) = UpdateText i txt
 
-todoTextInput :: [Styles TextInput _] -> String -> View TextInputArgs
-todoTextInput styles state = mkStatefulView "todo text input" state $ \curText args ->
+todoTextInput :: [Styles TextInput _] -> TextInputArgs -> ReactElementM handler ()
+todoTextInput styles args = flip (mkStatefulView "todo text input" (fromMaybe "" $ tiaValue args)) args $ \curText args ->
     textInput [
       placeholder (tiaPlaceholder args)
     , value curText
@@ -55,6 +60,3 @@ todoTextInput styles state = mkStatefulView "todo text input" state $ \curText a
             then (tiaOnSave args curState, Just "")
             else ([], Nothing)
     ] mempty
-
-todoTextInput_ :: _ -> TextInputArgs -> ReactElementM eventHandler ()
-todoTextInput_ styles args = view_ (todoTextInput styles $ fromMaybe "" $ tiaValue args) "todo-input" args

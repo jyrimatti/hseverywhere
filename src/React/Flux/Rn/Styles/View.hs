@@ -18,6 +18,7 @@ module React.Flux.Rn.Styles.View (
     LayoutStyleProps.Overflow (..),
     LayoutStyleProps.Position (..),
     ShadowStyleProps.ContentSize (ContentSize),
+    TransformsStyleProps.Angle (..),
     TransformsStyleProps.Transform (..)
 ) where
 
