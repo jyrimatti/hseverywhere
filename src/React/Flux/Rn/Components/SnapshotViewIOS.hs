@@ -15,9 +15,16 @@ module React.Flux.Rn.Components.SnapshotViewIOS (
 ) where
 
 import           Prelude                       (String)
-import           React.Flux.Rn.Components      (Props, SnapshotViewIOS, prop)
+import           Prelude                       ((.))
+import           Prelude                       (fmap)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on0)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
+
+data SnapshotViewIOS
+snapshotViewIOS :: [Props SnapshotViewIOS handler] -> ReactElementM handler a -> ReactElementM handler a
+snapshotViewIOS = foreign_ "SnapshotViewIOS" . fmap props
 
 onSnapshotReady :: EventHandlerType handler -> Props SnapshotViewIOS handler
 onSnapshotReady = on0 "onSnapshotReady"

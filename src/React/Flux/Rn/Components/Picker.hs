@@ -17,12 +17,20 @@ module React.Flux.Rn.Components.Picker (
 
 import           GHCJS.Marshal                 (FromJSVal, ToJSVal)
 import           Numeric.Natural               (Natural)
+import           Prelude                       (fmap)
 import           Prelude                       (Bool, String)
-import           React.Flux.Rn.Components      (Picker, Props, Styles, Text,
-                                                nestedProp, prop)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
+import           React.Flux.Rn.Components.Text (Text)
 import           React.Flux.Rn.Events          (EventHandlerType, on2)
+import           React.Flux.Rn.Properties      (Props, Styles, nestedProp, prop,
+                                                props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (PickerMode (..))
+
+data Picker
+picker :: [Props Picker handler] -> ReactElementM handler a -> ReactElementM handler a
+picker = foreign_ "Picker" . fmap props
 
 onValueChange :: FromJSVal value => (value -> Natural -> EventHandlerType handler) -> Props Picker handler
 onValueChange = on2 "onValueChange"

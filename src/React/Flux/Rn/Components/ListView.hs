@@ -19,14 +19,21 @@ module React.Flux.Rn.Components.ListView {-# DEPRECATED "Use FlatList or Section
 import           Data.Typeable                       (Typeable)
 import           GHCJS.Marshal                       (FromJSVal)
 import           Numeric.Natural                     (Natural)
+import           Prelude                             ((.))
 import           Prelude                             (Bool, IO)
-import           React.Flux.Rn.Components            (ListView, Props, prop)
+import           Prelude                             (fmap)
+import           React.Flux                          (ReactElementM, foreign_)
 import           React.Flux.Rn.Events                (EventHandlerType, on1,
                                                       on2, view0, view1, view2,
                                                       view3, view4)
+import           React.Flux.Rn.Properties            (Props, prop, props)
 import qualified React.Flux.Rn.Props.ScrollViewProps as ScrollViewProps
 import           React.Flux.Rn.Types                 (ListViewDataSourceRef,
                                                       ReactViewRef)
+
+data ListView
+listView :: [Props ListView handler] -> ReactElementM handler a -> ReactElementM handler a
+listView = foreign_ "ListView" . fmap props
 
 -- Required
 dataSource :: ListViewDataSourceRef -> Props ListView handler

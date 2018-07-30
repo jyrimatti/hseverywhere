@@ -17,10 +17,17 @@ module React.Flux.Rn.Components.TabBarIOS (
 ) where
 
 import           Prelude                       (Bool)
-import           React.Flux.Rn.Components      (Props, TabBarIOS, prop)
+import           React.Flux                    (ReactElementM, foreign_)
+import           Prelude                       ((.))
+import           React.Flux.Rn.Properties      (Props, prop, props)
+import           Prelude                       (fmap)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (BarStyle (..), Color (..),
                                                 ItemPositioning (..))
+
+data TabBarIOS
+tabBarIOS :: [Props TabBarIOS handler] -> ReactElementM handler a -> ReactElementM handler a
+tabBarIOS = foreign_ "TabBarIOS" . fmap props
 
 barStyle :: BarStyle -> Props TabBarIOS handler
 barStyle = prop "barStyle"

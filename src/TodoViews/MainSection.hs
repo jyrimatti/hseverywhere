@@ -18,15 +18,15 @@ import           React.Flux.Rn.Views
 
 import           React.Flux                                        (elemShow,
                                                                     elemString)
-import           React.Flux.Rn.Components                          (text, touchableOpacity,
-                                                                    touchableWithoutFeedback,
-                                                                    view)
+import  React.Flux.Rn.Components.Text         
+import  React.Flux.Rn.Components.TouchableOpacity
+import  React.Flux.Rn.Components.TouchableWithoutFeedback
+import  React.Flux.Rn.Components.View                    
 import qualified React.Flux.Rn.Components.Text                     as T
 import qualified React.Flux.Rn.Components.TouchableOpacity         as TO
 import qualified React.Flux.Rn.Components.TouchableWithoutFeedback as TWF
 import qualified React.Flux.Rn.Components.View                     as V
 import           React.Flux.Rn.Styles.Text
-import qualified React.Flux.Rn.Styles.Text                         as T_
 import qualified React.Flux.Rn.Styles.TextInput                    as TI_
 import qualified React.Flux.Rn.Styles.View                         as V_
 
@@ -54,7 +54,7 @@ mainSection todoState@(TodoState todos filt) =
                                    , V_.flexDirection Column
                                    , V_.width 50
                                    ]] $
-                        text [ T.style [ T_.transform [RotateZ (Deg 90.0)]
+                        text [ T.style [ transform [RotateZ (Deg 90.0)]
                                        , color $ if allCompleted then "#4d4d4d" else "#d9d9d9"
                                        , fontSize 20
                                        , fontFamily "HelveticaNeue"
@@ -99,7 +99,7 @@ todoItem = mkView "todo item" $ \(todoIdx, todo) ->
                                    , V_.flex 1
                                    ]] $
                         text [ T.style [ fontSize 22
-                                       , T_.marginVertical 3
+                                       , marginVertical 3
                                        , fontWeight W300
                                        , color $ Color $ if isComplete then "#d9d9d9" else "#4d4d4d"
                                        , fontFamily "HelveticaNeue"
@@ -181,5 +181,5 @@ mainSectionFooter = mkView "msfooter" $ \(TodoState todos filtering) ->
 
             touchableOpacity [ TO.onPress $ dispatchTodo ClearCompletedTodos ] $
                 view [ V.style (if completed == 0 then [V_.opacity 0] else []) ] $
-                    text [ T.style (T_.flexWrap Wrap : footerStyles) ]
+                    text [ T.style (flexWrap Wrap : footerStyles) ]
                         "Clear completed"

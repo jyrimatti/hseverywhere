@@ -12,10 +12,18 @@ module React.Flux.Rn.Components.TouchableNativeFeedback (
 ) where
 
 import           Prelude                                           (Bool)
-import           React.Flux.Rn.Components                          (Props, TouchableNativeFeedback,
-                                                                    prop)
+import           Prelude                                           (fmap)
+import           Prelude                       ((.))
+import           React.Flux                                        (ReactElementM,
+                                                                    foreign_)
+import           React.Flux.Rn.Properties                          (Props, prop,
+                                                                    props)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types                               (BackgroundPropType)
+
+data TouchableNativeFeedback
+touchableNativeFeedback :: [Props TouchableNativeFeedback handler] -> ReactElementM handler a -> ReactElementM handler a
+touchableNativeFeedback = foreign_ "TouchableNativeFeedback" . fmap props
 
 background :: BackgroundPropType -> Props TouchableNativeFeedback handler
 background = prop "background"

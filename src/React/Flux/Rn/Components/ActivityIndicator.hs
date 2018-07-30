@@ -14,11 +14,18 @@ module React.Flux.Rn.Components.ActivityIndicator (
     ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
 ) where
 
-import           Prelude                       (Bool)
-import           React.Flux.Rn.Components      (ActivityIndicator, Props, prop)
+import           Prelude                       (Bool, fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (ActivityIndicatorSize (..),
                                                 Color (..))
+
+data ActivityIndicator
+activityIndicator :: [Props ActivityIndicator handler] -> ReactElementM handler a -> ReactElementM handler a
+activityIndicator = foreign_ "ActivityIndicator" . fmap props
+
 
 animating :: Bool -> Props ActivityIndicator handler
 animating = prop "animating"

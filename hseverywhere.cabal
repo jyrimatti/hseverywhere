@@ -50,7 +50,7 @@ library
                        network-uri,
                        semigroups
   exposed-modules: React.Flux.Rn.APIs,
-                    React.Flux.Rn.Components,
+                    React.Flux.Rn.Properties,
                     React.Flux.Rn.Events,
                     React.Flux.Rn.Types,
                     React.Flux.Rn.Views,

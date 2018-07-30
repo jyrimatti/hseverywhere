@@ -22,7 +22,7 @@ module React.Flux.Rn.Styles.View (
     TransformsStyleProps.Transform (..)
 ) where
 
-import           React.Flux.Rn.Components                      (View)
+import           React.Flux.Rn.Components.View                 (View)
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps
 import qualified React.Flux.Rn.StyleProps.TransformsStyleProps as TransformsStyleProps

@@ -1,6 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
+{-# LANGUAGE OverloadedStrings  #-}
 module React.Flux.Rn.Components.VirtualizedList (
     module React.Flux.Rn.Components.VirtualizedList,
     Index
@@ -8,10 +9,17 @@ module React.Flux.Rn.Components.VirtualizedList (
 
 import           GHCJS.Marshal                            (FromJSVal)
 import           Prelude                                  (String)
-import           React.Flux.Rn.Components                 (Props,
-                                                           VirtualizedList)
+import           Prelude                                  (fmap)
+import           React.Flux                               (ReactElementM,
+                                                           foreign_)
+import           React.Flux.Rn.Properties                 (Props, props)
 import qualified React.Flux.Rn.Props.VirtualizedListProps as VirtualizedListProps
 import           React.Flux.Rn.Types                      (Index)
+import           Prelude                       ((.))
+
+data VirtualizedList
+virtualizedList :: [Props VirtualizedList handler] -> ReactElementM handler a -> ReactElementM handler a
+virtualizedList = foreign_ "VirtualizedList" . fmap props
 
 -- VirtualizedListProps:
 

@@ -6,7 +6,6 @@ module TodoViews.Header where
 import           Prelude                       (($))
 import           React.Flux.Rn.Views
 
-import           React.Flux.Rn.Components      (text)
 import           React.Flux.Rn.Components.Text
 import           React.Flux.Rn.Styles.Text
 

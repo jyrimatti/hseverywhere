@@ -17,10 +17,17 @@ module React.Flux.Rn.Components.Slider (
 
 import           Numeric.Natural               (Natural)
 import           Prelude                       (Bool, Int)
-import           React.Flux.Rn.Components      (Props, Slider, prop)
+import           Prelude                       ((.))
+import           Prelude                       (fmap)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on1)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..), ImageSource (..))
+
+data Slider
+slider :: [Props Slider handler] -> ReactElementM handler a -> ReactElementM handler a
+slider = foreign_ "Slider" . fmap props
 
 disabled :: Bool -> Props Slider handler
 disabled = prop "disabled"

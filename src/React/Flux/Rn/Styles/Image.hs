@@ -22,7 +22,7 @@ module React.Flux.Rn.Styles.Image (
     TransformsStyleProps.Transform (..)
 ) where
 
-import           React.Flux.Rn.Components                      (Image)
+import           React.Flux.Rn.Components.Image                (Image)
 import qualified React.Flux.Rn.StyleProps.ImageStyleProps      as ImageStyleProps
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps

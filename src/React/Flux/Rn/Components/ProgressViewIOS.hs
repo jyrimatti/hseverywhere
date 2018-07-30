@@ -15,11 +15,18 @@ module React.Flux.Rn.Components.ProgressViewIOS (
     ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
 ) where
 
-import           React.Flux.Rn.Components      (ProgressViewIOS, Props, prop)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..), ImageSource (..),
                                                 ProgressViewStyle (..),
                                                 UnitInterval)
+
+data ProgressViewIOS
+progressViewIOS :: [Props ProgressViewIOS handler] -> ReactElementM handler a -> ReactElementM handler a
+progressViewIOS = foreign_ "ProgressViewIOS" . fmap props
 
 progress :: UnitInterval -> Props ProgressViewIOS handler
 progress = prop "progress"

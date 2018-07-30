@@ -9,8 +9,8 @@ module React.Flux.Rn.Props.VirtualizedListProps (
 import           GHCJS.Marshal            (FromJSVal)
 import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, String)
-import           React.Flux.Rn.Components (Props, prop)
 import           React.Flux.Rn.Events     (EventHandlerType, on1, ret2)
+import           React.Flux.Rn.Properties (Props, prop)
 import           React.Flux.Rn.Types      (Index)
 
 -- Required

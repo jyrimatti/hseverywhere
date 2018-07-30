@@ -16,12 +16,19 @@ module React.Flux.Rn.Components.RefreshControl (
 
 import           Data.List.NonEmpty            (NonEmpty)
 import           Numeric.Natural               (Natural)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
 import           Prelude                       (Bool, String)
-import           React.Flux.Rn.Components      (Props, RefreshControl, prop)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on0)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..),
                                                 RefreshControlSize (..))
+
+data RefreshControl
+refreshControl :: [Props RefreshControl handler] -> ReactElementM handler a -> ReactElementM handler a
+refreshControl = foreign_ "RefreshControl" . fmap props
 
 -- Required
 refreshing :: Bool -> Props RefreshControl handler

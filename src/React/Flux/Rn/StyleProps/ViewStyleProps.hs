@@ -6,7 +6,7 @@ module React.Flux.Rn.StyleProps.ViewStyleProps (
 ) where
 
 import           Numeric.Natural          (Natural)
-import           React.Flux.Rn.Components (Styles, style)
+import           React.Flux.Rn.Properties (Styles, style)
 import           React.Flux.Rn.Types      (BorderStyle (..), Color (..),
                                            UnitInterval, Visibility (..))
 

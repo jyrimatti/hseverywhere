@@ -1,4 +1,5 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.ScrollView (
@@ -22,9 +23,16 @@ module React.Flux.Rn.Components.ScrollView (
     ScrollViewProps.SnapToAlignment (..)
 ) where
 
-import           React.Flux.Rn.Components            (ScrollView)
+import           Prelude                             (fmap)
+import           Prelude                             ((.))
+import           React.Flux                          (ReactElementM, foreign_)
+import           React.Flux.Rn.Properties            (Props, props)
 import qualified React.Flux.Rn.Props.ScrollViewProps as ScrollViewProps
 import qualified React.Flux.Rn.Props.ViewProps       as ViewProps
+
+data ScrollView
+scrollView :: [Props ScrollView handler] -> ReactElementM handler a -> ReactElementM handler a
+scrollView = foreign_ "ScrollView" . fmap props
 
 -- ScrollViewProps:
 

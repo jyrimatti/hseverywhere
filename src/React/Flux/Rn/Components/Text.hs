@@ -10,13 +10,20 @@ module React.Flux.Rn.Components.Text (
 
 import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, Double, String, ($))
-import           React.Flux.Rn.Components (Props, Styles, Text, nestedProp,
-                                           prop)
+import           Prelude                  (fmap)
+import           Prelude                  ((.))
+import           React.Flux               (ReactElementM, foreign_)
 import           React.Flux.Rn.Events     (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Properties (Props, Styles, nestedProp, prop,
+                                           props)
 import           React.Flux.Rn.Types      (Color (..), EllipsizeMode (..),
                                            Inset (Inset), OnLayout (OnLayout),
                                            OnLayoutVals (OnLayoutVals),
                                            TextBreakStrategy (..))
+
+data Text
+text :: [Props Text handler] -> ReactElementM handler a -> ReactElementM handler a
+text = foreign_ "Text" . fmap props
 
 selectable :: Bool -> Props Text handler
 selectable = prop "selectable"

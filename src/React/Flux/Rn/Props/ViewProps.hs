@@ -12,9 +12,8 @@ module React.Flux.Rn.Props.ViewProps (
 ) where
 
 import           Prelude                  (Bool, String)
-import           React.Flux.Rn.Components (Props, Styles, View, nestedProp,
-                                           prop)
 import           React.Flux.Rn.Events     (EventHandlerType, on0, on1, ret1)
+import           React.Flux.Rn.Properties (Props, Styles, nestedProp, prop)
 import           React.Flux.Rn.Types      (AccessibilityComponentTypes (..),
                                            AccessibilityLiveRegion (..),
                                            AccessibilityTraits (..),
@@ -22,6 +21,8 @@ import           React.Flux.Rn.Types      (AccessibilityComponentTypes (..),
                                            Inset (Inset), OnLayout (OnLayout),
                                            PointerEvents (..),
                                            SyntheticTouchEvent (SyntheticTouchEvent))
+
+data View
 
 onStartShouldSetResponder :: (SyntheticTouchEvent -> Bool) -> Props component handler
 onStartShouldSetResponder = ret1 "onStartShouldSetResponder"

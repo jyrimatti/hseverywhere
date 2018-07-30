@@ -7,10 +7,18 @@ module React.Flux.Rn.Components.NavigatorIOS (
 ) where
 
 import           Prelude                  (Bool)
-import           React.Flux.Rn.Components (NavigatorIOS, Props, Styles, View,
-                                           nestedProp, prop)
+import           React.Flux               (ReactElementM, foreign_)
+import React.Flux.Rn.Components.View (View)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux.Rn.Properties (Props, Styles, nestedProp,
+                                           prop, props)
 import           React.Flux.Rn.Types      (BarStyle (..), Color (..),
                                            Route (Route))
+
+data NavigatorIOS
+navigatorIOS :: [Props NavigatorIOS handler] -> ReactElementM handler a -> ReactElementM handler a
+navigatorIOS = foreign_ "NavigatorIOS" . fmap props
 
 -- Required
 initialRoute :: Route -> Props NavigatorIOS handler

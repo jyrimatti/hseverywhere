@@ -11,9 +11,8 @@ import           Prelude                            (Bool (..), Eq, Int,
                                                      ($), (++), (.))
 
 import           React.Flux                         (SomeStoreAction)
-import           React.Flux.Rn.Components           (Styles, TextInput,
-                                                     textInput)
 import           React.Flux.Rn.Components.TextInput
+import           React.Flux.Rn.Properties           (Styles)
 import           React.Flux.Rn.Styles.TextInput
 import           React.Flux.Rn.Views
 

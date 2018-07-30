@@ -16,14 +16,21 @@ module React.Flux.Rn.Components.DrawerLayoutAndroid (
 
 import           Data.Typeable                 (Typeable)
 import           Numeric.Natural               (Natural)
-import           React.Flux.Rn.Components      (DrawerLayoutAndroid, Props,
-                                                prop)
+import           Prelude                       ((.))
+import           Prelude                       (fmap)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on0)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..), DrawerLockMode (..),
                                                 DrawerPosition (..),
                                                 KeyboardDismissMode (..),
                                                 ReactViewRef)
+
+data DrawerLayoutAndroid
+drawerLayoutAndroid :: [Props DrawerLayoutAndroid handler] -> ReactElementM handler a -> ReactElementM handler a
+drawerLayoutAndroid = foreign_ "DrawerLayoutAndroid" . fmap props
+
 
 -- Required
 renderNavigationView :: Typeable props => ReactViewRef props -> Props DrawerLayoutAndroid handler

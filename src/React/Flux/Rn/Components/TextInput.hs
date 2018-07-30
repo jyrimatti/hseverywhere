@@ -19,9 +19,12 @@ module React.Flux.Rn.Components.TextInput (
 
 import           Numeric.Natural               (Natural)
 import           Prelude                       (Bool, Int, String)
-import           React.Flux.Rn.Components      (Props, Styles, TextInput,
-                                                nestedProp, prop)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Properties      (Props, Styles, nestedProp, prop,
+                                                props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (AutoCapitalize (..),
                                                 ClearButtonMode (..),
@@ -37,6 +40,10 @@ import           React.Flux.Rn.Types           (AutoCapitalize (..),
                                                 ReturnKeyType (..),
                                                 Selection (Selection),
                                                 TextBreakStrategy (..))
+
+data TextInput
+textInput :: [Props TextInput handler] -> ReactElementM handler a -> ReactElementM handler a
+textInput = foreign_ "TextInput" . fmap props
 
 placeholderTextColor :: Color -> Props TextInput handler
 placeholderTextColor = prop "placeholderTextColor"

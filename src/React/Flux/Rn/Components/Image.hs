@@ -11,14 +11,21 @@ module React.Flux.Rn.Components.Image (
 import           GHCJS.Marshal            (FromJSVal (..))
 import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, String, ($))
-import           React.Flux.Rn.Components (Image, Props, Styles, nestedProp,
-                                           prop)
+import           Prelude                  ((.))
+import           Prelude                  (fmap)
+import           React.Flux               (ReactElementM, foreign_)
 import           React.Flux.Rn.Events     (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Properties (Props, Styles, nestedProp, prop,
+                                           props)
 import           React.Flux.Rn.Types      (DefaultSource (..), ImageSource (..),
                                            Inset (Inset), OnLayout (OnLayout),
                                            OnLayoutVals (OnLayoutVals),
                                            OnProgress (OnProgress),
                                            ResizeMethod (..))
+
+data Image
+image :: [Props Image handler] -> ReactElementM handler a -> ReactElementM handler a
+image = foreign_ "Image" . fmap props
 
 style :: [Styles Image handler] -> Props Image handler
 style = nestedProp "style"

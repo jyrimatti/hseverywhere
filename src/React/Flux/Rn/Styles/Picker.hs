@@ -23,8 +23,8 @@ module React.Flux.Rn.Styles.Picker (
     TransformsStyleProps.Transform (..)
 ) where
 
-import           React.Flux.Rn.Components                      (Picker, Styles,
-                                                                style)
+import           React.Flux.Rn.Components.Picker               (Picker)
+import           React.Flux.Rn.Properties                      (Styles, style)
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps
 import qualified React.Flux.Rn.StyleProps.TransformsStyleProps as TransformsStyleProps

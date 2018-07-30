@@ -6,11 +6,18 @@ module React.Flux.Rn.Components.Modal (
 ) where
 
 import           Prelude                  (Bool)
-import           React.Flux.Rn.Components (Modal, Props, prop)
+import           Prelude                  (fmap)
+import           React.Flux               (ReactElementM, foreign_)
 import           React.Flux.Rn.Events     (EventHandlerType, on0)
+import           React.Flux.Rn.Properties (Props, prop, props)
+import           Prelude                       ((.))
 import           React.Flux.Rn.Types      (AnimationType (..),
                                            PresentationStyle (..),
                                            SupportedOrientations (..))
+
+data Modal
+modal :: [Props Modal handler] -> ReactElementM handler a -> ReactElementM handler a
+modal = foreign_ "Modal" . fmap props
 
 visible :: Bool -> Props Modal handler
 visible = prop "visible"

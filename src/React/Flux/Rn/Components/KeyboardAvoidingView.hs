@@ -16,10 +16,18 @@ module React.Flux.Rn.Components.KeyboardAvoidingView (
 ) where
 
 import           Numeric.Natural               (Natural)
-import           React.Flux.Rn.Components      (KeyboardAvoidingView, Props,
-                                                Styles, View, nestedProp, prop)
+import           Prelude                       ((.))
+import           Prelude                       (fmap)
+import           React.Flux                    (ReactElementM, foreign_)
+import           React.Flux.Rn.Components.View (View)
+import           React.Flux.Rn.Properties      (Props, Styles, nestedProp, prop,
+                                                props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Behavior (..))
+
+data KeyboardAvoidingView
+keyboardAvoidingView :: [Props KeyboardAvoidingView handler] -> ReactElementM handler a -> ReactElementM handler a
+keyboardAvoidingView = foreign_ "KeyboardAvoidingView" . fmap props
 
 -- Required
 keyboardVerticalOffset :: Natural -> Props KeyboardAvoidingView handler

@@ -5,7 +5,7 @@ module React.Flux.Rn.StyleProps.TransformsStyleProps (
     Angle(..), Transform(..)
 ) where
 
-import           React.Flux.Rn.Components (Styles, style)
+import           React.Flux.Rn.Properties (Styles, style)
 import           React.Flux.Rn.Types      (Angle (..), Transform (..))
 
 transform :: [Transform] -> Styles component handler

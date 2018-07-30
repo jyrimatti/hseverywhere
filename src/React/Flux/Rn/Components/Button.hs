@@ -5,10 +5,16 @@ module React.Flux.Rn.Components.Button (
     Color(..)
 ) where
 
-import           Prelude                  (Bool, String)
-import           React.Flux.Rn.Components (Button, Props, prop)
+import           Prelude                  (Bool, String, fmap)
+import           Prelude                  ((.))
+import           React.Flux               (ReactElementM, foreign_)
 import           React.Flux.Rn.Events     (EventHandlerType, on0)
+import           React.Flux.Rn.Properties (Props, prop, props)
 import           React.Flux.Rn.Types      (Color (..))
+
+data Button
+button :: [Props Button handler] -> ReactElementM handler a -> ReactElementM handler a
+button = foreign_ "Button" . fmap props
 
 -- Required
 onPress :: EventHandlerType handler -> Props Button handler

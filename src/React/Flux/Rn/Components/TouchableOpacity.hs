@@ -13,11 +13,19 @@ module React.Flux.Rn.Components.TouchableOpacity (
 ) where
 
 import           Prelude                                           (Bool)
-import           React.Flux.Rn.Components                          (Props, TouchableOpacity,
-                                                                    prop)
+import           Prelude                                           (fmap)
+import           Prelude                                           ((.))
+import           React.Flux                                        (ReactElementM,
+                                                                    foreign_)
+import           React.Flux.Rn.Properties                          (Props, prop,
+                                                                    props)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types                               (TvParallaxProperties (TvParallaxProperties),
                                                                     UnitInterval)
+
+data TouchableOpacity
+touchableOpacity :: [Props TouchableOpacity handler] -> ReactElementM handler a -> ReactElementM handler a
+touchableOpacity = foreign_ "TouchableOpacity" . fmap props
 
 activeOpacity :: UnitInterval -> Props TouchableOpacity handler
 activeOpacity = prop "activeOpacity"

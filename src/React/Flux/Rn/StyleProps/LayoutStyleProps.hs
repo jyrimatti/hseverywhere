@@ -7,7 +7,7 @@ module React.Flux.Rn.StyleProps.LayoutStyleProps (
 
 import           Numeric.Natural          (Natural)
 import           Prelude                  (Int)
-import           React.Flux.Rn.Components (Styles, style)
+import           React.Flux.Rn.Properties (Styles, style)
 import           React.Flux.Rn.Types      (AlignContent (..), AlignItems (..),
                                            AlignSelf (..), Direction (..),
                                            Display (..), FlexDirection (..),

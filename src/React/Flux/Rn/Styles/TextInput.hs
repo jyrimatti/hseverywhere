@@ -30,7 +30,7 @@ module React.Flux.Rn.Styles.TextInput (
     TransformsStyleProps.Transform (..)
 ) where
 
-import           React.Flux.Rn.Components                      (TextInput)
+import           React.Flux.Rn.Components.TextInput                      (TextInput)
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps
 import qualified React.Flux.Rn.StyleProps.TextStyleProps       as TextStyleProps

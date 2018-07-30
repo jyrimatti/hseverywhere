@@ -30,7 +30,7 @@ module React.Flux.Rn.Styles.Text (
     TransformsStyleProps.Transform (..)
 ) where
 
-import           React.Flux.Rn.Components                      (Text)
+import           React.Flux.Rn.Components.Text                 (Text)
 import qualified React.Flux.Rn.StyleProps.LayoutStyleProps     as LayoutStyleProps
 import qualified React.Flux.Rn.StyleProps.ShadowStyleProps     as ShadowStyleProps
 import qualified React.Flux.Rn.StyleProps.TextStyleProps       as TextStyleProps

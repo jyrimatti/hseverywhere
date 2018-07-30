@@ -21,7 +21,7 @@ import           React.Flux               (EventHandlerType)
 import           React.Flux.Internal      (HandlerArg (..),
                                            PropertyOrHandler_ (..),
                                            ReactViewRef)
-import           React.Flux.Rn.Components (Props, prop_)
+import           React.Flux.Rn.Properties (Props, prop_)
 
 {-# ANN module ("HLint: ignore Use camelCase" :: String) #-}
 

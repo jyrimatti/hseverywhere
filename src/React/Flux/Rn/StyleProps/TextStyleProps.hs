@@ -7,8 +7,9 @@ module React.Flux.Rn.StyleProps.TextStyleProps (
 
 import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool, Double, String)
-import           React.Flux.Rn.Components (Styles, style)
-import           React.Flux.Rn.Types      (Color (..), ContentSize (ContentSize),
+import           React.Flux.Rn.Properties (Styles, style)
+import           React.Flux.Rn.Types      (Color (..),
+                                           ContentSize (ContentSize),
                                            FontStyle (..), FontVariant (..),
                                            FontWeight (..), TextAlign (..),
                                            TextAlignVertical (..),

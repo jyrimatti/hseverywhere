@@ -26,14 +26,21 @@ module React.Flux.Rn.Components.FlatList (
 ) where
 
 import           GHCJS.Marshal                            (FromJSVal)
+import           Prelude                       ((.))
 import           Numeric.Natural                          (Natural)
+import           Prelude                                  (fmap)
 import           Prelude                                  (String)
-import           React.Flux.Rn.Components                 (FlatList, Props,
-                                                           prop)
+import           React.Flux                               (ReactElementM,
+                                                           foreign_)
+import           React.Flux.Rn.Properties                 (Props, prop, props)
 import qualified React.Flux.Rn.Props.ScrollViewProps      as ScrollViewProps
 import qualified React.Flux.Rn.Props.ViewProps            as ViewProps
 import qualified React.Flux.Rn.Props.VirtualizedListProps as VirtualizedListProps
 import           React.Flux.Rn.Types                      (Index)
+
+data FlatList
+flatList :: [Props FlatList handler] -> ReactElementM handler a -> ReactElementM handler a
+flatList = foreign_ "FlatList" . fmap props
 
 numColumns :: Natural -> Props FlatList handler
 numColumns = prop "numColumns"

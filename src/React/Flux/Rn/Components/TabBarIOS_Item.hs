@@ -17,11 +17,20 @@ module React.Flux.Rn.Components.TabBarIOS_Item (
 ) where
 
 import           Prelude                       (Bool, Either (..), Int, String)
-import           React.Flux.Rn.Components      (Props, TabBarIOS_Item, prop)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on0)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..), ImageSource (..),
                                                 TabBarSystemIcon (..))
+
+{-# ANN module ("HLint: ignore Use camelCase" :: String) #-}
+
+data TabBarIOS_Item
+tabBarIOS_Item :: [Props TabBarIOS_Item handler] -> ReactElementM handler a -> ReactElementM handler a
+tabBarIOS_Item = foreign_ "TabBarIOS_Item" . fmap props
 
 selected :: Bool -> Props TabBarIOS_Item handler
 selected = prop "selected"

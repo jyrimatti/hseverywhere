@@ -1,4 +1,5 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.TouchableWithoutFeedback (
@@ -9,8 +10,17 @@ module React.Flux.Rn.Components.TouchableWithoutFeedback (
     TouchableWithoutFeedbackProps.OnLayout(OnLayout)
 ) where
 
-import           React.Flux.Rn.Components                          (TouchableWithoutFeedback)
+import           Prelude                                           (fmap)
+import           Prelude                                           ((.))
+import           React.Flux                                        (ReactElementM,
+                                                                    foreign_)
+import           React.Flux.Rn.Properties                          (Props,
+                                                                    props)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
+
+data TouchableWithoutFeedback
+touchableWithoutFeedback :: [Props TouchableWithoutFeedback handler] -> ReactElementM handler a -> ReactElementM handler a
+touchableWithoutFeedback = foreign_ "TouchableWithoutFeedback" . fmap props
 
 -- TouchableWithoutFeedbackProps:
 

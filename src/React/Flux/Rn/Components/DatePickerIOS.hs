@@ -15,11 +15,17 @@ module React.Flux.Rn.Components.DatePickerIOS (
 ) where
 
 import           Data.Time.LocalTime           (LocalTime)
-import           Prelude                       (Int)
-import           React.Flux.Rn.Components      (DatePickerIOS, Props, prop)
+import           Prelude                       ((.))
+import           Prelude                       (Int, fmap)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on1)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (MinuteInterval (..), Mode (..))
+
+data DatePickerIOS
+datePickerIOS :: [Props DatePickerIOS handler] -> ReactElementM handler a -> ReactElementM handler a
+datePickerIOS = foreign_ "DatePickerIOS" . fmap props
 
 -- Required
 date :: LocalTime -> Props DatePickerIOS handler

@@ -9,8 +9,8 @@ module React.Flux.Rn.Props.TouchableWithoutFeedbackProps (
 
 import           Numeric.Natural          (Natural)
 import           Prelude                  (Bool)
-import           React.Flux.Rn.Components (Props, prop)
 import           React.Flux.Rn.Events     (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Properties (Props, prop)
 import           React.Flux.Rn.Types      (AccessibilityComponentTypes (..),
                                            AccessibilityTraits (..),
                                            Inset (Inset), OnLayout (OnLayout))

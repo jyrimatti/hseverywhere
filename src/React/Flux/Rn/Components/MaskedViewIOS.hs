@@ -15,10 +15,17 @@ module React.Flux.Rn.Components.MaskedViewIOS (
 ) where
 
 import           Data.Typeable                 (Typeable)
-import           React.Flux.Rn.Components      (MaskedViewIOS, Props)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (view0)
+import           React.Flux.Rn.Properties      (Props, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (ReactViewRef)
+
+data MaskedViewIOS
+maskedViewIOS :: [Props MaskedViewIOS handler] -> ReactElementM handler a -> ReactElementM handler a
+maskedViewIOS = foreign_ "MaskedViewIOS" . fmap props
 
 -- Required
 maskElement :: Typeable props => ReactViewRef props -> Props MaskedViewIOS handler

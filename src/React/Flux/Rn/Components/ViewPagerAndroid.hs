@@ -17,13 +17,20 @@ module React.Flux.Rn.Components.ViewPagerAndroid (
 
 import           Numeric.Natural               (Natural)
 import           Prelude                       (Bool, Int)
-import           React.Flux.Rn.Components      (Props, ViewPagerAndroid, prop)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on1)
+import           React.Flux.Rn.Properties      (Props, prop, props)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (KeyboardDismissMode (..),
                                                 OnPageScroll (OnPageScroll),
                                                 OnPageSelected (OnPageSelected),
                                                 PageScrollingState (..))
+
+data ViewPagerAndroid
+viewPagerAndroid :: [Props ViewPagerAndroid handler] -> ReactElementM handler a -> ReactElementM handler a
+viewPagerAndroid = foreign_ "ViewPagerAndroid" . fmap props
 
 initialPage :: Natural -> Props ViewPagerAndroid handler
 initialPage = prop "initialPage"

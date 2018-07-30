@@ -1,8 +1,10 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.View (
     module React.Flux.Rn.Components.View,
+    ViewProps.View,
     ViewProps.AccessibilityComponentTypes(..),
     ViewProps.AccessibilityLiveRegion(..),
     ViewProps.AccessibilityTraits(..),
@@ -13,8 +15,15 @@ module React.Flux.Rn.Components.View (
     ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
 ) where
 
-import           React.Flux.Rn.Components      (View)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
+import           React.Flux.Rn.Properties      (Props, props)
+import           React.Flux.Rn.Props.ViewProps (View)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
+
+view :: [Props View handler] -> ReactElementM handler a -> ReactElementM handler a
+view = foreign_ "View" . fmap props
 
 -- ViewProps:
 

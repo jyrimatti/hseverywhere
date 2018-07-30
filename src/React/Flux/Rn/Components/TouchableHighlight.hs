@@ -13,17 +13,24 @@ module React.Flux.Rn.Components.TouchableHighlight (
 ) where
 
 import           Prelude                                           (Bool)
-import           React.Flux.Rn.Components                          (Props,
-                                                                    Styles,
-                                                                    TouchableHighlight,
-                                                                    View,
-                                                                    nestedProp,
-                                                                    prop)
+import           Prelude                                           ((.))
+import           Prelude                                           (fmap)
+import           React.Flux                                        (ReactElementM,
+                                                                    foreign_)
+import           React.Flux.Rn.Components.View                     (View)
 import           React.Flux.Rn.Events                              (EventHandlerType,
                                                                     on0)
+import           React.Flux.Rn.Properties                          (Props,
+                                                                    Styles,
+                                                                    nestedProp,
+                                                                    prop, props)
 import qualified React.Flux.Rn.Props.TouchableWithoutFeedbackProps as TouchableWithoutFeedbackProps
 import           React.Flux.Rn.Types                               (Color (..), TvParallaxProperties (TvParallaxProperties),
                                                                     UnitInterval)
+
+data TouchableHighlight
+touchableHighlight :: [Props TouchableHighlight handler] -> ReactElementM handler a -> ReactElementM handler a
+touchableHighlight = foreign_ "TouchableHighlight" . fmap props
 
 activeOpacity :: UnitInterval -> Props TouchableHighlight handler
 activeOpacity = prop "activeOpacity"

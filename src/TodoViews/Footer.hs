@@ -10,15 +10,14 @@ import           React.Flux.Rn.Views
 
 import           React.Flux                                (elemString)
 import qualified React.Flux.Rn.APIs                        as RnA
-import           React.Flux.Rn.Components                  (text,
-                                                            touchableOpacity,
-                                                            view)
 import           React.Flux.Rn.Components.ScrollView
+import           React.Flux.Rn.Components.Text
 import qualified React.Flux.Rn.Components.Text             as T
+import           React.Flux.Rn.Components.TouchableOpacity
 import qualified React.Flux.Rn.Components.TouchableOpacity as TO
+import           React.Flux.Rn.Components.View
 import qualified React.Flux.Rn.Components.View             as V
 import           React.Flux.Rn.Styles.Text
-import qualified React.Flux.Rn.Styles.Text                 as T_
 import qualified React.Flux.Rn.Styles.View                 as V_
 
 import           TodoDispatcher
@@ -37,7 +36,7 @@ todoFooter = mkView "todoFooter" $ \() ->
                    , V_.marginBottom 10
                    , V_.marginHorizontal 30
                    ]] $ do
-        text [ T.style (T_.marginBottom 10 : infoStyles) ]
+        text [ T.style (marginBottom 10 : infoStyles) ]
             "Long-press to edit, double-click x to delete"
         text [ T.style infoStyles ] $
             elemString ("You are running on: " ++ P.show RnA.platform)

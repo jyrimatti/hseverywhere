@@ -13,21 +13,23 @@ module React.Flux.Rn.Props.ScrollViewProps (
     SnapToAlignment (..)
 ) where
 
-import           Data.Typeable            (Typeable)
-import           Numeric.Natural          (Natural)
-import           Prelude                  (Bool, Double, String)
-import           React.Flux.Rn.Components (Props, Styles, View, nestedProp,
-                                           prop)
-import           React.Flux.Rn.Events     (EventHandlerType, on0, on2, view0)
-import           React.Flux.Rn.Types      (Color (..),
-                                           ContentInsetAdjustmentBehavior (..),
-                                           ContentOffset (ContentOffset),
-                                           DecelerationRate (..),
-                                           IndicatorStyle (..), Inset (Inset),
-                                           KeyboardDismissMode (..),
-                                           KeyboardShouldPersistTaps (..),
-                                           OverScrollMode (..), ReactViewRef,
-                                           SnapToAlignment (..))
+import           Data.Typeable                 (Typeable)
+import           Numeric.Natural               (Natural)
+import           Prelude                       (Bool, Double, String)
+import           React.Flux.Rn.Components.View (View)
+import           React.Flux.Rn.Events          (EventHandlerType, on0, on2,
+                                                view0)
+import           React.Flux.Rn.Properties      (Props, Styles, nestedProp, prop)
+import           React.Flux.Rn.Types           (Color (..), ContentInsetAdjustmentBehavior (..),
+                                                ContentOffset (ContentOffset),
+                                                DecelerationRate (..),
+                                                IndicatorStyle (..),
+                                                Inset (Inset),
+                                                KeyboardDismissMode (..),
+                                                KeyboardShouldPersistTaps (..),
+                                                OverScrollMode (..),
+                                                ReactViewRef,
+                                                SnapToAlignment (..))
 
 -- Platform: IOS
 alwaysBounceVertical :: Bool -> Props component handler

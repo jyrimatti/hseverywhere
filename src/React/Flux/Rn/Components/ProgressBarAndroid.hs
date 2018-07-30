@@ -15,10 +15,17 @@ module React.Flux.Rn.Components.ProgressBarAndroid (
 ) where
 
 import           Prelude                       (Bool)
-import           React.Flux.Rn.Components      (ProgressBarAndroid, Props, prop)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..), StyleAttr (..),
                                                 UnitInterval)
+
+data ProgressBarAndroid
+progressBarAndroid :: [Props ProgressBarAndroid handler] -> ReactElementM handler a -> ReactElementM handler a
+progressBarAndroid = foreign_ "ProgressBarAndroid" . fmap props
 
 animating :: Bool -> Props ProgressBarAndroid handler
 animating = prop "animating"

@@ -17,11 +17,17 @@ module React.Flux.Rn.Components.SegmentedControlIOS (
 import           GHCJS.Marshal                 (FromJSVal)
 import           Numeric.Natural               (Natural)
 import           Prelude                       (Bool, String)
-import           React.Flux.Rn.Components      (Props, SegmentedControlIOS,
-                                                prop)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on1)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..), OnChange (OnChange))
+
+data SegmentedControlIOS
+segmentedControlIOS :: [Props SegmentedControlIOS handler] -> ReactElementM handler a -> ReactElementM handler a
+segmentedControlIOS = foreign_ "SegmentedControlIOS" . fmap props
 
 enabled :: Bool -> Props SegmentedControlIOS handler
 enabled = prop "enabled"

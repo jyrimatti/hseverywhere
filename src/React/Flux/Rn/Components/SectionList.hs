@@ -27,12 +27,20 @@ module React.Flux.Rn.Components.SectionList (
 
 import           GHCJS.Marshal                            (FromJSVal)
 import           Prelude                                  (Bool, String)
-import           React.Flux.Rn.Components                 (Props, SectionList,
-                                                           prop)
+import           Prelude                       ((.))
+import           React.Flux                               (ReactElementM,
+                                                           foreign_)
+import           Prelude                       (fmap)
+import           React.Flux.Rn.Properties                 (Props, prop, props)
 import qualified React.Flux.Rn.Props.ScrollViewProps      as ScrollViewProps
 import qualified React.Flux.Rn.Props.ViewProps            as ViewProps
 import qualified React.Flux.Rn.Props.VirtualizedListProps as VirtualizedListProps
 import           React.Flux.Rn.Types                      (Index)
+
+
+data SectionList
+sectionList :: [Props SectionList handler] -> ReactElementM handler a -> ReactElementM handler a
+sectionList = foreign_ "SectionList" . fmap props
 
 -- Platform: IOS
 stickySectionHeadersEnabled :: Bool -> Props SectionList handler

@@ -16,12 +16,20 @@ module React.Flux.Rn.Components.ToolbarAndroid (
 ) where
 
 import           Numeric.Natural               (Natural)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
 import           Prelude                       (Bool, Int, String)
-import           React.Flux.Rn.Components      (Props, ToolbarAndroid, prop)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on0, on1)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Action (Action_), Color (..),
                                                 ImageSource (..))
+
+
+data ToolbarAndroid
+toolbarAndroid :: [Props ToolbarAndroid handler] -> ReactElementM handler a -> ReactElementM handler a
+toolbarAndroid = foreign_ "ToolbarAndroid" . fmap props
 
 overflowIcon :: ImageSource -> Props ToolbarAndroid handler
 overflowIcon = prop "overflowIcon"

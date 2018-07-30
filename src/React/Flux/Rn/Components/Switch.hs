@@ -16,10 +16,17 @@ module React.Flux.Rn.Components.Switch (
 ) where
 
 import           Prelude                       (Bool)
-import           React.Flux.Rn.Components      (Props, Switch, prop)
+import           Prelude                       ((.))
+import           Prelude                       (fmap)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on1)
+import           React.Flux.Rn.Properties      (Props, prop, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (Color (..))
+
+data Switch
+switch :: [Props Switch handler] -> ReactElementM handler a -> ReactElementM handler a
+switch = foreign_ "Switch" . fmap props
 
 disabled :: Bool -> Props Switch handler
 disabled = prop "disabled"

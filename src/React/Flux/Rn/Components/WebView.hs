@@ -19,9 +19,12 @@ module React.Flux.Rn.Components.WebView (
 
 import           Data.Typeable                 (Typeable)
 import           Prelude                       (Bool, String)
-import           React.Flux.Rn.Components      (Props, WebView, prop)
+import           React.Flux                    (ReactElementM, foreign_)
 import           React.Flux.Rn.Events          (EventHandlerType, on0, on1,
                                                 ret1, view0)
+import           React.Flux.Rn.Properties      (Props, prop, props)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
 import           React.Flux.Rn.Types           (DataDetectorTypes (..),
                                                 DecelerationRate (..),
@@ -29,6 +32,10 @@ import           React.Flux.Rn.Types           (DataDetectorTypes (..),
                                                 MixedContentMode (..),
                                                 OnMessage (OnMessage),
                                                 ReactViewRef, Source (..))
+
+data WebView
+webView :: [Props WebView handler] -> ReactElementM handler a -> ReactElementM handler a
+webView = foreign_ "WebView" . fmap props
 
 source :: Source -> Props WebView handler
 source = prop "source"

@@ -1,4 +1,5 @@
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE OverloadedStrings  #-}
 {-# LANGUAGE TypeApplications  #-}
 module React.Flux.Rn.Components.SafeAreaView (
     module React.Flux.Rn.Components.SafeAreaView,
@@ -12,8 +13,15 @@ module React.Flux.Rn.Components.SafeAreaView (
     ViewProps.SyntheticTouchEvent(SyntheticTouchEvent)
 ) where
 
-import           React.Flux.Rn.Components      (SafeAreaView)
+import           Prelude                       (fmap)
+import           Prelude                       ((.))
+import           React.Flux                    (ReactElementM, foreign_)
+import           React.Flux.Rn.Properties      (Props, props)
 import qualified React.Flux.Rn.Props.ViewProps as ViewProps
+
+data SafeAreaView
+safeAreaView :: [Props SafeAreaView handler] -> ReactElementM handler a -> ReactElementM handler a
+safeAreaView = foreign_ "SafeAreaView" . fmap props
 
 -- ViewProps:
 
