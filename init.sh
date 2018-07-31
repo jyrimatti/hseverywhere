@@ -63,8 +63,13 @@ sed -i "s~'-configuration', configuration,~'-configuration', configuration, '-xc
 # I don't know why on earth I need this...
 sed -i "s/this.flags = flags;/flags = flags || ''; this.flags = flags;/" $app/node_modules/commander/index.js
 
-# android-packaging apparently goes through all deps in node_modules, and fails on this synlink
+# android/macos packaging apparently goes through all deps in node_modules, and fails on this synlink
 nix-shell --pure -p bash --run "unlink $app/node_modules/react-native/third-party/glog-0.3.4/test-driver"
+nix-shell --pure -p bash --run "unlink $app/node_modules/react-native-macos/third-party/glog-0.3.4/test-driver"
+
+# node needs more memory:
+sed -i "s/^project.ext.react = \[/project.ext.react = \[ nodeExecutableAndArgs: \['node', '--max-old-space-size=4096']/g" $app/android/app/build.gradle 
+sed -i "s/export NODE_BINARY=node/export NODE_BINARY='node --max-old-space-size=4096'/g" $app/macos/$app.xcodeproj/project.pbxproj
 
 # macos hack
 sed -i "s/const StatusBarManager = require('NativeModules').StatusBarManager;/const StatusBarManager = require('NativeModules').StatusBarManager;if (!StatusBarManager) StatusBarManager = { 'HEIGHT': -1 };/g" $app/node_modules/react-native-macos/Libraries/Components/StatusBar/StatusBar.js

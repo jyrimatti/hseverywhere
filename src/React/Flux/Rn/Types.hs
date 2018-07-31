@@ -31,7 +31,7 @@ import           Prelude                    (Bool, Double, IO, Int, Maybe (..),
                                              Num, Show, String, error, fmap,
                                              fromIntegral, id, pure, read,
                                              undefined, ($), (+), (++), (.),
-                                             (<$>), (>>=))
+                                             (<$>), (>>=), last, init, (==))
 import qualified Prelude                    as P
 import           React.Flux                 (EventHandlerType, EventTarget (..),
                                              PropertyOrHandler, Touch (..))
@@ -77,8 +77,9 @@ data Length = Pt Natural | Perc Natural
   deriving (Show, Generic)
 instance Num Length where
   Pt a + Pt b = Pt (a+b)
+  fromInteger = Pt . fromIntegral
 instance IsString Length where
-  fromString x@[_,'%'] = Perc (read x)
+  fromString x | (last x == '%') = Perc (read $ init x)
 instance ToJSVal Length where
   toJSVal (Pt x)   = toJSVal x
   toJSVal (Perc x) = toJSVal $ P.show x ++ "%"
