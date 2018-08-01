@@ -7,7 +7,7 @@ app=$(basename $PWD)
 
 ./build.sh
 
-cp -fR files/* $app/
+cp -fR files/. $app/
 
 nix-shell -p nodejs --run "cd $app && npm run pack"
 

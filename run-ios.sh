@@ -11,7 +11,7 @@ app=$(basename $PWD)
 
 ./build.sh
 
-cp -fR files/* $app/
+cp -fR files/. $app/
 
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" $app/ios/$app/AppDelegate.m"
 

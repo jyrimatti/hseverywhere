@@ -9,7 +9,7 @@ app=$(basename $PWD)
 
 ./build.sh
 
-cp -fR files/* $app/
+cp -fR files/. $app/
 
 nix-shell -p xdg_utils --run "xdg-open http://localhost:$port/"
 

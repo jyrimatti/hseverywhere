@@ -11,7 +11,7 @@ app=$(basename $PWD)
 
 ./build.sh
 
-cp -fR files/* $app/
+cp -fR files/. $app/
 
 # Apparently qemu requires write permissions to the image... hmm...
 nix-shell -p which file --run "chmod u+w $app/android/androidsdk/libexec/system-images/android-*/x86_64/system.img"

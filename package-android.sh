@@ -7,7 +7,7 @@ app=$(basename $PWD)
 
 ./build.sh
 
-cp -fR files/* $app/
+cp -fR files/. $app/
 
 nix-shell -p nodejs jre8 --run "cd $app/android; ANDROID_HOME=$(pwd)/$app/android/androidsdk/libexec ./gradlew --no-daemon assembleRelease"
 

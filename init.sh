@@ -12,7 +12,7 @@ buildToolsVersion=$(nix-store --query --references $(nix-instantiate '<nixpkgs>'
 
 # install react-native-cli and react-native-macos-cli
 mkdir $app
-cp -r files/* $app/
+cp -R files/. $app/
 nix-shell -p nodejs yarn --run "cd $app && yarn add react-native-cli && yarn add react-native-macos-cli"
 
 # init ios/android/macos project

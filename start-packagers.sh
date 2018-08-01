@@ -11,7 +11,7 @@ webport=${3:-8083}
 
 app=$(basename $PWD)
 
-cp -fR files/* $app/
+cp -fR files/. $app/
 cd $app
 
 echo "Ensure you have enough file descriptors if you get 'Too many open files': https://facebook.github.io/watchman/docs/install.html"

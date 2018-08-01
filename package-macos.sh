@@ -9,7 +9,7 @@ app=$(basename $PWD)
 
 ./build.sh
 
-cp -fR files/* $app/
+cp -fR files/. $app/
 
 test -d release || mkdir release
 test -f release/$app.dmg && rm release/$app.dmg

@@ -15,7 +15,7 @@ module.exports = {
       {
         loader: "babel-loader",
         test: /\.jsx?$/,
-        exclude: [/all.js/, /node_modules/],
+        exclude: [/rts.js/,/out.js/,/lib.js/,/runmain.js/,/node_modules(?!\/react-native-(vector-icons|animatable))/],
         options: {
           presets: ['env', 'stage-0', 'react'],
           plugins: ['add-module-exports'],
@@ -23,9 +23,9 @@ module.exports = {
         }
       },
       {
-        loader: "json-loader",
-        test: /\.json$/
-      }
+        loader: "url-loader",
+        test: /\.ttf$/
+      },
     ]
   },
   entry: './index.web.js',
