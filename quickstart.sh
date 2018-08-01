@@ -3,7 +3,7 @@
 set -eu
 
 ./init.sh
-./init-windows.sh
+./init-windows.bat
 ./package-all.sh
 ./run-all.sh
 ./start-packagers.sh

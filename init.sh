@@ -64,11 +64,11 @@ sed -i "s~'-configuration', configuration,~'-configuration', configuration, '-xc
 sed -i "s/this.flags = flags;/flags = flags || ''; this.flags = flags;/" $app/node_modules/commander/index.js
 
 # android/macos packaging apparently goes through all deps in node_modules, and fails on this synlink
-nix-shell --pure -p bash --run "unlink $app/node_modules/react-native/third-party/glog-0.3.4/test-driver"
-nix-shell --pure -p bash --run "unlink $app/node_modules/react-native-macos/third-party/glog-0.3.4/test-driver"
+nix-shell --pure -p bash --run "test -L $app/node_modules/react-native/third-party/glog-0.3.4/test-driver && unlink $app/node_modules/react-native/third-party/glog-0.3.4/test-driver || true"
+nix-shell --pure -p bash --run "test -L $app/node_modules/react-native-macos/third-party/glog-0.3.4/test-driver && unlink $app/node_modules/react-native-macos/third-party/glog-0.3.4/test-driver || true"
 
 # node needs more memory:
-sed -i "s/^project.ext.react = \[/project.ext.react = \[ nodeExecutableAndArgs: \['node', '--max-old-space-size=4096']/g" $app/android/app/build.gradle 
+sed -i "s/^project.ext.react = \[/project.ext.react = \[ nodeExecutableAndArgs: \['node', '--max-old-space-size=4096'],/g" $app/android/app/build.gradle 
 sed -i "s/export NODE_BINARY=node/export NODE_BINARY='node --max-old-space-size=4096'/g" $app/macos/$app.xcodeproj/project.pbxproj
 
 # macos hack
