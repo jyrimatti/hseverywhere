@@ -5,11 +5,9 @@ source ./nix-shell-init.sh
 
 port=${1:-8083}
 
-app=$(basename $PWD)
-
 ./build.sh
 
-cp -fR files/. $app/
+cp -fR files/. rnproject/
 
 nix-shell -p xdg_utils --run "xdg-open http://localhost:$port/"
 

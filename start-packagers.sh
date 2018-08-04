@@ -9,10 +9,8 @@ mobileport=${1:-8081}
 macosport=${2:-8082}
 webport=${3:-8083}
 
-app=$(basename $PWD)
-
-cp -fR files/. $app/
-cd $app
+cp -fR files/. rnproject/
+cd rnproject
 
 echo "Ensure you have enough file descriptors if you get 'Too many open files': https://facebook.github.io/watchman/docs/install.html"
 

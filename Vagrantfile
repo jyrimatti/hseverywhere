@@ -27,10 +27,9 @@ Vagrant.configure(2) do |config|
       vb.memory = "2048"
     end
 
-    $app = File.basename(Dir.getwd)
-    c.vm.provision "init",    type: "shell", path: "init-windows.bat",    args: $app, privileged: true
-    c.vm.provision "run",     type: "shell", path: "run-windows.bat",     args: $app, privileged: true, powershell_elevated_interactive: true
-    c.vm.provision "package", type: "shell", path: "package-windows.bat", args: $app, privileged: false
+    c.vm.provision "init",    type: "shell", path: "init-windows.bat",    args: "rnproject", privileged: true
+    c.vm.provision "run",     type: "shell", path: "run-windows.bat",     args: "rnproject", privileged: true, powershell_elevated_interactive: true
+    c.vm.provision "package", type: "shell", path: "package-windows.bat", args: "rnproject", privileged: false
 
   end
 end

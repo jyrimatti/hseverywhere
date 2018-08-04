@@ -8,7 +8,7 @@ var registerAddons = function(platform) {
     window['Icon.Octicons'] = require('react-native-vector-icons/Octicons');
     window['Icon.Zocial'] = require('react-native-vector-icons/Zocial');
     
-    window['I18n'] = require('react-native-i18n');
+    //window['I18n'] = require('react-native-i18n');
 
     window['Animatable'] = require('react-native-animatable');
 

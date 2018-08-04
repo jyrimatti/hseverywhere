@@ -3,7 +3,7 @@
 set -eu
 source ./nix-shell-init.sh
 
-app=$(basename $PWD)
+app=$(basename *.cabal .cabal)
 
 nix-shell --run "cabal configure --ghcjs && cabal build"
-rsync --checksum dist/build/$app/$app.jsexe/all.js $app/
+rsync --checksum dist/build/$app/$app.jsexe/all.js rnproject/

@@ -14,4 +14,4 @@ foreign import javascript unsafe
 main :: IO ()
 main = do
   registerInitialStore todoStore
-  js_registerComponent (pack "hseverywhere") todoApp
+  js_registerComponent (pack "rnproject") todoApp

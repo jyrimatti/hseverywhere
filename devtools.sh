@@ -3,6 +3,4 @@
 set -eu
 source ./nix-shell-init.sh
 
-app=$(basename $PWD)
-
-nix-shell -p nodejs --run "$app/node_modules/.bin/react-devtools"
+nix-shell -p nodejs --run "rnproject/node_modules/.bin/react-devtools"

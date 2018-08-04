@@ -4,17 +4,17 @@ let
 
   inherit (nixpkgs) pkgs;
 
-  f = { mkDerivation, base, deepseq, ghcjs-base, react-flux, stdenv
-      , text, time, transformers, containers, http-common, network-uri, semigroups, nodejs
+  f = { mkDerivation, base, deepseq, ghcjs-base, react-hs, stdenv, nodejs,
+        text, time, transformers, containers, http-common, network-uri, semigroups
       }:
       mkDerivation {
-        pname = "hseverywhere";
+        pname = "myproject";
         version = "0.1.0.0";
         src = ./.;
         isLibrary = false;
         isExecutable = true;
         executableHaskellDepends = [
-          base deepseq ghcjs-base react-flux text time transformers containers http-common network-uri semigroups
+          base deepseq ghcjs-base react-hs text time transformers containers http-common network-uri semigroups
         ];
         buildDepends = [pkgs.haskellPackages.cabal-install] ++
           (if compiler == "default"
@@ -31,16 +31,9 @@ let
                  then haskellPackages.ghcjs-base-stub
                  else haskellPackages.ghcjs-base;
 
-  # add missing ghcjs-base to react-flux
-  #reactFluxFixed = haskellPackages.react-flux.override (args: args // {
-  #  mkDerivation = expr: args.mkDerivation (expr // {
-  #      libraryHaskellDepends = expr.libraryHaskellDepends ++ [ghcjsbase];
-  #  });
-  #});
+  react-hs = haskellPackages.callPackage ./react-hs/react-hs/default.nix { ghcjs-base = ghcjsbase; };
 
-  reactHS = haskellPackages.callPackage ./react-hs/react-hs/default.nix { ghcjs-base = ghcjsbase; };
-
-  drv = haskellPackages.callPackage f { react-flux = reactHS; ghcjs-base = ghcjsbase; };
+  drv = haskellPackages.callPackage f { react-hs = react-hs; ghcjs-base = ghcjsbase; };
 
 in
 
