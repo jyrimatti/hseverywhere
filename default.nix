@@ -4,7 +4,7 @@ let
 
   inherit (nixpkgs) pkgs;
 
-  f = { mkDerivation, base, deepseq, ghcjs-base, react-hs, stdenv, nodejs,
+  myproject = { mkDerivation, base, deepseq, ghcjs-base, react-hs, stdenv, nodejs,
         text, time, transformers, containers, http-common, network-uri, semigroups
       }:
       mkDerivation {
@@ -31,9 +31,33 @@ let
                  then haskellPackages.ghcjs-base-stub
                  else haskellPackages.ghcjs-base;
 
-  react-hs = haskellPackages.callPackage ./react-hs/react-hs/default.nix { ghcjs-base = ghcjsbase; };
+  # my fork, until it gets to Hackage
+  react-hs-forked = { fetchgit, stdenv, mkDerivation,
+        aeson, base, bytestring, ghcjs-base, mtl, string-conversions,
+        template-haskell, text, time, unordered-containers
+     }:
+     mkDerivation {
+       pname = "react-hs";
+       version = "0.1.1";
+       src = fetchgit {
+         url = "https://github.com/jyrimatti/react-hs.git";
+         sha256 = "1bw0y3lii4fg0z8jgirg8hzrmrpwrl7gbgkajffs5578hzn13jc0";
+         rev = "85e369432b1a3feb78279784e0ed6e7ffc958fbd";
+       };
+       postUnpack = "sourceRoot=$sourceRoot/react-hs";
+       sha256 = "1bw0y3lii4fg0z8jgirg8hzrmrpwrl7gbgkajffs5578hzn13jc0";
+       libraryHaskellDepends = [
+         aeson base bytestring ghcjs-base mtl string-conversions
+         template-haskell text time unordered-containers
+       ];
+       homepage = "https://github.com/jyrimatti/react-hs";
+       description = "A binding to React based on the Flux application architecture for GHCJS";
+       license = stdenv.lib.licenses.bsd3;
+     };
 
-  drv = haskellPackages.callPackage f { react-hs = react-hs; ghcjs-base = ghcjsbase; };
+  react-hs = haskellPackages.callPackage react-hs-forked { ghcjs-base = ghcjsbase; };
+
+  drv = haskellPackages.callPackage myproject { react-hs = react-hs; ghcjs-base = ghcjsbase; };
 
 in
 
