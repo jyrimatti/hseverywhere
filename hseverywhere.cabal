@@ -8,13 +8,6 @@ maintainer:          jyri-matti@lahteenmaki.net
 build-type:          Simple
 cabal-version:       >=1.10
 
-extra-source-files:
-    example/css/*.css,
-    example/css/bg.png,
-    example/todo/*.hs,
-    example/todo/*.html,
-    example/todo/run-in-node.js
-
 executable hseverywhere
   main-is:             Main.hs
   build-depends:       base >=4.9 && <5.0,

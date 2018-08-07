@@ -1,17 +1,11 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-import           Data.JSString (pack)
-import           GHCJS.Types   (JSString)
 import           Prelude       (IO)
-import           React.Flux    (View, registerInitialStore)
-import           TodoStore     (todoStore)
-import           TodoViews     (todoApp)
-
--- a foreign wrapper function for app registration
-foreign import javascript unsafe
-    "__registerComponent($1, $2)"
-  js_registerComponent :: JSString -> View a -> IO ()
+import           React.Flux    (registerInitialStore)
+import           React.Flux.Rn.App (registerApp)
+import           Store     (appStore)
+import           Views     (app)
 
 main :: IO ()
 main = do
-  registerInitialStore todoStore
-  js_registerComponent (pack "rnproject") todoApp
+  registerInitialStore appStore
+  registerApp "rnproject" app

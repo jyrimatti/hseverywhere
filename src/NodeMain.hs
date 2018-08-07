@@ -1,7 +1,8 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-import qualified Data.Text.IO as T
-import           React.Flux
-import           TodoViews
+import  Data.Text.IO (putStrLn)
+import           React.Flux (reactRenderToString)
+import           Views (app)
+import Prelude (Boolean(True), (>>=), IO)
 
 main :: IO ()
-main = reactRenderToString True todoApp () >>= T.putStrLn
+main = reactRenderToString True app () >>= T.putStrLn
