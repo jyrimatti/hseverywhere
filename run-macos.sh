@@ -9,10 +9,6 @@ port=${1:-8082}
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-./build.sh
-
-cp -fR files/. rnproject/
-
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" rnproject/node_modules/react-native-macos/React/DevSupport/RCTPackagerConnection.m"
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" rnproject/node_modules/react-native-macos/React/Base/RCTBundleURLProvider.m"
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" rnproject/node_modules/react-native-macos/React/Modules/RCTRedBox.m"
@@ -21,4 +17,4 @@ nix-shell --pure --run "sed -i \"s/8081/$port/g\" rnproject/node_modules/react-n
 nix-shell -p nodejs --run "cd rnproject/macos && PLATFORM=macos /usr/bin/xcodebuild -xcconfig $DIR/rnproject/.xcconfig -scheme rnproject -configuration Debug -target rnproject build"
 
 x=$( xcodebuild -showBuildSettings -project rnproject/macos/rnproject.xcodeproj | grep ' BUILD_DIR =' | sed -e 's/.*= *//' )
-DYLD_FRAMEWORK_PATH=$x/Debug DYLD_LIBRARY_PATH=$x/Debug $x/Debug/rnproject.app/Contents/MacOS/rnproject
+DYLD_FRAMEWORK_PATH=$x/Debug DYLD_LIBRARY_PATH=$x/Debug $x/Debug/rnproject.app/Contents/MacOS/rnproject &

@@ -3,7 +3,8 @@
 set -eu
 
 ./init.sh
-./init-windows.bat
+#./init-windows.bat
 ./package-all.sh
+./build.sh
+./start-packagers.sh &
 ./run-all.sh
-./start-packagers.sh

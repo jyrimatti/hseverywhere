@@ -7,10 +7,6 @@ source ./nix-shell-init.sh
 
 port=${1:-8081}
 
-./build.sh
-
-cp -fR files/. rnproject/
-
 nix-shell --pure --run "sed -i \"s/8081/$port/g\" rnproject/ios/rnproject/AppDelegate.m"
 
 (cd rnproject && ./node_modules/.bin/react-native run-ios --no-packager)

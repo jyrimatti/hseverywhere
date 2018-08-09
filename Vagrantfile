@@ -22,6 +22,7 @@ Vagrant.configure(2) do |config|
     c.winrm.password = "Passw0rd!"
     c.vm.box = "chusiang/win10-x64-ansible"
     c.vm.box_version = "1.1.0"
+    c.vm.boot_timeout = 600
     c.vm.provider "virtualbox" do |vb|
       vb.gui = true
       vb.memory = "2048"

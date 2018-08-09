@@ -54,21 +54,6 @@ let
        license = stdenv.lib.licenses.bsd3;
      };
 
-  react-native-hs-local = { mkDerivation, base, deepseq, ghcjs-base, react-hs, stdenv, nodejs,
-        text, time, transformers, containers, http-common, network-uri, semigroups
-     }:
-     mkDerivation {
-       pname = "react-native-hs";
-       version = "0.1.1";
-       src = ../react-native-hs/.;
-       libraryHaskellDepends = [
-        react-hs text time transformers containers http-common network-uri semigroups
-       ];
-       homepage = "https://github.com/jyrimatti/react-native-hs";
-       description = "React-native support for react-hs";
-       license = stdenv.lib.licenses.mit;
-     };
-
   react-native-hs-git = { fetchgit, mkDerivation, base, deepseq, ghcjs-base, react-hs, stdenv, nodejs,
         text, time, transformers, containers, http-common, network-uri, semigroups
      }:
@@ -77,8 +62,8 @@ let
        version = "0.1.1";
        src = fetchgit {
          url = "https://github.com/jyrimatti/react-native-hs.git";
-         sha256 = "?";
-         rev = "?";
+         sha256 = "1w9v5spwis5ii1r8kf4lk632lx7c76978nxqc4m381lxvdhr2di0";
+         rev = "c6400f52571236a00f4c3867041646479268478f";
        };
        libraryHaskellDepends = [
         react-hs text time transformers containers http-common network-uri semigroups
@@ -89,7 +74,7 @@ let
      };
 
   react-hs = haskellPackages.callPackage react-hs-forked { ghcjs-base = ghcjsbase; };
-  react-native-hs = haskellPackages.callPackage react-native-hs-local { react-hs = react-hs; ghcjs-base = ghcjsbase; };
+  react-native-hs = haskellPackages.callPackage react-native-hs-git { react-hs = react-hs; ghcjs-base = ghcjsbase; };
 
   drv = haskellPackages.callPackage myproject { react-hs = react-hs; react-native-hs = react-native-hs; ghcjs-base = ghcjsbase; };
 
