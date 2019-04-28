@@ -10,18 +10,13 @@ androidDevice="Nexus S"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 app=$(basename *.cabal .cabal)
 
-# Apparently qemu requires write permissions to the image... hmm...
-nix-shell -p which file --run "chmod u+w rnproject/android/androidsdk/libexec/system-images/android-*/x86_64/system.img"
+version=$(nix-store --query --references $(nix-instantiate '<nixpkgs>' -A androidsdk_9_0) | grep 'build-tools' | sed 's/.*build-tools-\([^.]*\).*.drv/\1/')
+
+echo "Make sure you don't have another emulator (VirtualBox, Docker...) running."
 
 # print available devices
-nix-shell -p jre8 --run "rnproject/android/androidsdk/libexec/tools/android list"
+nix-shell -p jre8 --run "rnproject/android/androidsdk/bin/android list"
 
-# include /usr/sbin to path to provide system_profiler on osx
-nix-shell -p jre8 which file --run "\
-     ANDROID_SDK_ROOT=$DIR/rnproject/android/androidsdk/libexec rnproject/android/androidsdk/libexec/tools/android create avd -f -n $app -b default/x86_64 -d \"$androidDevice\" -t \$(rnproject/android/androidsdk/libexec/tools/android list targets -c | sort | head -n1)\
-  && PATH=\$PATH:/usr/sbin/ ANDROID_SDK_ROOT=\$DIR/rnproject/android/androidsdk/libexec $DIR/rnproject/android/androidsdk/libexec/tools/emulator -avd $app -no-boot-anim" &
+nix-shell -p "androidenv.emulateApp { platformVersion = \"$version\"; abiVersion = \"x86_64\"; name = \"$app\"; }" --run "run-test-emulator"
 
-sleep 30
-read -t 60  -p "Press enter when emulator is running..." yn || true
-
-nix-shell -p jre8 which nodejs --run "cd rnproject; ADB_INSTALL_TIMEOUT=16 ANDROID_HOME=$DIR/rnproject/android/androidsdk/libexec ./node_modules/.bin/react-native run-android --no-packager"
+nix-shell -p jre8 which nodejs-10_x androidsdk_9_0 --run "cd rnproject; ADB_INSTALL_TIMEOUT=16 ANDROID_HOME=$DIR/rnproject/android/androidsdk/libexec PATH=$DIR/rnproject/android/androidsdk/libexec/platform-tools/:\$PATH ./node_modules/.bin/react-native run-android --no-packager"

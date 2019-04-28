@@ -9,7 +9,7 @@ app=$(basename *.cabal .cabal)
 
 cp -fR files/. rnproject/
 
-nix-shell -p nodejs --run "cd rnproject && npm run pack"
+nix-shell -p nodejs-10_x --run "cd rnproject && npm run pack"
 
 test -d release || mkdir release
 test -f release/$app.html && rm release/$app.html

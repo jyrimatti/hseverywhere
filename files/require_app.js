@@ -20,10 +20,15 @@ var { registerRnComponents } = require('./register_rn');
 var { registerAddons } = require('./register_addons');
 var __rn = require('react-native');
 
+var ___process = process;
+process = undefined;
+var main = require('./all');
+process = ___process;
+
 module.exports = {
   RegRn: registerRnComponents(__rn),
   RegAddons: registerAddons(__rn.Platform.OS),
-  Runmain: require('./all'),
+  Runmain: main,
   Repl: require('./ghcjsiClient')
 };
 

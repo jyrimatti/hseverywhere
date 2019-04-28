@@ -1,5 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash
+#! /bin/sh
 set -eu
 
 ./init.sh

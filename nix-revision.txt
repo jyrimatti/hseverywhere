@@ -1,1 +1,1 @@
-https://github.com/NixOS/nixpkgs/archive/3f18caed9ec72430d005b0e9f05971bec1193138.tar.gz
+https://github.com/NixOS/nixpkgs/archive/c40f2114992f7387013a6113ebfd99ae63ec4f91.tar.gz

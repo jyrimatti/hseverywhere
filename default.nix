@@ -1,20 +1,30 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghcjsHEAD" }:
+{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghcjs" }:
 
 let
 
   inherit (nixpkgs) pkgs;
 
+  hp = if compiler == "default"
+                       then pkgs.haskellPackages
+                       else pkgs.haskell.packages.${compiler};
+
+  haskellPackages = hp.override (old: {
+    overrides = pkgs.lib.composeExtensions (old.overrides or (_: _: {})) (self: super: {
+      QuickCheck = pkgs.haskell.lib.dontCheck super.QuickCheck;
+    });
+  });
+
   myproject = { mkDerivation, base, deepseq, ghcjs-base, react-hs, react-native-hs, stdenv, nodejs,
-        text, time, transformers, containers, http-common, network-uri, semigroups
+        text, time, transformers, containers, network-uri
       }:
       mkDerivation {
         pname = "myproject";
         version = "0.1.0.0";
-        src = ./.;
+        src = if pkgs.lib.inNixShell then null else ./.;
         isLibrary = false;
         isExecutable = true;
         executableHaskellDepends = [
-          base deepseq ghcjs-base react-hs react-native-hs text time transformers containers http-common network-uri semigroups
+          base deepseq ghcjs-base react-hs react-native-hs text time transformers containers network-uri
         ];
         buildDepends = [pkgs.haskellPackages.cabal-install] ++
           (if compiler == "default"
@@ -22,10 +32,6 @@ let
              else []);
         license = stdenv.lib.licenses.mit;
       };
-
-  haskellPackages = if compiler == "default"
-                       then pkgs.haskellPackages
-                       else pkgs.haskell.packages.${compiler};
 
   ghcjsbase = if compiler == "default"
                  then haskellPackages.ghcjs-base-stub
@@ -41,8 +47,8 @@ let
        version = "0.1.1";
        src = fetchgit {
          url = "https://github.com/jyrimatti/react-hs.git";
-         sha256 = "1bw0y3lii4fg0z8jgirg8hzrmrpwrl7gbgkajffs5578hzn13jc0";
-         rev = "85e369432b1a3feb78279784e0ed6e7ffc958fbd";
+         sha256 = "0s7c15pmfhlccr6qgl6jn6izbvnqchh739i0h0sx1yiaarqwmzwy";
+         rev = "9390f850861102e84e38514a577ce7f3b1aac23f";
        };
        postUnpack = "sourceRoot=$sourceRoot/react-hs";
        libraryHaskellDepends = [
@@ -55,18 +61,33 @@ let
      };
 
   react-native-hs-git = { fetchgit, mkDerivation, base, deepseq, ghcjs-base, react-hs, stdenv, nodejs,
-        text, time, transformers, containers, http-common, network-uri, semigroups
+        text, time, transformers, containers, network-uri
      }:
      mkDerivation {
        pname = "react-native-hs";
        version = "0.1.1";
        src = fetchgit {
          url = "https://github.com/jyrimatti/react-native-hs.git";
-         sha256 = "1w9v5spwis5ii1r8kf4lk632lx7c76978nxqc4m381lxvdhr2di0";
-         rev = "c6400f52571236a00f4c3867041646479268478f";
+         sha256 = "0f6bzm072wxp47bxxyhf5vgz8yac7107prixga341bkxblzj56zy";
+         rev = "edbed40baa5391c907c42657f5365e62e4cc02ef";
        };
        libraryHaskellDepends = [
-        react-hs text time transformers containers http-common network-uri semigroups
+        react-hs text time transformers containers network-uri
+       ];
+       homepage = "https://github.com/jyrimatti/react-native-hs";
+       description = "React-native support for react-hs";
+       license = stdenv.lib.licenses.mit;
+     };
+
+  react-native-hs-local = { mkDerivation, base, deepseq, ghcjs-base, react-hs, stdenv, nodejs,
+        text, time, transformers, containers, network-uri
+     }:
+     mkDerivation {
+       pname = "react-native-hs";
+       version = "0.1.1";
+       src = ../react-native-hs/.;
+       libraryHaskellDepends = [
+        react-hs text time transformers containers network-uri
        ];
        homepage = "https://github.com/jyrimatti/react-native-hs";
        description = "React-native support for react-hs";
@@ -74,6 +95,8 @@ let
      };
 
   react-hs = haskellPackages.callPackage react-hs-forked { ghcjs-base = ghcjsbase; };
+
+  #react-native-hs = haskellPackages.callPackage react-native-hs-local { react-hs = react-hs; ghcjs-base = ghcjsbase; };
   react-native-hs = haskellPackages.callPackage react-native-hs-git { react-hs = react-hs; ghcjs-base = ghcjsbase; };
 
   drv = haskellPackages.callPackage myproject { react-hs = react-hs; react-native-hs = react-native-hs; ghcjs-base = ghcjsbase; };

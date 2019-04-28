@@ -39,7 +39,7 @@ var registerRnComponents = function(__rn) {
     window['WebView'] = __rn.WebView;
 
     // APIs
-    window['AccessibilityInfo'] = __rn.AccessibilityInfo;
+    //window['AccessibilityInfo'] = __rn.AccessibilityInfo;
     window['ActionSheetIOS'] = __rn.ActionSheetIOS;
     window['Alert'] = __rn.Alert;
     window['AlertIOS'] = __rn.AlertIOS;

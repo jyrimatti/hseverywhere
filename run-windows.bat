@@ -17,7 +17,7 @@ exit /b %ERRORLEVEL%
 #! nix-shell -i bash -p bash netcat vagrant
 set -ux
 
-command -v vagrant >/dev/null || (echo Please install Vagrant and VirtualBox for Windows development && false)
-vagrant up windows --no-provision
-nc -z -w1 127.0.0.1 55985 || (echo 'Could not connect WinRM' && false)
-vagrant provision windows --provision-with run
+nix-shell -I channel:nixos-18.09 -p vagrant --run "command -v vagrant >/dev/null || (echo Please install Vagrant and VirtualBox for Windows development && false)"
+nix-shell -I channel:nixos-18.09 -p vagrant --run "vagrant up windows --no-provision"
+nix-shell -I channel:nixos-18.09 -p netcat --run "nc -z -w1 127.0.0.1 55985 || (echo 'Could not connect WinRM' && false)"
+nix-shell -I channel:nixos-18.09 -p vagrant --run "vagrant provision windows --provision-with run"

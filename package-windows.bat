@@ -7,10 +7,9 @@ cd c:\vagrant
 exit /b %ERRORLEVEL%
 ' >/dev/null
 ########################### Others
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash vagrant cacert
+#! /bin/sh
 set -eu
 
-command -v vagrant >/dev/null || (echo Please install VirtualBox for Windows development && false)
-nc -z -w1 127.0.0.1 55985 || (echo 'Could not connect WinRM' && false)
-vagrant provision windows --provision-with package
+nix-shell -I channel:nixos-18.09 -p vagrant --run "command -v vagrant >/dev/null || (echo Please install VirtualBox for Windows development && false)"
+nix-shell -I channel:nixos-18.09 -p netcat --run "nc -z -w1 127.0.0.1 55985 || (echo 'Could not connect WinRM' && false)"
+nix-shell -I channel:nixos-18.09 -p vagrant --run "vagrant provision windows --provision-with package"

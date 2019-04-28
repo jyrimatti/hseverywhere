@@ -4,4 +4,5 @@
 set -eu
 source ./nix-shell-init.sh
 
-nix-shell --argstr compiler default "$@"
+#nix-shell --argstr compiler default "$@"
+nix-shell "$@"

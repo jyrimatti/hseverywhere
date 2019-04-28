@@ -16,9 +16,8 @@ c:\tmp\nuget.exe restore
 exit /b %ERRORLEVEL%
 ' >/dev/null
 ########################### Others
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash netcat vagrant curl
-set -eux
+#! /bin/sh
+set -eu
 
-(vagrant up windows --no-provision && nc -z -w1 127.0.0.1 55985) || (echo Execute contents of init-WinRM.bat as Administrator, install Guest Additions, reboot, 'vagrant reload windows'. Then re-execute ./init-windows.bat && false)
-vagrant provision windows --provision-with init
+nix-shell -I channel:nixos-18.09 -p bash netcat vagrant curl --run "(vagrant up windows --no-provision && nc -z -w1 127.0.0.1 55985) || (echo Execute contents of init-WinRM.bat as Administrator, install Guest Additions, reboot, 'vagrant reload windows'. Then re-execute ./init-windows.bat && false)"
+nix-shell -I channel:nixos-18.09 -p vagrant --run "vagrant provision windows --provision-with init"
